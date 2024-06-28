@@ -16,6 +16,8 @@ export const DetalleProducto = () => {
 <p>Tallas</p>
 <Tallas />
 <Boton titulo={"hola mundo"}/>
+<Boton titulo={"otro boton"}/>
+
 
     </>;
 };

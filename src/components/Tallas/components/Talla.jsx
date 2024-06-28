@@ -1,5 +1,3 @@
-export const Talla =({talla})=>{
-    return <>
-    {talla}
-    </>
-}
+export const Talla = ({ talla }) => {
+  return <>{talla}</>;
+};

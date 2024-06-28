@@ -1,2 +1,2 @@
-export * from "./PageCategoria"
-export * from "./categoria"
+export * from './PageCategoria';
+export * from './categoria';

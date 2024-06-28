@@ -1,2 +1,2 @@
-export * from "./Inputs"
-export * from "./SearchIcon"
+export * from './Inputs';
+export * from './SearchIcon';

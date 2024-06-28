@@ -33,22 +33,25 @@ export const GaleriaImagenes = () => {
           stretch: 0,
           depth: 100,
           modifier: 3,
-          slideShadows: false
+          slideShadows: false,
         }}
         breakpoints={{
           640: { slidesPerView: 3 },
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 3 },
         }}
-        className=""
+        className=''
       >
         {productos.map((producto, index) => (
-          <SwiperSlide key={index} className="flex items-center md:ml-1 mb-10">
-            <Productos src={producto.src} alt={producto.alt} className="rounded-lg" />
+          <SwiperSlide key={index} className='flex items-center md:ml-1 mb-10'>
+            <Productos
+              src={producto.src}
+              alt={producto.alt}
+              className='rounded-lg'
+            />
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
-
   );
 };

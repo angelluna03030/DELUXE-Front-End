@@ -1,3 +1,3 @@
-export * from "./GaleriadeImagenes"
+export * from './GaleriadeImagenes';
 
-export * from "./Productos"
+export * from './Productos';

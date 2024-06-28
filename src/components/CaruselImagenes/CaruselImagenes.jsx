@@ -18,8 +18,8 @@ export const Carrusel = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === productos.length - 1 ? 0 : prevIndex + 1
+      setCurrentIndex(prevIndex =>
+        prevIndex === productos.length - 1 ? 0 : prevIndex + 1,
       );
     }, 2000); // Intervalo de 3 segundos para cambiar de imagen
 
@@ -35,18 +35,18 @@ export const Carrusel = () => {
   };
 
   return (
-    <div className="overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10">
-      <div className="flex" style={containerStyle}>
+    <div className='overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10'>
+      <div className='flex' style={containerStyle}>
         {productos.map((producto, index) => (
           <div
             key={index}
-            className="w-full"
+            className='w-full'
             style={{ minWidth: `${100 / productos.length}%` }}
           >
             <img
               src={producto.src}
               alt={producto.alt}
-              className="w-[100%] h-full object-cover "
+              className='w-[100%] h-full object-cover '
             />
           </div>
         ))}

@@ -1,3 +1,2 @@
-
-export * from "./GaleriaProductos"
-export * from "./Productos"
+export * from './GaleriaProductos';
+export * from './Productos';

@@ -16,7 +16,6 @@ export const GaleriaImagenes = () => {
     { src: imagen3, alt: 'Producto 3' },
     { src: imagen2, alt: 'Producto 4' },
     { src: imagen4, alt: 'Producto 5' },
-  
   ];
 
   return (
@@ -44,7 +43,10 @@ export const GaleriaImagenes = () => {
         className=''
       >
         {productos.map((producto, index) => (
-          <SwiperSlide key={index} className='flex items-center md:ml-2 mb-10  md:mb-16'>
+          <SwiperSlide
+            key={index}
+            className='flex items-center md:ml-2 mb-10  md:mb-16'
+          >
             <Productos
               src={producto.src}
               alt={producto.alt}

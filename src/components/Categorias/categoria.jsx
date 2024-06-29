@@ -8,7 +8,6 @@ import imagen2 from '../../assets/imagen2.jpeg';
 import imagen3 from '../../assets/imagen3.jpeg';
 import imagen4 from '../../assets/imagen4.jpeg';
 
-
 export const Categorias = () => {
   const categories = [
     { id: 1, name: 'Categoría 1', image: imagen },
@@ -16,7 +15,7 @@ export const Categorias = () => {
     { id: 3, name: 'Categoría 3', image: imagen2 },
     { id: 4, name: 'Categoría 4', image: imagen3 },
     { id: 5, name: 'Categoría 5', image: imagen4 },
-  
+
     // Agrega más categorías según sea necesario
   ];
 

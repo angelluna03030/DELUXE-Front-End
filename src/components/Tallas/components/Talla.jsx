@@ -1,7 +1,3 @@
 export const Talla = ({ talla }) => {
-  return (
-    <>
-   
-    </>
-  );
+  return <></>;
 };

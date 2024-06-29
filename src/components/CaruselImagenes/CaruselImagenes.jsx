@@ -5,14 +5,13 @@ import imagen2 from '../../assets/imagen2.jpeg';
 import imagen3 from '../../assets/imagen3.jpeg';
 import imagen4 from '../../assets/imagen4.jpeg';
 
-
 const productos = [
   { src: imagen, alt: 'Producto 1' },
   { src: imagen1, alt: 'Producto 2' },
   { src: imagen2, alt: 'Producto 3' },
   { src: imagen3, alt: 'Producto 4' },
   { src: imagen4, alt: 'Producto 5' },
- 
+
   { src: imagen, alt: 'Producto 9' },
 ];
 

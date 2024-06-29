@@ -1,12 +1,8 @@
-export const Boton = ({ titulo, }) => {
+export const Boton = ({ titulo }) => {
   return (
     <>
       {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-      <button
-   
-      >
-        {titulo}
-      </button>
+      <button>{titulo}</button>
     </>
   );
 };

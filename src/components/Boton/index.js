@@ -1,3 +1,3 @@
 export * from './Boton';
-export * from "./AgregarCarrito"
-export * from "./Comprar"
+export * from './AgregarCarrito';
+export * from './Comprar';

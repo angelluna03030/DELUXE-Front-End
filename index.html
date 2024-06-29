@@ -5,60 +5,68 @@
     <link rel="icon" type="image" href="src/assets/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DELUXE</title>
-        <!-- Style of the plugin -->
-        <link rel="stylesheet" href="src/states/plugin/components/Font Awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="src/states/plugin/whatsapp-chat-support.css">
-   
+    <!-- Style of the plugin -->
+    <link
+      rel="stylesheet"
+      href="src/states/plugin/components/Font Awesome/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="src/states/plugin/whatsapp-chat-support.css" />
+    <link rel="stylesheet" href="src/styles/index.css" />
+
   </head>
   <body>
     <div id="root"></div>
 
     <!-- Button Whatsapp Structure -->
     <div class="whatsapp_chat_support wcs_fixed_right" id="button-w">
-      <div class="wcs_button_label">
-              Contáctanos
-          </div>  
+      <div class="wcs_button_label">Contáctanos</div>
       <div class="wcs_button wcs_button_circle">
-          <span class="fa fa-whatsapp"></span>
-      </div>  
-   
-      <div class="wcs_popup">
-          <div class="wcs_popup_close">
-              <span class="fa fa-close"></span>
-          </div>
-          <div class="wcs_popup_header">
-              <span class="fa fa-whatsapp"></span>
-              <strong>Servicio al cliente</strong>
-              
-              <div class="wcs_popup_header_description">¿Necesidad de ayuda? Chatea con nosotros en Whatsapp</div>
-  
-          </div>  
-          <div class="wcs_popup_input" 
-              data-number="+57 313 3282725"
-              data-availability='{ "monday":"07:00-22:30", "tuesday":"07:00-22:30", "wednesday":"07:7030-22:30", "thursday":"07:00-22:30", "friday":"07:00-22:30", "saturday":"09:00-18:30", "sunday":"09:00-22:30" }'>
-              <input type="text" placeholder="Escribir pregunta!" />
-              <i class="fa fa-play"></i>
-          </div>
-          <div class="wcs_popup_avatar">
-              <img src="https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="">
-          </div>
+        <span class="fa fa-whatsapp"></span>
       </div>
-  </div>
-  
-  
-      <!-- jQuery 1.8+ -->
-       <script src=""></script>
-  <script src="src/states/plugin/components/jQuery/jquery-1.11.3.min.js"></script>
-      <!-- Plugin JS file -->
-  <script src="src/states/plugin/components/moment/moment.min.js"></script>
-  <script src="src/states/plugin/components/moment/moment-timezone-with-data.min.js"></script> <!-- spanish language (es) -->
-  <script src="src/states/plugin/whatsapp-chat-support.js"></script>
-  <script>
-     $('#button-w').whatsappChatSupport({
-          defaultMsg : '',
-      });
-  </script>
-  
+
+      <div class="wcs_popup">
+        <div class="wcs_popup_close">
+          <span class="fa fa-close"></span>
+        </div>
+        <div class="wcs_popup_header">
+          <span class="fa fa-whatsapp"></span>
+          <strong>Servicio al cliente</strong>
+
+          <div class="wcs_popup_header_description">
+            ¿Necesidad de ayuda? Chatea con nosotros en Whatsapp
+          </div>
+        </div>
+        <div
+          class="wcs_popup_input"
+          data-number="+57 313 3282725"
+          data-availability='{ "monday":"07:00-22:30", "tuesday":"07:00-22:30", "wednesday":"07:7030-22:30", "thursday":"07:00-22:30", "friday":"07:00-22:30", "saturday":"09:00-18:30", "sunday":"09:00-22:30" }'
+        >
+          <input type="text" placeholder="Escribir pregunta!" />
+          <i class="fa fa-play"></i>
+        </div>
+        <div class="wcs_popup_avatar">
+          <img
+            src="https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- jQuery 1.8+ -->
+
+    <script src="src/states/plugin/components/jQuery/jquery-1.11.3.min.js"></script>
+    <!-- Plugin JS file -->
+    <script src="src/states/plugin/components/moment/moment.min.js"></script>
+    <script src="src/states/plugin/components/moment/moment-timezone-with-data.min.js"></script>
+    <!-- spanish language (es) -->
+    <script src="src/states/plugin/whatsapp-chat-support.js"></script>
+    <script>
+      $('#button-w').whatsappChatSupport({
+        defaultMsg: '',
+      });
+    </script>
+
+  
   </body>
 </html>

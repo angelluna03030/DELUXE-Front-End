@@ -13,11 +13,11 @@ export const Catalogo = () => {
       <Layout />
       <Buscador />
 
-      <Carrusel></Carrusel>
+      <Carrusel />
       <Categorias />
 
       <VideoPlayer />
-      <GaleriaImagenes></GaleriaImagenes>
+      <GaleriaImagenes />
       <Producto />
 
       <Footer />

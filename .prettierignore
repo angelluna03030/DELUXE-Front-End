@@ -5,3 +5,5 @@ tailwind.config.js
 vite.config.js
 .eslintrc.cjs
 .prettierrc
+index.html
+src/styles

@@ -4,15 +4,25 @@ import { Subtitulo } from '../../components/Subtitulo';
 import { Descripcion } from '../../components/Descripcion';
 import { Comprar, AgregarCarrito } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
-import {Color} from "../../components/Color"
+import { Color } from '../../components/Color';
 export const Producto = () => {
   return (
     <>
       <GaleriaProductos />
-
-      <Titulo Titulo={'Productos #1'} />
-      <Subtitulo Subtitulo={'hola mundo'} />
-      <Descripcion Descripcion={'hola mundoso'} />
+      <div
+        style={{
+          display: 'flex',
+        }}
+        className='ml-6'
+      >
+        <Titulo titulo={'Productos #1'} precio={12000} />
+      </div>
+      <br />
+      <Descripcion
+        descripcion={
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ut quidem voluptates quasi, doloremque voluptatum repellendus omnis minima. Explicabo reiciendis sint ipsum tenetur atque mollitia illo magnam voluptates dicta inventore.'
+        }
+      />
       <br />
 
       <p className=' text-lg ml-4'>Tallas</p>
@@ -75,11 +85,10 @@ export const Producto = () => {
       <br />
 
       <div className='days-btn-container'>
-<Color color={"#F2E6D6"}/>
-<Color color={"#363183"}/>
-<Color color={"#030303"}/>
-<Color color={"#317983"}/>
-
+        <Color color={'#F2E6D6'} />
+        <Color color={'#363183'} />
+        <Color color={'#030303'} />
+        <Color color={'#317983'} />
       </div>
       <br />
 

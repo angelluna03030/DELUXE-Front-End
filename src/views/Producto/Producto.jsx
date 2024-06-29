@@ -2,45 +2,96 @@ import imagen from '../../assets/OIP.jpg';
 import { Titulo } from '../../components/Titulo';
 import { Subtitulo } from '../../components/Subtitulo';
 import { Descripcion } from '../../components/Descripcion';
-import { Comprar,AgregarCarrito } from '../../components/Boton';
-
+import { Comprar, AgregarCarrito } from '../../components/Boton';
+import { GaleriaProductos } from '../../components/GaleriaProducto';
+import {Color} from "../../components/Color"
 export const Producto = () => {
   return (
     <>
-      <img src={imagen} alt="Imagen del producto" />
+      <GaleriaProductos />
+
       <Titulo Titulo={'Productos #1'} />
       <Subtitulo Subtitulo={'hola mundo'} />
       <Descripcion Descripcion={'hola mundoso'} />
-      <p>Tallas</p>
-      <div className="days-btn-container">
-        <input className="day-btn" id="monday" type="checkbox" defaultChecked={true} />
-        <label className="day-label" htmlFor="monday">M</label>
+      <br />
 
-        <input className="day-btn" id="tuesday" type="checkbox" defaultChecked={true} />
-        <label className="day-label" htmlFor="tuesday">T</label>
+      <p className=' text-lg ml-4'>Tallas</p>
+      <br />
 
-        <input className="day-btn" id="wednesday" type="checkbox" defaultChecked={true} />
-        <label className="day-label" htmlFor="wednesday">W</label>
+      <div className='days-btn-container'>
+        <input
+          className='day-btn'
+          id='monday'
+          type='checkbox'
+          defaultChecked={true}
+        />
+        <label className='day-label' htmlFor='monday'>
+          M
+        </label>
 
-        <input className="day-btn" id="thursday" type="checkbox" defaultChecked={true} />
-        <label className="day-label" htmlFor="thursday">T</label>
+        <input
+          className='day-btn'
+          id='tuesday'
+          type='checkbox'
+          defaultChecked={true}
+        />
+        <label className='day-label' htmlFor='tuesday'>
+          T
+        </label>
 
-        <input className="day-btn" id="friday" type="checkbox" defaultChecked={true} />
-        <label className="day-label" htmlFor="friday">F</label>
+        <input
+          className='day-btn'
+          id='wednesday'
+          type='checkbox'
+          defaultChecked={true}
+        />
+        <label className='day-label' htmlFor='wednesday'>
+          W
+        </label>
 
+        <input
+          className='day-btn'
+          id='thursday'
+          type='checkbox'
+          defaultChecked={true}
+        />
+        <label className='day-label' htmlFor='thursday'>
+          T
+        </label>
+
+        <input
+          className='day-btn'
+          id='friday'
+          type='checkbox'
+          defaultChecked={true}
+        />
+        <label className='day-label' htmlFor='friday'>
+          F
+        </label>
       </div>
-
 
       <br />
-      <div style={{
-        display: 'flex',
-        
-      }} className='ml-6'>
-         <AgregarCarrito />
- <Comprar/>
+      <p className=' text-lg ml-4'>Colors</p>
+      <br />
+
+      <div className='days-btn-container'>
+<Color color={"#F2E6D6"}/>
+<Color color={"#363183"}/>
+<Color color={"#030303"}/>
+<Color color={"#317983"}/>
 
       </div>
-     
+      <br />
+
+      <div
+        style={{
+          display: 'flex',
+        }}
+        className='ml-6'
+      >
+        <AgregarCarrito />
+        <Comprar />
+      </div>
     </>
   );
 };

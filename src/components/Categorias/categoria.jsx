@@ -2,17 +2,21 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import imageUrl from '../../assets/OIP.jpg';
+import imagen from '../../assets/OIP.jpg';
+import imagen1 from '../../assets/imagen1.jpeg';
+import imagen2 from '../../assets/imagen2.jpeg';
+import imagen3 from '../../assets/imagen3.jpeg';
+import imagen4 from '../../assets/imagen4.jpeg';
+
 
 export const Categorias = () => {
   const categories = [
-    { id: 1, name: 'Categoría 1', image: imageUrl },
-    { id: 2, name: 'Categoría 2', image: imageUrl },
-    { id: 3, name: 'Categoría 3', image: imageUrl },
-    { id: 4, name: 'Categoría 4', image: imageUrl },
-    { id: 5, name: 'Categoría 5', image: imageUrl },
-    { id: 6, name: 'Categoría 5', image: imageUrl },
-    { id: 7, name: 'Categoría 5', image: imageUrl },
+    { id: 1, name: 'Categoría 1', image: imagen },
+    { id: 2, name: 'Categoría 2', image: imagen1 },
+    { id: 3, name: 'Categoría 3', image: imagen2 },
+    { id: 4, name: 'Categoría 4', image: imagen3 },
+    { id: 5, name: 'Categoría 5', image: imagen4 },
+  
     // Agrega más categorías según sea necesario
   ];
 

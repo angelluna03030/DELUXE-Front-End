@@ -1,37 +1,39 @@
 import { useState, useEffect } from 'react';
 import imagen from '../../assets/OIP.jpg';
+import imagen1 from '../../assets/imagen1.jpeg';
+import imagen2 from '../../assets/imagen2.jpeg';
+import imagen3 from '../../assets/imagen3.jpeg';
+import imagen4 from '../../assets/imagen4.jpeg';
+
 
 const productos = [
   { src: imagen, alt: 'Producto 1' },
-  { src: imagen, alt: 'Producto 2' },
-  { src: imagen, alt: 'Producto 3' },
-  { src: imagen, alt: 'Producto 4' },
-  { src: imagen, alt: 'Producto 5' },
-  { src: imagen, alt: 'Producto 6' },
-  { src: imagen, alt: 'Producto 7' },
-  { src: imagen, alt: 'Producto 8' },
+  { src: imagen1, alt: 'Producto 2' },
+  { src: imagen2, alt: 'Producto 3' },
+  { src: imagen3, alt: 'Producto 4' },
+  { src: imagen4, alt: 'Producto 5' },
+ 
   { src: imagen, alt: 'Producto 9' },
 ];
 
 export const Carrusel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(prevIndex =>
-        prevIndex === productos.length - 1 ? 0 : prevIndex + 1,
-      );
-    }, 2000); // Intervalo de 3 segundos para cambiar de imagen
+    const handleAnimation = () => {
+      setOffset(prevOffset => (prevOffset >= 100 ? 0 : prevOffset + 0.1));
+    };
 
-    return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
+    const intervalId = setInterval(handleAnimation, 20); // Ajusta el valor para la velocidad deseada
+
+    return () => clearInterval(intervalId);
   }, []);
 
-  // Utilizamos un estilo inline para mover el carrusel hacia la derecha
   const containerStyle = {
     display: 'flex',
-    transition: 'transform 1s ease',
-    transform: `translateX(-${currentIndex * (100 / productos.length)}%)`, // Mover hacia la derecha
-    width: `${productos.length * 100}%`, // Ajustar el ancho del contenedor
+    transition: 'transform 0.1s linear',
+    transform: `translateX(-${offset}%)`,
+    width: `${productos.length * 100}%`,
   };
 
   return (
@@ -39,6 +41,7 @@ export const Carrusel = () => {
       <div className='flex' style={containerStyle}>
         {productos.map((producto, index) => (
           <div
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={index}
             className='w-full'
             style={{ minWidth: `${100 / productos.length}%` }}
@@ -46,7 +49,7 @@ export const Carrusel = () => {
             <img
               src={producto.src}
               alt={producto.alt}
-              className='w-[100%] h-full object-cover '
+              className='w-[100%] h-full object-cover'
             />
           </div>
         ))}

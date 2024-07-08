@@ -1,4 +1,6 @@
-import imagen from '../../assets/OIP.jpg';
+import { Layout } from '../../components/Layout';
+import { Buscador } from '../../components/Inputs';
+import { Footer} from "../../components/Footer"
 import { Titulo } from '../../components/Titulo';
 import { Subtitulo } from '../../components/Subtitulo';
 import { Descripcion } from '../../components/Descripcion';
@@ -8,6 +10,8 @@ import { Color } from '../../components/Color';
 export const Producto = () => {
   return (
     <>
+    <Layout />
+    <Buscador />
       <GaleriaProductos />
       <div
         style={{
@@ -101,6 +105,7 @@ export const Producto = () => {
         <AgregarCarrito />
         <Comprar />
       </div>
+      <Footer />
     </>
   );
 };

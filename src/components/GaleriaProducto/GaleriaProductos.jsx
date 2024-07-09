@@ -1,7 +1,6 @@
-
 import React from 'react';
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 import imagen from '../../assets/OIP.jpg';
 import imagen1 from '../../assets/imagen1.jpeg';
 import imagen2 from '../../assets/imagen2.jpeg';
@@ -19,10 +18,18 @@ export const GaleriaProductos = () => {
 
   return (
     <div className='flex justify-center items-center  '>
-         <div className="w-full ">
-         <ImageGallery items={productos}    showBullets={true}  autoPlay={true} disableThumbnailSwipe={true} disableSwipe={true}  thumbnailPosition={"bottom"} showPlayButton={false} disableThumbnailScroll={true} />
-         </div>
-    
+      <div className='w-full '>
+        <ImageGallery
+          items={productos}
+          showBullets={true}
+          autoPlay={true}
+          disableThumbnailSwipe={true}
+          disableSwipe={true}
+          thumbnailPosition={'bottom'}
+          showPlayButton={false}
+          disableThumbnailScroll={true}
+        />
+      </div>
     </div>
   );
 };

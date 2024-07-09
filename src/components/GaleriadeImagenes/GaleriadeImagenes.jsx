@@ -7,7 +7,6 @@ import { EffectCoverflow } from 'swiper/modules';
 
 import imagen2 from '../../assets/imagen2.jpeg';
 
-
 export const GaleriaImagenes = () => {
   const productos = [
     { src: imagen2, alt: 'Producto 1' },

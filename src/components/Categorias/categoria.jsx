@@ -7,6 +7,7 @@ import imagen1 from '../../assets/imagen1.jpeg';
 import imagen2 from '../../assets/imagen2.jpeg';
 import imagen3 from '../../assets/imagen3.jpeg';
 import imagen4 from '../../assets/imagen4.jpeg';
+import { Link } from 'react-router-dom';
 
 export const Categorias = () => {
   const categories = [
@@ -43,13 +44,22 @@ export const Categorias = () => {
       >
         {categories.map(category => (
           <SwiperSlide key={category.id}>
-            <div className='w-28 h-44 '>
-              <img
-                src={category.image}
-                alt={category.name}
-                className='rounded-2xl w-full h-full object-cover'
-              />
-            </div>
+            <Link to={"/categoria"}>
+            <div className='w-28 h-52 flex flex-col items-center font-medium  justify-between'>
+  <div className='w-full h-44'>
+    <img
+      src={category.image}
+      alt={category.name}
+      className='rounded-2xl w-full h-full object-cover'
+    />
+  </div>
+  <span className='text-sky-800 text-sm mb-0'>
+  sdfsdfbgsdfgsdfgsdfgsdfgsdgsdfg
+  </span>
+</div>
+
+
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

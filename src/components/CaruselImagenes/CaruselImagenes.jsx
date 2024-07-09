@@ -48,7 +48,7 @@ export const Carrusel = () => {
             <img
               src={producto.src}
               alt={producto.alt}
-              className='w-[100%] h-full object-cover'
+              className='w-[100%] h-full object-cover '
             />
           </div>
         ))}

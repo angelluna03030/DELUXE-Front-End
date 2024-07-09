@@ -53,8 +53,8 @@ export const Categorias = () => {
                     className='rounded-2xl w-full h-full object-cover'
                   />
                 </div>
-                <span className='text-sky-800 text-sm mb-0'>
-                  sdfsdfbgsdfgsdfgsdfgsdfgsdgsdfg
+                <span className='text-gray-800 text-sm mb-0'>
+            CAMISAS
                 </span>
               </div>
             </Link>

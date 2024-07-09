@@ -7,7 +7,13 @@ import { Descripcion } from '../../components/Descripcion';
 import { Comprar, AgregarCarrito } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
+import {useState}from "react"
 export const Producto = () => {
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  const handleSelectColor = (color) => {
+    setSelectedColor(color);
+  };
   return (
     <>
       <Layout />
@@ -85,15 +91,15 @@ export const Producto = () => {
       </div>
 
       <br />
-      <p className=' text-lg ml-4'>Colors</p>
+      <p className=' text-lg ml-4'>Colores</p>
       <br />
 
-      <div className='days-btn-container'>
-        <Color color={'#F2E6D6'} />
-        <Color color={'#363183'} />
-        <Color color={'#030303'} />
-        <Color color={'#317983'} />
-      </div>
+      <div className='days-btn-container flex space-x-4'>
+      <Color color={'#F2E6D6'} isSelected={selectedColor === '#F2E6D6'} onSelect={handleSelectColor} />
+      <Color color={'#363183'} isSelected={selectedColor === '#363183'} onSelect={handleSelectColor} />
+      <Color color={'#030303'} isSelected={selectedColor === '#030303'} onSelect={handleSelectColor} />
+      <Color color={'#317983'} isSelected={selectedColor === '#317983'} onSelect={handleSelectColor} />
+    </div>
       <br />
 
       <div

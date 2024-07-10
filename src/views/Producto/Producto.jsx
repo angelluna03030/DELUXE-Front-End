@@ -14,6 +14,12 @@ export const Producto = () => {
   const handleSelectColor = (color) => {
     setSelectedColor(color);
   };
+
+ const [selectedSize, setSelectedSize] = useState(null);
+
+  const handleSelect = (size) => {
+    setSelectedSize(size);
+  };
   return (
     <>
       <Layout />
@@ -39,56 +45,50 @@ export const Producto = () => {
       <br />
 
       <div className='days-btn-container'>
-        <input
-          className='day-btn'
-          id='monday'
-          type='checkbox'
-          defaultChecked={true}
-        />
-        <label className='day-label' htmlFor='monday'>
-          M
-        </label>
+      <input
+        className='day-btn'
+        id='size-s'
+        type='checkbox'
+        checked={selectedSize === 'S'}
+        onChange={() => handleSelect('S')}
+      />
+      <label className='day-label' htmlFor='size-s'>
+        S
+      </label>
 
-        <input
-          className='day-btn'
-          id='tuesday'
-          type='checkbox'
-          defaultChecked={true}
-        />
-        <label className='day-label' htmlFor='tuesday'>
-          T
-        </label>
+      <input
+        className='day-btn'
+        id='size-m'
+        type='checkbox'
+        checked={selectedSize === 'M'}
+        onChange={() => handleSelect('M')}
+      />
+      <label className='day-label' htmlFor='size-m'>
+        M
+      </label>
 
-        <input
-          className='day-btn'
-          id='wednesday'
-          type='checkbox'
-          defaultChecked={true}
-        />
-        <label className='day-label' htmlFor='wednesday'>
-          W
-        </label>
+      <input
+        className='day-btn'
+        id='size-l'
+        type='checkbox'
+        checked={selectedSize === 'L'}
+        onChange={() => handleSelect('L')}
+      />
+      <label className='day-label' htmlFor='size-l'>
+        L
+      </label>
 
-        <input
-          className='day-btn'
-          id='thursday'
-          type='checkbox'
-          defaultChecked={true}
-        />
-        <label className='day-label' htmlFor='thursday'>
-          T
-        </label>
-
-        <input
-          className='day-btn'
-          id='friday'
-          type='checkbox'
-          defaultChecked={true}
-        />
-        <label className='day-label' htmlFor='friday'>
-          F
-        </label>
-      </div>
+      <input
+        className='day-btn'
+        id='size-xl'
+        type='checkbox'
+        checked={selectedSize === 'XL'}
+        onChange={() => handleSelect('XL')}
+      />
+      <label className='day-label' htmlFor='size-xl'>
+        XL
+      </label>
+    </div>
 
       <br />
       <p className=' text-lg ml-4'>Colores</p>

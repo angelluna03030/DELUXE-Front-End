@@ -3,7 +3,7 @@ import { Sesion } from '../views/Sesion';
 import { Catalogo } from '../views/Catalogo';
 import { Producto } from '../views/Producto';
 import { Categoria } from '../views/CategoriasProductos';
-
+import {Productos} from "./../views/Productos"
 export const Rutas = () => {
   return (
     <Routes>
@@ -13,6 +13,7 @@ export const Rutas = () => {
       <Route path='/' element={<Catalogo />} />
       <Route path='/producto' element={<Producto />} />
       <Route path='/categoria' element={<Categoria />} />
+      <Route path='/registrarproductos' element={<Productos />} />
     </Routes>
   );
 };

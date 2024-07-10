@@ -18,6 +18,7 @@ export const GaleriaProductos = () => {
   const [active, setActive] = useState(productos[0].original);
 
   return (
+    
     <div className='flex justify-center items-center'>
       <div className='w-full max-w-5xl'>
         <div className="grid gap-4">
@@ -29,21 +30,23 @@ export const GaleriaProductos = () => {
             />
           </div>
           <div className="grid grid-cols-5 gap-4">
-            {productos.map(({ original, alt }, index) => (
-              <div  key={index}>
-           
-                <img
-                  onClick={() => setActive(original)}
-                  src={original}
-                  className="h-20 w-full cursor-pointer rounded-lg object-cover object-center"
-                  alt={alt}
-                />
-           
-              </div>
-            ))}
-          </div>
+{productos.map(({ original, alt }, index) => (
+  <div  key={index}>
+
+    <img
+      onClick={() => setActive(original)}
+      src={original}
+      className="h-20 w-full cursor-pointer rounded-lg object-cover object-center"
+      alt={alt}
+    />
+
+  </div>
+))}
+</div>
         </div>
       </div>
     </div>
   );
 };
+
+

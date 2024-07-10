@@ -44,7 +44,9 @@ export const Producto = () => {
       <p className=' text-lg ml-4'>Tallas</p>
       <br />
 
-      <div className='days-btn-container'>
+      <div className='space-y-4'>
+  <div className='grid grid-cols-6 gap-4 '>
+    <div className='flex items-center space-x-2 '>
       <input
         className='day-btn'
         id='size-s'
@@ -55,7 +57,8 @@ export const Producto = () => {
       <label className='day-label' htmlFor='size-s'>
         S
       </label>
-
+    </div>
+    <div className='flex items-center space-x-2'>
       <input
         className='day-btn'
         id='size-m'
@@ -66,7 +69,8 @@ export const Producto = () => {
       <label className='day-label' htmlFor='size-m'>
         M
       </label>
-
+    </div>
+    <div className='flex items-center space-x-2'>
       <input
         className='day-btn'
         id='size-l'
@@ -77,7 +81,11 @@ export const Producto = () => {
       <label className='day-label' htmlFor='size-l'>
         L
       </label>
+    </div>
 
+
+
+    <div className='flex items-center space-x-2'>
       <input
         className='day-btn'
         id='size-xl'
@@ -89,28 +97,26 @@ export const Producto = () => {
         XL
       </label>
     </div>
+  </div>
 
-      <br />
-      <p className=' text-lg ml-4'>Colores</p>
-      <br />
+  <div>
+    <p className='text-lg ml-4'>Colores</p>
+  </div>
 
-      <div className='days-btn-container flex space-x-4'>
-      <Color color={'#F2E6D6'} isSelected={selectedColor === '#F2E6D6'} onSelect={handleSelectColor} />
-      <Color color={'#363183'} isSelected={selectedColor === '#363183'} onSelect={handleSelectColor} />
-      <Color color={'#030303'} isSelected={selectedColor === '#030303'} onSelect={handleSelectColor} />
-      <Color color={'#317983'} isSelected={selectedColor === '#317983'} onSelect={handleSelectColor} />
-    </div>
-      <br />
+  <div className='grid grid-cols-6 gap-4'>
+    <Color color={'#F2E6D6'} isSelected={selectedColor === '#F2E6D6'} onSelect={handleSelectColor} />
+    <Color color={'#363183'} isSelected={selectedColor === '#363183'} onSelect={handleSelectColor} />
+    <Color color={'#030303'} isSelected={selectedColor === '#030303'} onSelect={handleSelectColor} />
+    <Color color={'#317983'} isSelected={selectedColor === '#317983'} onSelect={handleSelectColor} />
+   
+  </div>
+</div>
 
-      <div
-        style={{
-          display: 'flex',
-        }}
-        className='ml-6'
-      >
-        <AgregarCarrito />
-        <Comprar />
-      </div>
+<div className='mt-4 flex ml-6'>
+  <AgregarCarrito />
+  <Comprar />
+</div>
+
       <Footer />
     </>
   );

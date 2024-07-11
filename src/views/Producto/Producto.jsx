@@ -15,10 +15,13 @@ export const Producto = () => {
     setSelectedColor(color);
   };
 
- const [selectedSize, setSelectedSize] = useState(null);
+ const [selectedTalla
+, setselectedTalla
+] = useState(null);
 
   const handleSelect = (size) => {
-    setSelectedSize(size);
+    setselectedTalla
+(size);
   };
   return (
     <>
@@ -51,7 +54,8 @@ export const Producto = () => {
         className='day-btn'
         id='size-s'
         type='checkbox'
-        checked={selectedSize === 'S'}
+        checked={selectedTalla
+ === 'S'}
         onChange={() => handleSelect('S')}
       />
       <label className='day-label' htmlFor='size-s'>
@@ -63,7 +67,8 @@ export const Producto = () => {
         className='day-btn'
         id='size-m'
         type='checkbox'
-        checked={selectedSize === 'M'}
+        checked={selectedTalla
+ === 'M'}
         onChange={() => handleSelect('M')}
       />
       <label className='day-label' htmlFor='size-m'>
@@ -75,7 +80,8 @@ export const Producto = () => {
         className='day-btn'
         id='size-l'
         type='checkbox'
-        checked={selectedSize === 'L'}
+        checked={selectedTalla
+ === 'L'}
         onChange={() => handleSelect('L')}
       />
       <label className='day-label' htmlFor='size-l'>
@@ -90,7 +96,8 @@ export const Producto = () => {
         className='day-btn'
         id='size-xl'
         type='checkbox'
-        checked={selectedSize === 'XL'}
+        checked={selectedTalla
+ === 'XL'}
         onChange={() => handleSelect('XL')}
       />
       <label className='day-label' htmlFor='size-xl'>

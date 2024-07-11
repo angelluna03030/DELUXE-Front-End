@@ -3,8 +3,8 @@ import { Sesion } from '../views/Sesion';
 import { Catalogo } from '../views/Catalogo';
 import { Producto } from '../views/Producto';
 import { Categoria } from '../views/CategoriasProductos';
-import {Productos} from "../views/Productos"
-import {Categorias} from "../views/Categorias"
+import {Productos} from "../views/Productos.modulo"
+import {Categorias} from "../views/Categorias.modulo"
 import {RegistrarCatalogo} from "../views/RegistrarCatalogo"
 export const Rutas = () => {
   return (

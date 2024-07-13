@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Spinner} from "@nextui-org/react";
-const TablaCargandoAnimacion = () => (
+export  const TablaCargandoAnimacion = () => (
 	<div
 		style={{
 			display: 'flex',
@@ -14,4 +14,4 @@ const TablaCargandoAnimacion = () => (
 	</div>
 );
 
-export default TablaCargandoAnimacion;
+

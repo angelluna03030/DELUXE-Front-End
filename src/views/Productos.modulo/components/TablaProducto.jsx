@@ -21,7 +21,6 @@ import { toast } from 'react-toastify';
   if (typeof str !== 'string' || !str) return ''; // Manejar valores undefined o null
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
-
 const RUTA_API = import.meta.env.VITE_API_URL;
 const columns = [
   { name: "Nombre", uid: "name", sortable: true },
@@ -33,18 +32,15 @@ const columns = [
 const EstadoOptions = [
   { name: "activo", uid: "activo" },
   { name: "inactivo", uid: "inactivo" },
-
+  
 ];
-
 import { SearchIcon } from "../../../states/icons/SearchIcon";
 import { ChevronDownIcon } from "../../../states/icons/ChevronDownIcon";
 import { users } from "./data";
-
-import { EditIcon } from "../../../states/icons/EditIcon";
-import { DeleteIcon } from "../../../states/icons/DeleteIcon";
-import { EyeIcon } from "../../../states/icons/EyeIcon";
+import {EditarProducto} from "./EditarProducto"
+import Swal from 'sweetalert2';
 import { ModalCrearProductos } from "./crearProducto";
-
+import {DetalleProducto} from "./DetalleProducto"
 const statusColorMap = {
   activo: "success",
   inactivo: "danger",
@@ -95,7 +91,7 @@ export const TablaProductos = () => {
 	const handleChipClick = async (id) => {
 		Swal.fire({
 			title: '¿Estás seguro?',
-			text: 'Vas a cambiar el estado de una categoría',
+			text: 'Vas a cambiar el estado de una Producto',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Sí, seguro',
@@ -107,7 +103,7 @@ export const TablaProductos = () => {
 					const { status, dataResponse } = await putData(`${RUTA_API}/api/productos/estado/${id}`);
 					if (status >= 200 && status < 300) {
 						toast.success('Estado cambiado');
-						setData((prevData) => prevData.map((dato) =>
+						getData((prevData) => prevData.map((dato) =>
 							dato.id_producto === id
 								? { ...dato, estado_producto: dato.estado_producto === 1 ? 0 : 1 }
 								: dato
@@ -116,7 +112,7 @@ export const TablaProductos = () => {
 						toast.warn(dataResponse.mensaje);
 					}
 				} catch (err) {
-					toast.error('Hubo un error al cambiar el estado');
+					toast.error('Hubo un error al cambiar el Producto');
 					console.error(err);
 				}
 			}
@@ -183,28 +179,16 @@ export const TablaProductos = () => {
         );
       case "status":
         return (
-          <Button className="capitalize" color={statusColorMap[user.Estado]} size="sm" variant="flat">
-            Activo
+          <Button className="capitalize" color={statusColorMap[user.Estado]} size="sm" variant="flat" onClick={() => handleChipClick('1')}>
+          {user.Estado}
           </Button>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Detalles">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
-            <Tooltip content="Editar Producto">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Eliminar Productos">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
+            <DetalleProducto/>
+           <EditarProducto/>
+            
           </div>
         );
       default:

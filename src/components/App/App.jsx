@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
+import 'react-toastify/dist/ReactToastify.css';
 export default function App() {
   return (
     <>

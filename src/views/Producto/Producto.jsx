@@ -110,7 +110,7 @@ export const Producto = () => {
     <p className='text-lg ml-4'>Colores</p>
   </div>
 
-  <div className='grid grid-cols-6 gap-4'>
+  <div className='grid grid-cols-6 gap-4 ml-2'>
     <Color color={'#F2E6D6'} isSelected={selectedColor === '#F2E6D6'} onSelect={handleSelectColor} />
     <Color color={'#363183'} isSelected={selectedColor === '#363183'} onSelect={handleSelectColor} />
     <Color color={'#030303'} isSelected={selectedColor === '#030303'} onSelect={handleSelectColor} />

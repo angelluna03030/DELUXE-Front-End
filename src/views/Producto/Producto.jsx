@@ -8,6 +8,7 @@ import { Comprar, AgregarCarrito } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
 import {useState}from "react"
+import {CarritoComprasIcono} from "../CarritoComprar/IconoCarritoCompras"
 export const Producto = () => {
   const [selectedColor, setSelectedColor] = useState(null);
 
@@ -122,9 +123,11 @@ export const Producto = () => {
 <div className='mt-4 flex ml-6'>
   <AgregarCarrito />
   <Comprar />
+  <CarritoComprasIcono/>
 </div>
 
       <Footer />
+  
     </>
   );
 };

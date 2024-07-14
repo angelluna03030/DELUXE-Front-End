@@ -18,6 +18,8 @@ export const Rutas = () => {
       <Route path='/registrarproductos' element={<Productos />} />
       <Route path='/registrarcategoria' element={<Categorias />} />
       <Route path='/registrarcatalogo' element={<RegistrarCatalogo />} />
+      <Route path='/registrarcatalogo' element={<RegistrarCatalogo />} />
+
     </Routes>
   );
 };

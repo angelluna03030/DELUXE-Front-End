@@ -3,11 +3,14 @@ import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { CardCategoria } from '../../components/Card';
 import imagen from '../../assets/imagen4.jpeg';
+import {CarritoComprasIcono} from "../CarritoComprar/IconoCarritoCompras"
+
 //
 export const Categoria = () => {
   return (
     <>
       <Layout />
+      <CarritoComprasIcono/> 
       <Buscador />
       <div className='flex min-h-screen items-center justify-center min-h-screen px-2'>
         <div>
@@ -50,6 +53,7 @@ export const Categoria = () => {
           </div>
         </div>
       </div>
+     
       <Footer />
     </>
   );

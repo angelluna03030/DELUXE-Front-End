@@ -2,7 +2,7 @@ import { Layout } from '../../components/Layout';
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { Titulo } from '../../components/Titulo';
-import { Subtitulo } from '../../components/Subtitulo';
+
 import { Descripcion } from '../../components/Descripcion';
 import { Comprar, AgregarCarrito } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';

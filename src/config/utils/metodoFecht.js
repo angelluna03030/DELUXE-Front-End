@@ -51,22 +51,26 @@ export const getData = async (url = '') => {
  * @return { object } Resupuesta de la petición
  */
 export const putData = async (url = '', data = {}) => {
-	const response = await fetch(url, {
+	try {
+	  const response = await fetch(url, {
 		method: 'PUT',
 		mode: 'cors',
 		cache: 'no-cache',
 		credentials: 'same-origin',
 		headers: {
-			'Content-Type': 'application/json',
+		  'Content-Type': 'application/json',
 		},
 		redirect: 'follow',
 		referrerPolicy: 'no-referrer',
 		body: JSON.stringify(data),
-	});
-	const responseData = await response.json();
-	return { status: response.status, dataResponse: responseData };
-};
-
+	  });
+	  const responseData = await response.json();
+	  return { status: response.status, dataResponse: responseData };
+	} catch (error) {
+	  console.error('Error en la solicitud PUT:', error);
+	  throw error;
+	}
+  };
 /**
  * Método para enviar datos por una petición HTTP [POST]
  * @param { string } url Recibe la ruta completa para enviar los datos

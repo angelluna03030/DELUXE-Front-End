@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Table,
   TableHeader,
@@ -13,207 +13,213 @@ import {
   DropdownMenu,
   DropdownItem,
   Pagination,
-  Tooltip
 } from "@nextui-org/react";
-import { getData, putData, } from "../../../config/utils/metodoFecht";
+import { getData, putData } from "../../../config/utils/metodoFecht";
 import { toast } from 'react-toastify';
- const capitalize = (str) => {
-  if (typeof str !== 'string' || !str) return ''; // Manejar valores undefined o null
+import Swal from 'sweetalert2';
+import { SearchIcon } from "../../../states/icons/SearchIcon";
+import { ChevronDownIcon } from "../../../states/icons/ChevronDownIcon";
+import { EditarProducto } from "./EditarProducto";
+import { ModalCrearProductos } from "./crearProducto";
+import { DetalleProducto } from "./DetalleProducto";
+
+const capitalize = (str) => {
+  if (typeof str !== 'string' || !str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
 const RUTA_API = import.meta.env.VITE_API_URL;
+
 const columns = [
-  { name: "Nombre", uid: "name", sortable: true },
-  { name: "Categoría", uid: "category", sortable: true },
-  { name: "Estado", uid: "status", sortable: true },
+  { name: "Nombre", uid: "nombreproductos", sortable: true },
+  { name: "Categoría", uid: "categorias", sortable: true },
+  { name: "Estado", uid: "estado", sortable: true },
   { name: "Acciones", uid: "actions" },
 ];
 
 const EstadoOptions = [
-  { name: "activo", uid: "activo" },
-  { name: "inactivo", uid: "inactivo" },
-  
+  { name: "activo", uid: "1" },
+  { name: "inactivo", uid: "0" },
 ];
-import { SearchIcon } from "../../../states/icons/SearchIcon";
-import { ChevronDownIcon } from "../../../states/icons/ChevronDownIcon";
-import { users } from "./data";
-import {EditarProducto} from "./EditarProducto"
-import Swal from 'sweetalert2';
-import { ModalCrearProductos } from "./crearProducto";
-import {DetalleProducto} from "./DetalleProducto"
-const statusColorMap = {
-  activo: "success",
-  inactivo: "danger",
 
+const statusColorMap = {
+  "1": "success",
+  "0": "danger",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "category", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["nombreproductos", "categorias", "estado", "actions"];
 
 export const TablaProductos = () => {
-  const [loading, setLoading] = React.useState(true);
-  const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
-  const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
-  const [statusFilter, setStatusFilter] = React.useState("all");
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "age",
+  const [loading, setLoading] = useState(true);
+  const [productos, setProductos] = useState([]);
+  const [filterValue, setFilterValue] = useState("");
+  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+  const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [sortDescriptor, setSortDescriptor] = useState({
+    column: "nombreproductos",
     direction: "ascending",
   });
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
- //* Trear productos 
- React.useEffect(() => {
-  setLoading(true);
 
-  const loadData = async () => {
+  useEffect(() => {
+    setLoading(true);
+    const loadData = async () => {
+      try {
+        const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
+        if (status >= 200 && status < 300) {
+          setProductos(dataResponse);
+        } else {
+          toast.error("No se encontraron los recursos (404)");
+        }
+      } catch (err) {
+        toast.error('No se ha podido traer los productos');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    loadData();
+  }, []);
+
+  const handleChipClick = async (id) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Vas a cambiar el estado de un producto',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, seguro',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const { status, dataResponse } = await putData(`${RUTA_API}/producto/estado/${id}`);
+          if (status >= 200 && status < 300) {
+            toast.success('Estado cambiado');
+            // Actualizar los productos después del cambio de estado
+            refreshProductos();
+          } else if (status >= 400 && status < 500) {
+            toast.warn(dataResponse.mensaje);
+          }
+        } catch (err) {
+          toast.error('Hubo un error al cambiar el estado');
+          console.error(err);
+        }
+      }
+    });
+  };
+
+  const refreshProductos = async () => {
     try {
       const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
-      if (status >= 200 && status < 300) 
-        getData(dataResponse.datos);
-      else 
-        toast.error("No se encontraron los recursos (404)")
+      if (status >= 200 && status < 300) {
+        setProductos(dataResponse);
+      } else {
+        toast.error("No se encontraron los recursos (404)");
+      }
     } catch (err) {
       toast.error('No se ha podido traer los productos');
-      console.error(err)
-    } finally {
-      setLoading(false);
+      console.error(err);
     }
   };
 
-  loadData();
-  setLoading(true);
-
-}, []);
-	// * Camibar de estado un producto
-	const handleChipClick = async (id) => {
-		Swal.fire({
-			title: '¿Estás seguro?',
-			text: 'Vas a cambiar el estado de una Producto',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonText: 'Sí, seguro',
-			cancelButtonText: 'No, cancelar',
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				try {
-					const { status, dataResponse } = await putData(`${RUTA_API}/api/productos/estado/${id}`);
-					if (status >= 200 && status < 300) {
-						toast.success('Estado cambiado');
-						getData((prevData) => prevData.map((dato) =>
-							dato.id_producto === id
-								? { ...dato, estado_producto: dato.estado_producto === 1 ? 0 : 1 }
-								: dato
-						));
-					} else if (status >= 400 && status < 500) {
-						toast.warn(dataResponse.mensaje);
-					}
-				} catch (err) {
-					toast.error('Hubo un error al cambiar el Producto');
-					console.error(err);
-				}
-			}
-		});
-	};
-  const headerColumns = React.useMemo(() => {
+  const headerColumns = useMemo(() => {
     if (visibleColumns === "all") return columns;
     return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
   }, [visibleColumns]);
 
-  const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+  const filteredItems = useMemo(() => {
+    let filteredProducts = [...productos];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.Nombre.toLowerCase().includes(filterValue.toLowerCase())
-      );
-    }
-    if (statusFilter !== "all" && Array.from(statusFilter).length !== EstadoOptions.length) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.Estado)
+      filteredProducts = filteredProducts.filter((product) =>
+        product.nombreproductos.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
 
-    return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+    if (statusFilter !== "all" && Array.from(statusFilter).length !== EstadoOptions.length) {
+      filteredProducts = filteredProducts.filter((product) =>
+        Array.from(statusFilter).includes(product.estado.toString())
+      );
+    }
+
+    return filteredProducts;
+  }, [productos, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
-  const items = React.useMemo(() => {
+  const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
-  const sortedItems = React.useMemo(() => {
+  const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
       const first = a[sortDescriptor.column];
       const second = b[sortDescriptor.column];
       const cmp = first < second ? -1 : first > second ? 1 : 0;
-
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const renderCell = useCallback((item, columnKey) => {
+    const cellValue = item[columnKey];
 
     switch (columnKey) {
-      case "name":
+      case "nombreproductos":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small capitalize">{capitalize(cellValue)}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">{capitalize(user.team)}</p>
           </div>
         );
-      case "category":
+      case "categorias":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small capitalize">{capitalize(cellValue)}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">{capitalize(user.team)}</p>
           </div>
         );
-      case "status":
+      case "estado":
         return (
-          <Button className="capitalize" color={statusColorMap[user.Estado]} size="sm" variant="flat" onClick={() => handleChipClick('1')}>
-          {user.Estado}
+          <Button className="capitalize" color={statusColorMap[item.estado.toString()]} size="sm" variant="flat" onClick={() => handleChipClick(item._id)}>
+            {item.estado === 1 ? 'Activo' : 'Inactivo'}
           </Button>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <DetalleProducto/>
-           <EditarProducto/>
-            
+            <DetalleProducto producto={item} />
+            <EditarProducto producto={item} />
           </div>
         );
       default:
         return cellValue;
     }
-  }, []);
+  }, [handleChipClick]);
 
-  const onNextPage = React.useCallback(() => {
+  const onNextPage = useCallback(() => {
     if (page < pages) {
       setPage(page + 1);
     }
   }, [page, pages]);
 
-  const onPreviousPage = React.useCallback(() => {
+  const onPreviousPage = useCallback(() => {
     if (page > 1) {
       setPage(page - 1);
     }
   }, [page]);
 
-  const onRowsPerPageChange = React.useCallback((e) => {
+  const onRowsPerPageChange = useCallback((e) => {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
   }, []);
 
-  const onSearchChange = React.useCallback((value) => {
+  const onSearchChange = useCallback((value) => {
     if (value) {
       setFilterValue(value);
       setPage(1);
@@ -222,36 +228,35 @@ export const TablaProductos = () => {
     }
   }, []);
 
-  const onClear = React.useCallback(() => {
+  const onClear = useCallback(() => {
     setFilterValue("");
     setPage(1);
   }, []);
 
-  const topContent = React.useMemo(() => {
+  const topContent = useMemo(() => {
     return (
-      <div className="sm:flex  sm:flex-col sm:gap-4 ml-10 mr-10">
+      <div className="sm:flex sm:flex-col sm:gap-4 ml-10 mr-10">
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
-           className="w-[200px] sm:max-w-full sm:w-[400px]"
+            className="w-[200px] sm:max-w-full sm:w-[400px]"
             placeholder="Buscar Producto..."
             startContent={<SearchIcon />}
             value={filterValue}
-            onClear={() => onClear()}
+            onClear={onClear}
             onValueChange={onSearchChange}
           />
-      <div className="flex gap-3">
+          <div className="flex gap-3">
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
-                Estado
+                  Estado
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
                 disallowEmptySelection
                 aria-label="Table Columns"
                 closeOnSelect={false}
-             
                 selectionMode="multiple"
                 onSelectionChange={setStatusFilter}
               >
@@ -263,12 +268,12 @@ export const TablaProductos = () => {
               </DropdownMenu>
             </Dropdown>
             <ModalCrearProductos />
-      </div>
+          </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {users.length} Productos</span>
+          <span className="text-default-400 text-small">Total {productos.length} Productos</span>
           <label className="flex items-center text-default-400 text-small">
-          Filas por página:
+            Filas por página:
             <select
               className="bg-transparent outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
@@ -286,15 +291,18 @@ export const TablaProductos = () => {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    users.length,
+    productos.length,
     onSearchChange,
     hasSearchFilter,
   ]);
-
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-      
+        <span className="w-[30%] text-small text-default-400">
+          {selectedKeys === "all"
+            ? "All items selected"
+            : `${selectedKeys.size} of ${filteredItems.length} selected`}
+        </span>
         <Pagination
           isCompact
           showControls
@@ -306,10 +314,10 @@ export const TablaProductos = () => {
         />
         <div className="hidden sm:flex w-[30%] justify-end gap-2">
           <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onPreviousPage}>
-          Previa
+            Anterios
           </Button>
           <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onNextPage}>
-          Próximo
+            Siguente
           </Button>
         </div>
       </div>
@@ -318,7 +326,7 @@ export const TablaProductos = () => {
 
   return (
     <Table
-      className=" sm:w-[1200px] w-[400px]"
+      className="sm:w-[1200px] w-[400px]"
       aria-label="Example table with custom cells, pagination and sorting"
       isHeaderSticky
       bottomContent={bottomContent}
@@ -327,7 +335,6 @@ export const TablaProductos = () => {
         wrapper: "max-h-[382px]",
       }}
       selectedKeys={selectedKeys}
-    
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
@@ -345,9 +352,9 @@ export const TablaProductos = () => {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
+      <TableBody emptyContent={"No se encontraron productos"} items={sortedItems}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item._id}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}

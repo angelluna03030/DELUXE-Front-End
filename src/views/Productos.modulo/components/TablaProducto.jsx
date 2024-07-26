@@ -69,7 +69,7 @@ export const TablaProductos = () => {
     setLoading(true);
     const loadData = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/productos`);
         if (status >= 200 && status < 300) {
           setProductos(dataResponse);
         } else {
@@ -98,7 +98,7 @@ export const TablaProductos = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const { status, dataResponse } = await putData(`${RUTA_API}/producto/estado/${id}`);
+          const { status, dataResponse } = await putData(`${RUTA_API}/api/producto/estado/${id}`);
           if (status >= 200 && status < 300) {
             toast.success('Estado cambiado');
             // Actualizar los productos después del cambio de estado
@@ -116,7 +116,7 @@ export const TablaProductos = () => {
 
   const refreshProductos = async () => {
     try {
-      const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
+      const { status, dataResponse } = await getData(`${RUTA_API}/api/productos`);
       if (status >= 200 && status < 300) {
         setProductos(dataResponse);
       } else {

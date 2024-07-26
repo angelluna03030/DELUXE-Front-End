@@ -20,7 +20,6 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const ModalCrearProductos = () => {
   const [formData, setFormData] = useState({
-    codigo: '',
     nombreproductos: '',
     estado: 1,
     precio: 0,
@@ -29,7 +28,7 @@ export const ModalCrearProductos = () => {
     tallas: [],
     colores: [],
     imagenes: [],
-    categorias: '',
+    categorias: 'Ropa',
   });
 
   const [inputValue, setInputValue] = useState('');
@@ -51,45 +50,58 @@ export const ModalCrearProductos = () => {
       imagenes: files,
     }));
   };
-
+  const handleMaterialesChange = e => {
+    const materialesArray = e.target.value.split(',').map(item => item.trim());
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      materiales: materialesArray,
+    }));
+  };
   const handleSubmit = async e => {
     e.preventDefault();
-
+  
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append('codigo', formData.codigo);
       formDataToSend.append('nombreproductos', formData.nombreproductos);
       formDataToSend.append('estado', formData.estado);
       formDataToSend.append('precio', formData.precio);
       formDataToSend.append('descripcion', formData.descripcion);
-      formDataToSend.append('materiales', formData.materiales.join(','));
-      formDataToSend.append('categorias', formData.categorias);
-      formData.tallas.forEach(talla => formDataToSend.append('tallas', talla));
-      formData.colores.forEach(color =>
-        formDataToSend.append('colores', color),
-      );
-
-      for (const file of formData.imagenes) {
-        formDataToSend.append('imagenes', file);
+  
+      // Asegúrate de que `materiales` sea un array
+      if (Array.isArray(formData.materiales)) {
+        formDataToSend.append('materiales', formData.materiales.join(','));
+      } else {
+        formDataToSend.append('materiales', '');
       }
-
-      // Enviar imágenes al servidor
+  
+      formDataToSend.append('categorias', formData.categorias);
+  
+      formData.tallas.forEach(talla => formDataToSend.append('tallas', talla));
+      formData.colores.forEach(color => formDataToSend.append('colores', color));
+  
+      // Enviar imágenes al servidor con el nombre del campo 'files'
+      formData.imagenes.forEach(file => formDataToSend.append('files', file));
+  
       const response = await fetch(`${RUTA_API}/public`, {
         method: 'POST',
         body: formDataToSend,
       });
-
+  
+      if (!response.ok) {
+        throw new Error('Error en la subida de imágenes');
+      }
+  
       const imageData = await response.json();
       const imageFiles = imageData.files;
-
-      // Agregar los nombres de las imágenes al formData
+  
+      // Actualizar el estado con los nombres de las imágenes
       setFormData(prevFormData => ({
         ...prevFormData,
         imagenes: imageFiles,
       }));
-
+  
       // Enviar información del producto al servidor
-      const productResponse = await fetch(`${RUTA_API}/api/productos`, {
+      const productResponse = await fetch(`${RUTA_API}/api/producto`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,21 +111,21 @@ export const ModalCrearProductos = () => {
           imagenes: imageFiles,
         }),
       });
-
+  
       const productData = await productResponse.json();
-
+  
       if (productResponse.ok) {
         toast.success('Producto registrado exitosamente');
         onClose(); // Cerrar el modal al éxito
       } else {
-        toast.warn(productData.mensaje);
+        toast.warn(productData.mensaje || 'Error al registrar el producto');
       }
     } catch (err) {
       toast.error('Problemas al registrar el producto');
       console.error(err);
     }
   };
-
+  
   const handleOpen = size => {
     setSize(size);
     onOpen();

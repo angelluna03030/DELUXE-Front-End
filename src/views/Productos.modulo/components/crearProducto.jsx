@@ -8,11 +8,12 @@ import {
   Button,
   useDisclosure,
   Input,
-  Textarea
+  Textarea,
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
 import imagen from '../../../assets/imagen.svg'; // Asegúrate de que esta ruta sea correcta
+import { ModalColores } from './ModalColores';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -23,19 +24,42 @@ export const ModalCrearProductos = () => {
     estado: 1,
     precio: 0,
     descripcion: '',
-    materiales: '',
+    materiales: [],
     tallas: [],
     colores: [],
     imagenes: [],
     categorias: '',
   });
-
+  const [selectedTallas, setselectedTallas] = useState([]);
+  const [inputValue, setInputValue] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState('md');
   const [selectedFiles, setSelectedFiles] = useState([]);
 
+  const handleInputChange = e => {
+    setInputValue(e.target.value);
+  };
+
+  const handleAddSizes = () => {
+    const sizesArray = inputValue
+      .split(',')
+      .map(size => size.trim().toUpperCase());
+    setselectedTallas(sizesArray);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      tallas: sizesArray,
+    }));
+  };
+
   const handleFileChange = e => {
-    setSelectedFiles(e.target.files);
+    const files = Array.from(e.target.files);
+    const filePreviews = files.map(file => URL.createObjectURL(file));
+    setSelectedFiles(filePreviews);
+
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      imagenes: files,
+    }));
   };
 
   const handleSubmit = async e => {
@@ -55,7 +79,7 @@ export const ModalCrearProductos = () => {
         formDataToSend.append('colores', color),
       );
 
-      for (const file of selectedFiles) {
+      for (const file of formData.imagenes) {
         formDataToSend.append('imagenes', file);
       }
 
@@ -122,16 +146,6 @@ export const ModalCrearProductos = () => {
               <form onSubmit={handleSubmit}>
                 <div className='sm:flex sm:mb-5'>
                   <Input
-                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
-                    type='text'
-                    value={formData.codigo}
-                    onChange={e =>
-                      setFormData({ ...formData, codigo: e.target.value })
-                    }
-                    placeholder='Código'
-                    required
-                  />
-                  <Input
                     className='sm:ml-5 sm:mr-5  mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
                     type='text'
                     value={formData.nombreproductos}
@@ -142,18 +156,6 @@ export const ModalCrearProductos = () => {
                       })
                     }
                     placeholder='Nombre del producto'
-                    required
-                  />
-                </div>
-                <div className='sm:flex sm:mb-5'>
-                  <Textarea
-                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
-                    type='text'
-                    value={formData.descripcion}
-                    onChange={e =>
-                      setFormData({ ...formData, descripcion: e.target.value })
-                    }
-                    placeholder='Descripcion del producto'
                     required
                   />
                   <Input
@@ -170,54 +172,96 @@ export const ModalCrearProductos = () => {
                     required
                   />
                 </div>
-                <div className='sm:flex sm:mb-5 '>
+                <div className='sm:flex sm:mb-5'>
+                  <Textarea
+                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
+                    type='text'
+                    value={formData.descripcion}
+                    onChange={e =>
+                      setFormData({ ...formData, descripcion: e.target.value })
+                    }
+                    placeholder='Descripcion del producto'
+                    required
+                  />
                   <Input
                     className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
                     type='text'
-                    value={formData.colores}
+                    value={formData.materiales}
                     onChange={e =>
-                      setFormData({ ...formData, colores: e.target.value })
+                      setFormData({ ...formData, materiales: e.target.value })
                     }
-                    placeholder='Tallas'
+                    placeholder='Separa los Materiales con comas'
                     required
                   />
-              
-                      <Input
-                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
-                    type='text'
-                    value={formData.tallas}
-                    onChange={e =>
-                      setFormData({ ...formData, tallas: e.target.value })
-                    }
-                    placeholder='Colores'
-                    required
-                  />
-          </div>
-
-
-                <label
-                  className='h-52 w-72 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md   ml-8   mt-6  sm:ml-52'
-                  htmlFor='file'
-                >
-                  <div className='flex items-center justify-center'>
-                    <img src={imagen} alt='icono' width={100} />
+                </div>
+                <div className='sm:flex sm:mb-5 mx-5'>
+                  <div className='sm:flex'>
+                    <Input
+                      type='text'
+                      className='w-full mt-5'
+                      value={inputValue}
+                      onChange={handleInputChange}
+                      placeholder='Separa las tallas con comas'
+                    />
+                    <Button
+                      className='w-60 mx-10 px-5 mt-5'
+                      color='primary'
+                      type='button'
+                      onClick={handleAddSizes}
+                    >
+                      Agregan Tallas
+                    </Button>
+                    <div className='sm:mt-5'>
+                      <ModalColores></ModalColores>
+                    </div>
                   </div>
-                  <div className='flex items-center justify-center'>
-                    <span className='font-normal text-gray-700'>
-                      Haz clic para subir la imagen
+                </div>
+                <div className=' flex-wrap gap-2 mt-5 sm:ml-5 '>
+                  {selectedTallas.map(size => (
+                    <span
+                      key={size}
+                      className='px-4 py-2 border rounded bg-gray-200 text-black mr-1'
+                    >
+                      {size}
                     </span>
+                  ))}
+                </div>
+                {selectedFiles.length === 0 ? (
+                  <label
+                    className='h-52 w-72 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md ml-8 mt-6 sm:ml-52'
+                    htmlFor='file'
+                  >
+                    <div className='flex items-center justify-center'>
+                      <img src={imagen} alt='icono' width={100} />
+                    </div>
+                    <div className='flex items-center justify-center'>
+                      <span className='font-normal text-gray-700'>
+                        Haz clic para subir la imagen
+                      </span>
+                    </div>
+                    <input
+                      type='file'
+                      id='file'
+                      multiple
+                      accept='image/*'
+                      onChange={handleFileChange}
+                      className='hidden'
+                    />
+                  </label>
+                ) : (
+                  <div className='flex flex-wrap gap-4 m-5'>
+                    {selectedFiles.map((file, index) => (
+                      <img
+                        key={index}
+                        src={file}
+                        alt={`preview ${index}`}
+                        className='h-40 w-40 object-cover rounded-2xl'
+                      />
+                    ))}
                   </div>
-                  <input
-                    type='file'
-                    id='file'
-                    multiple
-                    accept='image/*'
-                    onChange={handleFileChange}
-                    className='hidden'
-                  />
-                </label>
+                )}
 
-                <ModalFooter className='mr-40 sm:mr-0'>
+                <ModalFooter className='mr-40 sm:mr-0 sm:mt-5'>
                   <Button
                     color='danger'
                     variant='light'

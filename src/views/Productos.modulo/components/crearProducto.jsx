@@ -9,12 +9,15 @@ import {
   Input,
   Textarea,
   useDisclosure,
+  Autocomplete,
+  AutocompleteItem,
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
 import imagen from '../../../assets/imagen.svg'; // Asegúrate de que esta ruta sea correcta
 import { ModalColores } from './ModalColores';
 import { ModalTallas } from './ModalTallas';
+import { ModalCategoria } from './ModalCategoria';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -28,7 +31,7 @@ export const ModalCrearProductos = () => {
     tallas: [],
     colores: [],
     imagenes: [],
-    categorias: 'Ropa',
+    categorias: [],
   });
 
   const [inputValue, setInputValue] = useState('');
@@ -38,6 +41,13 @@ export const ModalCrearProductos = () => {
 
   const handleInputChange = e => {
     setInputValue(e.target.value);
+  };
+
+  const handleCategoriasChange = selectedCategorias => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      categorias: selectedCategorias,
+    }));
   };
 
   const handleFileChange = e => {
@@ -59,47 +69,49 @@ export const ModalCrearProductos = () => {
   };
   const handleSubmit = async e => {
     e.preventDefault();
-  
+
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('nombreproductos', formData.nombreproductos);
       formDataToSend.append('estado', formData.estado);
       formDataToSend.append('precio', formData.precio);
       formDataToSend.append('descripcion', formData.descripcion);
-  
+
       // Asegúrate de que `materiales` sea un array
       if (Array.isArray(formData.materiales)) {
         formDataToSend.append('materiales', formData.materiales.join(','));
       } else {
         formDataToSend.append('materiales', '');
       }
-  
+
       formDataToSend.append('categorias', formData.categorias);
-  
+
       formData.tallas.forEach(talla => formDataToSend.append('tallas', talla));
-      formData.colores.forEach(color => formDataToSend.append('colores', color));
-  
+      formData.colores.forEach(color =>
+        formDataToSend.append('colores', color),
+      );
+
       // Enviar imágenes al servidor con el nombre del campo 'files'
       formData.imagenes.forEach(file => formDataToSend.append('files', file));
-  
+
       const response = await fetch(`${RUTA_API}/public`, {
         method: 'POST',
         body: formDataToSend,
       });
-  
+
       if (!response.ok) {
         throw new Error('Error en la subida de imágenes');
       }
-  
+
       const imageData = await response.json();
       const imageFiles = imageData.files;
-  
+
       // Actualizar el estado con los nombres de las imágenes
       setFormData(prevFormData => ({
         ...prevFormData,
         imagenes: imageFiles,
       }));
-  
+
       // Enviar información del producto al servidor
       const productResponse = await fetch(`${RUTA_API}/api/producto`, {
         method: 'POST',
@@ -111,9 +123,9 @@ export const ModalCrearProductos = () => {
           imagenes: imageFiles,
         }),
       });
-  
+
       const productData = await productResponse.json();
-  
+
       if (productResponse.ok) {
         toast.success('Producto registrado exitosamente');
         onClose(); // Cerrar el modal al éxito
@@ -125,7 +137,7 @@ export const ModalCrearProductos = () => {
       console.error(err);
     }
   };
-  
+
   const handleOpen = size => {
     setSize(size);
     onOpen();
@@ -209,14 +221,34 @@ export const ModalCrearProductos = () => {
                     required
                   />
                 </div>
+                <div className='sm:flex sm:mb-5 mx-5 mb-2'>
+                  <div className='sm:flex'>
+                    <div className='sm:mt-5 flex '>
+                      <ModalCategoria
+                        selectedCategoria={formData.categorias}
+                        onCategoriasChange={handleCategoriasChange}
+                      />
+                      <div className='flex flex-wrap gap-2  sm:ml-5 ml-5'>
+                        {formData.categorias.map((categoria, index) => (
+                          <div
+                            key={index}
+                            className='w-28 h-10 mr-6 bg-gray-300 rounded-xl flex items-center justify-center'
+                          >
+                            {categoria}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div className='sm:flex sm:mb-5 mx-5'>
                   <div className='sm:flex'>
-                    <div className='sm:mt-5 flex mr-10'>
+                    <div className='sm:mt-5 flex mr-10 sm:mb-0 mb-1'>
                       <ModalColores
                         selectedColores={formData.colores}
                         onColoresChange={handleColoresChange}
                       />
-                      <div className='flex flex-wrap gap-2 mt-5 sm:ml-5 ml-5 '>
+                      <div className='flex flex-wrap gap-2  sm:ml-5 ml-5 '>
                         {formData.colores.map((color, index) => (
                           <div
                             key={index}
@@ -231,7 +263,7 @@ export const ModalCrearProductos = () => {
                         selectedTalla={formData.tallas}
                         onTallasChange={handletallasChange}
                       />
-                      <div className='flex flex-wrap gap-2 mt-5 sm:ml-5 ml-5  '>
+                      <div className='flex flex-wrap gap-2  sm:ml-5 ml-5  '>
                         {formData.tallas.map((tallas, index) => (
                           <div key={index} className='w-8 h-8 rounded-full'>
                             {' '}
@@ -243,12 +275,13 @@ export const ModalCrearProductos = () => {
                   </div>
                 </div>
 
+                <div className='flex w-full flex-wrap md:flex-nowrap gap-4'></div>
                 {selectedFiles.length === 0 ? (
                   <label
                     className='h-52 w-72 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md ml-8 mt-6 sm:ml-52'
                     htmlFor='file'
                   >
-                    <div className='flex items-center justify-center'>
+                    <div className='sm:flex sm:items-center sm:justify-center'>
                       <img src={imagen} alt='icono' width={100} />
                     </div>
                     <div className='flex items-center justify-center'>

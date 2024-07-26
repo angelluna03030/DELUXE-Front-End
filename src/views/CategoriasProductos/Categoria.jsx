@@ -12,7 +12,7 @@ export const Categoria = () => {
       <Layout />
       <CarritoComprasIcono/> 
       <Buscador />
-      <div className='flex min-h-screen items-center justify-center min-h-screen px-2'>
+      <div className='flex min-h-screen items-center justify-center px-2'>
         <div>
           <div className=' grid grid-cols-2 gap-6 md:grid-cols-4 mb-10'>
             <CardCategoria

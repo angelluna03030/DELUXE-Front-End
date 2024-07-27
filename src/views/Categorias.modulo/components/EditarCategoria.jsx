@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Tooltip, Input, Textarea, Image } from "@nextui-org/react";
-import { EditIcon } from "../../../states/icons/EditIcon";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Tooltip,
+  Input,
+  Textarea,
+  Image,
+} from '@nextui-org/react';
+import { EditIcon } from '../../../states/icons/EditIcon';
 import imagen from '../../../assets/imagen.svg'; // Ruta al icono de imagen
 import { toast } from 'react-toastify'; // Importa toast
 
@@ -51,7 +63,7 @@ export const EditarCategoria = ({ id }) => {
         const data = await response.json();
         console.log('Categoría actualizada:', data);
         toast.success('Categoría actualizada exitosamente'); // Mostrar notificación de éxito
-        onOpenChange(false);  // Cierra el modal después de la actualización
+        onOpenChange(false); // Cierra el modal después de la actualización
       } else {
         throw new Error('Error actualizando la categoría');
       }
@@ -61,7 +73,7 @@ export const EditarCategoria = ({ id }) => {
     }
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const file = event.target.files[0];
     if (file) {
       setNuevaImagen(file);
@@ -70,17 +82,20 @@ export const EditarCategoria = ({ id }) => {
 
   return (
     <>
-      <Tooltip content="Editar Categoria">
-        <span className="text-lg text-default-400 cursor-pointer" onClick={onOpen}>
+      <Tooltip content='Editar Categoria'>
+        <span
+          className='text-lg text-default-400 cursor-pointer'
+          onClick={onOpen}
+        >
           <EditIcon />
         </span>
       </Tooltip>
 
       <Modal
-        backdrop="blur"
+        backdrop='blur'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="lg"
+        size='lg'
         motionProps={{
           variants: {
             enter: {
@@ -88,7 +103,7 @@ export const EditarCategoria = ({ id }) => {
               opacity: 1,
               transition: {
                 duration: 0.3,
-                ease: "easeOut",
+                ease: 'easeOut',
               },
             },
             exit: {
@@ -96,14 +111,14 @@ export const EditarCategoria = ({ id }) => {
               opacity: 0,
               transition: {
                 duration: 0.2,
-                ease: "easeIn",
+                ease: 'easeIn',
               },
             },
-          }
+          },
         }}
       >
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               <ModalHeader>
                 <h3>Editar Categoría</h3>
@@ -114,7 +129,9 @@ export const EditarCategoria = ({ id }) => {
                   htmlFor='file'
                 >
                   <img src={imagen} alt='icono' width={100} />
-                  <span className='font-normal text-gray-700'>Haz clic para subir una imagen</span>
+                  <span className='font-normal text-gray-700'>
+                    Haz clic para subir una imagen
+                  </span>
                   <input
                     type='file'
                     id='file'
@@ -122,40 +139,45 @@ export const EditarCategoria = ({ id }) => {
                     onChange={handleFileChange}
                     className='hidden'
                   />
-                      <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700">Imagen Actual</label>
-                  <div className="relative mt-2">
-                    <Image 
-                      src={nuevaImagen ? URL.createObjectURL(nuevaImagen) : `${RUTA_API}/public/${imagenActual}`} 
-                      alt="Imagen Actual" 
-                      width={100} 
-                      height={100} 
-                      className="object-cover rounded-md" 
-                    />
+                  <div className='mt-4'>
+                    <label className='block text-sm font-medium text-gray-700'>
+                      Imagen Actual
+                    </label>
+                    <div className='relative mt-2'>
+                      <Image
+                        src={
+                          nuevaImagen
+                            ? URL.createObjectURL(nuevaImagen)
+                            : `${RUTA_API}/public/${imagenActual}`
+                        }
+                        alt='Imagen Actual'
+                        width={100}
+                        height={100}
+                        className='object-cover rounded-md'
+                      />
+                    </div>
                   </div>
-                </div>
                 </label>
-            
-                
+
                 <Input
                   className='w-full'
                   fullWidth
                   clearable
-                  label="Nombre"
+                  label='Nombre'
                   value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
+                  onChange={e => setNombre(e.target.value)}
                 />
                 <Textarea
                   fullWidth
-                  label="Descripción"
+                  label='Descripción'
                   value={descripcion}
-                  onChange={(e) => setDescripcion(e.target.value)}
+                  onChange={e => setDescripcion(e.target.value)}
                   rows={4}
-                  className="mt-4  w-full"
+                  className='mt-4  w-full'
                 />
               </ModalBody>
               <ModalFooter>
-                <Button auto flat color="error" onClick={onClose}>
+                <Button auto flat color='error' onClick={onClose}>
                   Cancelar
                 </Button>
                 <Button auto onClick={handleUpdate}>

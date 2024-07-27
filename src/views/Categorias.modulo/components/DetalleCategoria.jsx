@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Tooltip, Input, Textarea, Image } from "@nextui-org/react";
-import { EditIcon } from "../../../states/icons/EditIcon";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Tooltip,
+  Input,
+  Textarea,
+  Image,
+} from '@nextui-org/react';
+import { EditIcon } from '../../../states/icons/EditIcon';
 import imagen from '../../../assets/imagen.svg'; // Ruta al icono de imagen
 import { toast } from 'react-toastify'; // Importa toast
 import { EyeIcon } from '../../../states/icons/EyeIcon';
@@ -13,7 +25,7 @@ export const DetalleCategoria = ({ id }) => {
   const [descripcion, setDescripcion] = useState('');
   const [imagenActual, setImagenActual] = useState('');
   const [nuevaImagen, setNuevaImagen] = useState(null);
-   const [FechaCreacion, setFechaCreacion] = useState('');
+  const [FechaCreacion, setFechaCreacion] = useState('');
   useEffect(() => {
     if (isOpen) {
       const loadData = async () => {
@@ -34,9 +46,7 @@ export const DetalleCategoria = ({ id }) => {
     }
   }, [isOpen, id]);
 
-
-
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const file = event.target.files[0];
     if (file) {
       setNuevaImagen(file);
@@ -55,10 +65,10 @@ export const DetalleCategoria = ({ id }) => {
       </Tooltip>
 
       <Modal
-        backdrop="blur"
+        backdrop='blur'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="lg"
+        size='lg'
         motionProps={{
           variants: {
             enter: {
@@ -66,7 +76,7 @@ export const DetalleCategoria = ({ id }) => {
               opacity: 1,
               transition: {
                 duration: 0.3,
-                ease: "easeOut",
+                ease: 'easeOut',
               },
             },
             exit: {
@@ -74,72 +84,62 @@ export const DetalleCategoria = ({ id }) => {
               opacity: 0,
               transition: {
                 duration: 0.2,
-                ease: "easeIn",
+                ease: 'easeIn',
               },
             },
-          }
+          },
         }}
       >
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               <ModalHeader>
                 <h3>Detalle Categoría</h3>
               </ModalHeader>
               <ModalBody>
-              
-                
-                  <label className="block text-sm font-medium text-gray-700">Imagen Actual</label>
-                  <div className="relative mt-2 m-auto">
-                    <Image 
-                      src={`${RUTA_API}/public/${imagenActual}`} 
-                      alt="Imagen Actual" 
-                      width={200} 
-                      height={200} 
-                      className="object-cover rounded-md" 
-                    />
-                  </div>
-             
-            
-                
+                <label className='block text-sm font-medium text-gray-700'>
+                  Imagen Actual
+                </label>
+                <div className='relative mt-2 m-auto'>
+                  <Image
+                    src={`${RUTA_API}/public/${imagenActual}`}
+                    alt='Imagen Actual'
+                    width={200}
+                    height={200}
+                    className='object-cover rounded-md'
+                  />
+                </div>
+
                 <Input
-                disabled
-
+                  disabled
                   className='w-full'
                   fullWidth
                   clearable
-                  label="Nombre"
+                  label='Nombre'
                   value={nombre}
-               
                 />
-               
-                <Textarea
-                disabled
-                  fullWidth
-                  label="Descripción"
-                  value={descripcion}
-              
-                  rows={4}
-                  className="  w-full"
-                />
-                         <Input
-                disabled
 
+                <Textarea
+                  disabled
+                  fullWidth
+                  label='Descripción'
+                  value={descripcion}
+                  rows={4}
+                  className='  w-full'
+                />
+                <Input
+                  disabled
                   className='w-full'
                   fullWidth
                   clearable
-                  label="Fecha Creacion"
-                  value={new Date(
-                    FechaCreacion,
-                  ).toLocaleDateString()}
-               
+                  label='Fecha Creacion'
+                  value={new Date(FechaCreacion).toLocaleDateString()}
                 />
               </ModalBody>
               <ModalFooter>
-                <Button auto flat color="error" onClick={onClose}>
+                <Button auto flat color='error' onClick={onClose}>
                   Cancelar
                 </Button>
-               
               </ModalFooter>
             </>
           )}

@@ -140,7 +140,7 @@ export const CrearCategoria = () => {
                     ))}
                   </div>
                 )}
-                <div className='sm:flex sm:mb-5'>
+                <div className='sm:flex sm:mb-5 mt-5'>
                   <Input
                     className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
                     type='text'

@@ -31,8 +31,8 @@ const capitalize = (str) => {
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 const columns = [
-  { name: "nombre", uid: "nombre", sortable: true },
-  { name: "descripcion", uid: "descripcion", sortable: true },
+  { name: "Nombre Categoria", uid: "nombre", sortable: true },
+  { name: "Descripción", uid: "descripcion", sortable: true },
 
   { name: "Acciones", uid: "actions" },
 ];

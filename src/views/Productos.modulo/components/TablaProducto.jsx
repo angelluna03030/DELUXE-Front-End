@@ -32,7 +32,7 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 
 const columns = [
   { name: "Nombre", uid: "nombreproductos", sortable: true },
-  { name: "Categoría", uid: "categorias", sortable: true },
+  { name: "categorias", uid: "categorias", sortable: true },
   { name: "Estado", uid: "estado", sortable: true },
   { name: "Acciones", uid: "actions" },
 ];
@@ -69,7 +69,7 @@ export const TablaProductos = () => {
     setLoading(true);
     const loadData = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/productos`);
         if (status >= 200 && status < 300) {
           setProductos(dataResponse);
         } else {
@@ -98,7 +98,7 @@ export const TablaProductos = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const { status, dataResponse } = await putData(`${RUTA_API}/producto/estado/${id}`);
+          const { status, dataResponse } = await putData(`${RUTA_API}/api/producto/estado/${id}`);
           if (status >= 200 && status < 300) {
             toast.success('Estado cambiado');
             // Actualizar los productos después del cambio de estado
@@ -116,7 +116,7 @@ export const TablaProductos = () => {
 
   const refreshProductos = async () => {
     try {
-      const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
+      const { status, dataResponse } = await getData(`${RUTA_API}/api/productos`);
       if (status >= 200 && status < 300) {
         setProductos(dataResponse);
       } else {
@@ -170,7 +170,7 @@ export const TablaProductos = () => {
 
   const renderCell = useCallback((item, columnKey) => {
     const cellValue = item[columnKey];
-
+  
     switch (columnKey) {
       case "nombreproductos":
         return (
@@ -180,8 +180,12 @@ export const TablaProductos = () => {
         );
       case "categorias":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{capitalize(cellValue)}</p>
+          <div className="flex flex-wrap gap-1">
+            {cellValue.map((categoria, index) => (
+              <span key={index} className="bg-gray-200 rounded-full px-2 py-1 text-xs capitalize">
+                {categoria}
+              </span>
+            ))}
           </div>
         );
       case "estado":
@@ -194,14 +198,14 @@ export const TablaProductos = () => {
         return (
           <div className="relative flex items-center gap-2">
             <DetalleProducto producto={item} />
-            <EditarProducto producto={item} />
+            <EditarProducto id={item._id} />
           </div>
         );
       default:
         return cellValue;
     }
   }, [handleChipClick]);
-
+  
   const onNextPage = useCallback(() => {
     if (page < pages) {
       setPage(page + 1);

@@ -1,133 +1,115 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Layout } from '../../components/Layout';
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { Titulo } from '../../components/Titulo';
-
 import { Descripcion } from '../../components/Descripcion';
 import { Comprar, AgregarCarrito } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
-import {useState}from "react"
-import {CarritoComprasIcono} from "../CarritoComprar/IconoCarritoCompras"
+import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
+import { toast } from 'react-toastify'; // Asegúrate de importar toast si usas react-toastify
+import { getData } from '../../config/utils/metodoFecht'; // Asegúrate de tener estos métodos correctamente importados
+const RUTA_API = import.meta.env.VITE_API_URL;
+
 export const Producto = () => {
+  const { id } = useParams();
+  const [producto, setProducto] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedTalla, setSelectedTalla] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/producto/${id}`);
+        if (status >= 200 && status < 300) {
+          setProducto(dataResponse);
+        } else {
+          toast.error('No se encontraron los recursos (404)');
+        }
+      } catch (err) {
+        toast.error('No se ha podido traer el producto');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [id]);
 
   const handleSelectColor = (color) => {
     setSelectedColor(color);
   };
 
- const [selectedTalla
-, setselectedTalla
-] = useState(null);
-
-  const handleSelect = (size) => {
-    setselectedTalla
-(size);
+  const handleSelectTalla = (size) => {
+    setSelectedTalla(size);
   };
+
+  if (loading) return <p>Loading...</p>;
+
   return (
     <>
       <Layout />
       <Buscador />
-      <GaleriaProductos />
-      <div
-        style={{
-          display: 'flex',
-        }}
-        className='ml-6'
-      >
-        <Titulo titulo={'Productos #1'} precio={12000} />
-      </div>
-      <br />
-      <Descripcion
-        descripcion={
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ut quidem voluptates quasi, doloremque voluptatum repellendus omnis minima. Explicabo reiciendis sint ipsum tenetur atque mollitia illo magnam voluptates dicta inventore.'
-        }
-      />
-      <br />
-
-      <p className=' text-lg ml-4'>Tallas</p>
-      <br />
-
-      <div className='space-y-4'>
-  <div className='grid grid-cols-6 gap-4 '>
-    <div className='flex items-center space-x-2 '>
-      <input
-        className='day-btn'
-        id='size-s'
-        type='checkbox'
-        checked={selectedTalla
- === 'S'}
-        onChange={() => handleSelect('S')}
-      />
-      <label className='day-label' htmlFor='size-s'>
-        S
-      </label>
-    </div>
-    <div className='flex items-center space-x-2'>
-      <input
-        className='day-btn'
-        id='size-m'
-        type='checkbox'
-        checked={selectedTalla
- === 'M'}
-        onChange={() => handleSelect('M')}
-      />
-      <label className='day-label' htmlFor='size-m'>
-        M
-      </label>
-    </div>
-    <div className='flex items-center space-x-2'>
-      <input
-        className='day-btn'
-        id='size-l'
-        type='checkbox'
-        checked={selectedTalla
- === 'L'}
-        onChange={() => handleSelect('L')}
-      />
-      <label className='day-label' htmlFor='size-l'>
-        L
-      </label>
-    </div>
-
-
-
-    <div className='flex items-center space-x-2'>
-      <input
-        className='day-btn'
-        id='size-xl'
-        type='checkbox'
-        checked={selectedTalla
- === 'XL'}
-        onChange={() => handleSelect('XL')}
-      />
-      <label className='day-label' htmlFor='size-xl'>
-        XL
-      </label>
-    </div>
-  </div>
-
-  <div>
-    <p className='text-lg ml-4'>Colores</p>
-  </div>
-
-  <div className='grid grid-cols-6 gap-4 ml-2'>
-    <Color color={'#F2E6D6'} isSelected={selectedColor === '#F2E6D6'} onSelect={handleSelectColor} />
-    <Color color={'#363183'} isSelected={selectedColor === '#363183'} onSelect={handleSelectColor} />
-    <Color color={'#030303'} isSelected={selectedColor === '#030303'} onSelect={handleSelectColor} />
-    <Color color={'#317983'} isSelected={selectedColor === '#317983'} onSelect={handleSelectColor} />
-   
-  </div>
-</div>
-
-<div className='mt-4 flex ml-6'>
-  <AgregarCarrito />
-  <Comprar />
-  <CarritoComprasIcono/>
-</div>
-
+      {producto && (
+        <>
+         <GaleriaProductos 
+  imagenes={producto.imagenes.map(img => ({
+    src: `http://localhost:3000/public/${img}`,
+    alt: `Imagen de producto ${img}` // Puedes personalizar el texto según sea necesario
+  }))} 
+/>
+          <div style={{ display: 'flex' }} className='ml-6'>
+            <Titulo titulo={producto.nombreproductos} precio={producto.precio} />
+          </div>
+          <br />
+          <Descripcion descripcion={producto.descripcion} />
+          <br />
+          <p className='text-lg ml-4'>Tallas</p>
+          <br />
+          <div className='space-y-4'>
+            <div className='grid grid-cols-6 gap-4'>
+              {producto.tallas.map(size => (
+                <div key={size} className='flex items-center space-x-2'>
+                  <input
+                    className='day-btn'
+                    id={`size-${size.toLowerCase()}`}
+                    type='checkbox'
+                    checked={selectedTalla === size}
+                    onChange={() => handleSelectTalla(size)}
+                  />
+                  <label className='day-label' htmlFor={`size-${size.toLowerCase()}`}>
+                    {size}
+                  </label>
+                </div>
+              ))}
+            </div>
+            <div>
+              <p className='text-lg ml-4'>Colores</p>
+            </div>
+            <div className='grid grid-cols-6 gap-4 ml-2'>
+              {producto.colores.map(color => (
+                <Color
+                  key={color}
+                  color={color}
+                  isSelected={selectedColor === color}
+                  onSelect={handleSelectColor}
+                />
+              ))}
+            </div>
+          </div>
+          <div className='mt-4 flex ml-6'>
+            <AgregarCarrito />
+            <Comprar />
+            <CarritoComprasIcono />
+          </div>
+        </>
+      )}
       <Footer />
-  
     </>
   );
 };

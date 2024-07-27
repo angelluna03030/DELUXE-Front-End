@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Asegúrate de importar toast si lo usas
 import 'swiper/swiper-bundle.css'; // Importar los estilos de Swiper
-
+import { Skeleton } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const Categorias = () => {
@@ -53,9 +53,9 @@ export const Categorias = () => {
       >
         {categories.length > 0 ? (
           categories.map(category => (
-            <SwiperSlide key={category.id}>
-              <Link to={`/categoria/${category.id}`}>
-                <div className='w-28 h-52 flex flex-col items-center font-medium justify-between'>
+            <SwiperSlide key={category._id}>
+              <Link to={`/categoria/${category._id}`}>
+                <div className='w-28 h-52 flex flex-col items-center font-medium justify-between sm:m-5'>
                   <div className='w-full h-44'>
                     <img
                       src={`${RUTA_API}/public/${category.imagen}`}
@@ -71,7 +71,13 @@ export const Categorias = () => {
             </SwiperSlide>
           ))
         ) : (
-          <p>No hay categorías disponibles</p>
+          <div className='flex'>
+            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 '></Skeleton>
+            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
+            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
+      
+
+          </div>
         )}
       </Swiper>
     </div>

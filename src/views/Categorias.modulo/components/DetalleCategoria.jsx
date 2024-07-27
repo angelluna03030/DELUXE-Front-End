@@ -1,78 +1,150 @@
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,Tooltip } from "@nextui-org/react";
-import { EyeIcon } from "../../../states/icons/EyeIcon";
+import React, { useEffect, useState } from 'react';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Tooltip, Input, Textarea, Image } from "@nextui-org/react";
+import { EditIcon } from "../../../states/icons/EditIcon";
+import imagen from '../../../assets/imagen.svg'; // Ruta al icono de imagen
+import { toast } from 'react-toastify'; // Importa toast
+import { EyeIcon } from '../../../states/icons/EyeIcon';
+const RUTA_API = import.meta.env.VITE_API_URL;
 
-export const DetalleCategoria =()=>{
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+export const DetalleCategoria = ({ id }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [categoria, setCategoria] = useState(null);
+  const [nombre, setNombre] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [imagenActual, setImagenActual] = useState('');
+  const [nuevaImagen, setNuevaImagen] = useState(null);
+   const [FechaCreacion, setFechaCreacion] = useState('');
+  useEffect(() => {
+    if (isOpen) {
+      const loadData = async () => {
+        try {
+          const response = await fetch(`${RUTA_API}/api/categoria/${id}`);
+          const data = await response.json();
+          setCategoria(data);
+          setNombre(data.nombre || '');
+          setDescripcion(data.descripcion || '');
+          setImagenActual(data.imagen || '');
+          setFechaCreacion(data.fechaCreacion || '');
+        } catch (error) {
+          console.error('Error cargando la categoría:', error);
+        }
+      };
 
-    return <>
-        <Tooltip content="Detalles"  >
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={onOpen}>
-                <EyeIcon />
-              </span>
-            </Tooltip>
+      loadData();
+    }
+  }, [isOpen, id]);
 
-        <Modal 
-        size="5xl"
-          backdrop="opaque" 
-          isOpen={isOpen} 
-          onOpenChange={onOpenChange}
-          motionProps={{
-            variants: {
-              enter: {
-                y: 0,
-                opacity: 1,
-                transition: {
-                  duration: 0.3,
-                  ease: "easeOut",
-                },
-              },
-              exit: {
-                y: -20,
-                opacity: 0,
-                transition: {
-                  duration: 0.2,
-                  ease: "easeIn",
-                },
-              },
-            }
-          }}
+
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setNuevaImagen(file);
+    }
+  };
+
+  return (
+    <>
+      <Tooltip content='Detalles'>
+        <span
+          className='text-lg text-default-400 cursor-pointer active:opacity-50'
+          onClick={onOpen}
         >
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-                <ModalBody>
-                  <p> 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pulvinar risus non risus hendrerit venenatis.
-                    Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pulvinar risus non risus hendrerit venenatis.
-                    Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                  </p>
-                  <p>
-                    Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                    dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. 
-                    Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. 
-                    Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur 
-                    proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                  </p>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="light" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Action
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-      
-    </>
+          <EyeIcon />
+        </span>
+      </Tooltip>
 
-}
+      <Modal
+        backdrop="blur"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="lg"
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          }
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>
+                <h3>Detalle Categoría</h3>
+              </ModalHeader>
+              <ModalBody>
+              
+                
+                  <label className="block text-sm font-medium text-gray-700">Imagen Actual</label>
+                  <div className="relative mt-2 m-auto">
+                    <Image 
+                      src={`${RUTA_API}/public/${imagenActual}`} 
+                      alt="Imagen Actual" 
+                      width={200} 
+                      height={200} 
+                      className="object-cover rounded-md" 
+                    />
+                  </div>
+             
+            
+                
+                <Input
+                disabled
+
+                  className='w-full'
+                  fullWidth
+                  clearable
+                  label="Nombre"
+                  value={nombre}
+               
+                />
+               
+                <Textarea
+                disabled
+                  fullWidth
+                  label="Descripción"
+                  value={descripcion}
+              
+                  rows={4}
+                  className="  w-full"
+                />
+                         <Input
+                disabled
+
+                  className='w-full'
+                  fullWidth
+                  clearable
+                  label="Fecha Creacion"
+                  value={new Date(
+                    FechaCreacion,
+                  ).toLocaleDateString()}
+               
+                />
+              </ModalBody>
+              <ModalFooter>
+                <Button auto flat color="error" onClick={onClose}>
+                  Cancelar
+                </Button>
+               
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};

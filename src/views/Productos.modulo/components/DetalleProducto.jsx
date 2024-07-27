@@ -125,6 +125,7 @@ export const DetalleProducto = ({ id }) => {
                         label='Nombre del producto'
                         value={producto.nombreproductos}
                         className='ml-2'
+                        disabled={true}
                       />
                     </div>
                     <div className='flex'>
@@ -133,10 +134,12 @@ export const DetalleProducto = ({ id }) => {
                         value={producto.precio}
                         type='number'
                           className='mr-2'
+                          disabled={true}
                       />
                       <Input label='Descripción' value={producto.descripcion}    className='ml-2'/>
                     </div>
                     <Input
+                          disabled={true}
                       label='Materiales'
                       value={
                         producto.materiales
@@ -161,11 +164,13 @@ export const DetalleProducto = ({ id }) => {
                     </div>
                     <div className='flex'>
                     <Input
+                          disabled={true}
                     className=''
                       label='Tallas'
                       value={producto.tallas ? producto.tallas.join(', ') : ''}
                     />
                   <Input
+                        disabled={true}
                     className='ml-2'
                       label='Fecha de creación'
                       value={new Date(
@@ -175,6 +180,7 @@ export const DetalleProducto = ({ id }) => {
                     />
                     </div>
                     <Input
+                          disabled={true}
                         className='mr-2'
                       label='Categorías'
                       value={

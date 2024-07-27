@@ -19,9 +19,9 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { SearchIcon } from "../../../states/icons/SearchIcon";
 import { ChevronDownIcon } from "../../../states/icons/ChevronDownIcon";
-import { EditarProducto } from "./EditarProducto";
-import { ModalCrearProductos } from "./crearProducto";
-import { DetalleProducto } from "./DetalleProducto";
+import {  EditarCategoria } from "./EditarCategoria";
+import { CrearCategoria } from "./CrearCategoria";
+import { DetalleCategoria } from "./DetalleCategoria";
 
 const capitalize = (str) => {
   if (typeof str !== 'string' || !str) return '';
@@ -31,9 +31,9 @@ const capitalize = (str) => {
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 const columns = [
-  { name: "Nombre", uid: "nombreproductos", sortable: true },
-  { name: "Categoría", uid: "categorias", sortable: true },
-  { name: "Estado", uid: "estado", sortable: true },
+  { name: "nombre", uid: "nombre", sortable: true },
+  { name: "descripcion", uid: "descripcion", sortable: true },
+
   { name: "Acciones", uid: "actions" },
 ];
 
@@ -47,18 +47,18 @@ const statusColorMap = {
   "0": "danger",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["nombreproductos", "categorias", "estado", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["nombre", "descripcion", "estado", "actions"];
 
-export const TablaProductos = () => {
+export const TablaCategoria = () => {
   const [loading, setLoading] = useState(true);
-  const [productos, setProductos] = useState([]);
+  const [categorias, setcategorias] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = useState(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = useState("all");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortDescriptor, setSortDescriptor] = useState({
-    column: "nombreproductos",
+    column: "nombre",
     direction: "ascending",
   });
   const [page, setPage] = useState(1);
@@ -69,14 +69,14 @@ export const TablaProductos = () => {
     setLoading(true);
     const loadData = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias`);
         if (status >= 200 && status < 300) {
-          setProductos(dataResponse);
+          setcategorias(dataResponse);
         } else {
           toast.error("No se encontraron los recursos (404)");
         }
       } catch (err) {
-        toast.error('No se ha podido traer los productos');
+        toast.error('No se ha podido traer los Categorias');
         console.error(err);
       } finally {
         setLoading(false);
@@ -89,7 +89,7 @@ export const TablaProductos = () => {
   const handleChipClick = async (id) => {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: 'Vas a cambiar el estado de un producto',
+      text: 'Vas a cambiar el estado de un categoria',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, seguro',
@@ -98,11 +98,11 @@ export const TablaProductos = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const { status, dataResponse } = await putData(`${RUTA_API}/producto/estado/${id}`);
+          const { status, dataResponse } = await putData(`${RUTA_API}/api/categorias/estado/${id}`);
           if (status >= 200 && status < 300) {
             toast.success('Estado cambiado');
-            // Actualizar los productos después del cambio de estado
-            refreshProductos();
+            // Actualizar los categorias después del cambio de estado
+            refreshcategorias();
           } else if (status >= 400 && status < 500) {
             toast.warn(dataResponse.mensaje);
           }
@@ -114,16 +114,16 @@ export const TablaProductos = () => {
     });
   };
 
-  const refreshProductos = async () => {
+  const refreshcategorias = async () => {
     try {
-      const { status, dataResponse } = await getData(`${RUTA_API}/productos`);
+      const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias`);
       if (status >= 200 && status < 300) {
-        setProductos(dataResponse);
+        setcategorias(dataResponse);
       } else {
         toast.error("No se encontraron los recursos (404)");
       }
     } catch (err) {
-      toast.error('No se ha podido traer los productos');
+      toast.error('No se ha podido traer los categorias');
       console.error(err);
     }
   };
@@ -134,11 +134,11 @@ export const TablaProductos = () => {
   }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
-    let filteredProducts = [...productos];
+    let filteredProducts = [...categorias];
 
     if (hasSearchFilter) {
       filteredProducts = filteredProducts.filter((product) =>
-        product.nombreproductos.toLowerCase().includes(filterValue.toLowerCase())
+        product.nombre.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
 
@@ -149,7 +149,7 @@ export const TablaProductos = () => {
     }
 
     return filteredProducts;
-  }, [productos, filterValue, statusFilter]);
+  }, [categorias, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -167,41 +167,46 @@ export const TablaProductos = () => {
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-
   const renderCell = useCallback((item, columnKey) => {
     const cellValue = item[columnKey];
-
+  
     switch (columnKey) {
-      case "nombreproductos":
+      case "nombre":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small capitalize">{capitalize(cellValue)}</p>
           </div>
         );
-      case "categorias":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{capitalize(cellValue)}</p>
-          </div>
-        );
-      case "estado":
-        return (
-          <Button className="capitalize" color={statusColorMap[item.estado.toString()]} size="sm" variant="flat" onClick={() => handleChipClick(item._id)}>
-            {item.estado === 1 ? 'Activo' : 'Inactivo'}
-          </Button>
-        );
+      case "descripcion":
+        // Verificar si cellValue es un array antes de usar map
+        if (Array.isArray(cellValue)) {
+          return (
+            <div className="flex flex-col">
+              {cellValue.map((categoria, index) => (
+                <p key={index} className="text-bold text-small capitalize">{capitalize(categoria)}</p>
+              ))}
+            </div>
+          );
+        } else {
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">{capitalize(cellValue)}</p>
+            </div>
+          );
+        }
+    
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <DetalleProducto producto={item} />
-            <EditarProducto producto={item} />
+            <EditarCategoria />
+            <DetalleCategoria />
           </div>
         );
       default:
         return cellValue;
     }
   }, [handleChipClick]);
-
+  
   const onNextPage = useCallback(() => {
     if (page < pages) {
       setPage(page + 1);
@@ -240,38 +245,17 @@ export const TablaProductos = () => {
           <Input
             isClearable
             className="w-[200px] sm:max-w-full sm:w-[400px]"
-            placeholder="Buscar Producto..."
+            placeholder="Buscar Categoria..."
             startContent={<SearchIcon />}
             value={filterValue}
             onClear={onClear}
             onValueChange={onSearchChange}
           />
-          <div className="flex gap-3">
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
-                  Estado
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectionMode="multiple"
-                onSelectionChange={setStatusFilter}
-              >
-                {EstadoOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
-            <ModalCrearProductos />
-          </div>
+        
+            <CrearCategoria></CrearCategoria>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {productos.length} Productos</span>
+          <span className="text-default-400 text-small">Total {categorias.length} categorias</span>
           <label className="flex items-center text-default-400 text-small">
             Filas por página:
             <select
@@ -291,7 +275,7 @@ export const TablaProductos = () => {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    productos.length,
+    categorias.length,
     onSearchChange,
     hasSearchFilter,
   ]);
@@ -352,7 +336,7 @@ export const TablaProductos = () => {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No se encontraron productos"} items={sortedItems}>
+      <TableBody emptyContent={"No se encontraron categorias"} items={sortedItems}>
         {(item) => (
           <TableRow key={item._id}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

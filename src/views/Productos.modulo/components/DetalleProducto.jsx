@@ -1,78 +1,201 @@
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,Tooltip } from "@nextui-org/react";
-import { EyeIcon } from "../../../states/icons/EyeIcon";
+import { useEffect, useState } from 'react';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Tooltip,
+  Input,
+} from '@nextui-org/react';
+import { EyeIcon } from '../../../states/icons/EyeIcon';
+import { toast } from 'react-toastify';
+import { getData } from '../../../config/utils/metodoFecht';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-export const DetalleProducto =()=>{
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+const RUTA_API = import.meta.env.VITE_API_URL;
 
-    return <>
-        <Tooltip content="Detalles"  >
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={onOpen}>
-                <EyeIcon />
-              </span>
-            </Tooltip>
+export const DetalleProducto = ({ id }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [producto, setProducto] = useState({});
+  const [loading, setLoading] = useState(false);
 
-        <Modal 
-        size="5xl"
-          backdrop="opaque" 
-          isOpen={isOpen} 
-          onOpenChange={onOpenChange}
-          motionProps={{
-            variants: {
-              enter: {
-                y: 0,
-                opacity: 1,
-                transition: {
-                  duration: 0.3,
-                  ease: "easeOut",
-                },
-              },
-              exit: {
-                y: -20,
-                opacity: 0,
-                transition: {
-                  duration: 0.2,
-                  ease: "easeIn",
-                },
-              },
-            }
-          }}
+  useEffect(() => {
+    if (isOpen) {
+      const loadData = async () => {
+        setLoading(true);
+        try {
+          const { status, dataResponse } = await getData(
+            `${RUTA_API}/api/producto/${id}`,
+          );
+          if (status >= 200 && status < 300) {
+            setProducto(dataResponse);
+          } else {
+            toast.error('No se encontraron los recursos (404)');
+          }
+        } catch (err) {
+          toast.error('No se ha podido traer el producto');
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      loadData();
+    }
+  }, [isOpen, id]);
+
+  return (
+    <>
+      <Tooltip content='Detalles'>
+        <span
+          className='text-lg text-default-400 cursor-pointer active:opacity-50'
+          onClick={onOpen}
         >
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-                <ModalBody>
-                  <p> 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pulvinar risus non risus hendrerit venenatis.
-                    Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pulvinar risus non risus hendrerit venenatis.
-                    Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                  </p>
-                  <p>
-                    Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                    dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. 
-                    Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. 
-                    Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur 
-                    proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                  </p>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="light" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
-                    Action
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-      
-    </>
+          <EyeIcon />
+        </span>
+      </Tooltip>
 
-}
+      <Modal
+        size='5xl'
+        backdrop='opaque'
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: 'easeOut',
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: 'easeIn',
+              },
+            },
+          },
+        }}
+      >
+        <ModalContent>
+          {onClose => (
+            <>
+              <ModalHeader className='flex flex-col gap-1'>
+                Detalle del Producto
+              </ModalHeader>
+              <ModalBody>
+                {loading ? (
+                  <p>Cargando...</p>
+                ) : (
+                  <div className='flex flex-col gap-4'>
+                    <div>
+                      <strong>Imágenes:</strong>
+                    </div>
+
+                    <div className='imagenes-container grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+  {producto.imagenes
+    ? producto.imagenes.map((imagen, index) => (
+        <div key={index} className='flex justify-center'>
+          <img
+            src={`${RUTA_API}/public/${imagen}`}
+            alt={`Imagen ${index + 1}`}
+            className='h-32 w-32 object-cover rounded-2xl'
+          />
+        </div>
+      ))
+    : null}
+</div>
+
+                    <div className='flex'>
+                      <Input
+                        label='Código'
+                        value={producto.codigo}
+                        readOnly
+                        className='mr-2'
+                        disabled={true}
+                      />
+                      <Input
+                        label='Nombre del producto'
+                        value={producto.nombreproductos}
+                        className='ml-2'
+                      />
+                    </div>
+                    <div className='flex'>
+                      <Input
+                        label='Precio'
+                        value={producto.precio}
+                        type='number'
+                          className='mr-2'
+                      />
+                      <Input label='Descripción' value={producto.descripcion}    className='ml-2'/>
+                    </div>
+                    <Input
+                      label='Materiales'
+                      value={
+                        producto.materiales
+                          ? producto.materiales.join(', ')
+                          : ''
+                      }
+                    />
+                  
+                    <div className='flex flex-wrap gap-2  sm:ml-5 ml-5 '>
+                      <h2>Colores: </h2>
+                      {producto.colores && producto.colores.length > 0 ? (
+                        producto.colores.map((color, index) => (
+                          <div
+                            key={index}
+                            className='w-8 h-8 rounded-full'
+                            style={{ backgroundColor: color }}
+                          ></div>
+                        ))
+                      ) : (
+                        <p>No hay colores disponibles.</p>
+                      )}
+                    </div>
+                    <div className='flex'>
+                    <Input
+                    className=''
+                      label='Tallas'
+                      value={producto.tallas ? producto.tallas.join(', ') : ''}
+                    />
+                  <Input
+                    className='ml-2'
+                      label='Fecha de creación'
+                      value={new Date(
+                        producto.fechaCreacion,
+                      ).toLocaleDateString()}
+                      readOnly
+                    />
+                    </div>
+                    <Input
+                        className='mr-2'
+                      label='Categorías'
+                      value={
+                        producto.categorias
+                          ? producto.categorias.join(', ')
+                          : ''
+                      }
+                    />
+                  
+                  </div>
+                )}
+              </ModalBody>
+              <ModalFooter>
+                <Button color='danger' variant='light' onPress={onClose} className=' mr-72 sm:mr-0' >
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};

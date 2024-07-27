@@ -197,7 +197,7 @@ export const TablaProductos = () => {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <DetalleProducto producto={item} />
+            <DetalleProducto id={item._id} />
             <EditarProducto id={item._id} />
           </div>
         );

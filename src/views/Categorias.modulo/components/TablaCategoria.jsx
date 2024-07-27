@@ -198,8 +198,8 @@ export const TablaCategoria = () => {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <EditarCategoria id={item._id} />
             <DetalleCategoria />
+            <EditarCategoria id={item._id} />
           </div>
         );
       default:

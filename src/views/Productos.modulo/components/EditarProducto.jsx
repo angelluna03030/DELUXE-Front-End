@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Tooltip, Input, Textarea } from "@nextui-org/react";
-import { EditIcon } from "../../../states/icons/EditIcon";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Tooltip,
+  Input,
+  Textarea,
+} from '@nextui-org/react';
+import { EditIcon } from '../../../states/icons/EditIcon';
 import { ModalTallas } from './ModalTallas';
 import { ModalCategoria } from './ModalCategoria';
 import { ModalColores } from './ModalColores';
@@ -27,7 +38,9 @@ export const EditarProducto = ({ id }) => {
       const loadData = async () => {
         setLoading(true);
         try {
-          const { status, dataResponse } = await getData(`${RUTA_API}/api/producto/${id}`);
+          const { status, dataResponse } = await getData(
+            `${RUTA_API}/api/producto/${id}`,
+          );
           if (status >= 200 && status < 300) {
             setProducto(dataResponse);
             setNombreProductos(dataResponse.nombreproductos || '');
@@ -38,7 +51,7 @@ export const EditarProducto = ({ id }) => {
             setSelectedCategorias(dataResponse.categorias || []);
             setImagenes(dataResponse.imagenes || []);
           } else {
-            toast.error("No se encontraron los recursos (404)");
+            toast.error('No se encontraron los recursos (404)');
           }
         } catch (err) {
           toast.error('No se ha podido traer el producto');
@@ -60,37 +73,40 @@ export const EditarProducto = ({ id }) => {
       tallas: selectedTallas,
       colores: selectedColores,
       categorias: selectedCategorias,
-      imagenes
+      imagenes,
     };
 
     try {
-      const response = await putData(`${RUTA_API}/api/producto/${id}`, updatedProduct);
+      const response = await putData(
+        `${RUTA_API}/api/producto/${id}`,
+        updatedProduct,
+      );
       console.log('Product updated:', response);
       toast.success('Producto actualizado con éxito');
-      onOpenChange(false);  // Close the modal after updating
+      onOpenChange(false); // Close the modal after updating
     } catch (error) {
       toast.error('Error actualizando el producto');
       console.error('Error updating product:', error);
     }
   };
 
-  const handleRemoveImage = (image) => {
+  const handleRemoveImage = image => {
     setImagenes(imagenes.filter(img => img !== image));
   };
 
-  const handleColoresChange = (colores) => {
+  const handleColoresChange = colores => {
     setSelectedColores(colores);
   };
 
-  const handleTallasChange = (tallas) => {
+  const handleTallasChange = tallas => {
     setSelectedTallas(tallas);
   };
 
-  const handleCategoriasChange = (categorias) => {
+  const handleCategoriasChange = categorias => {
     setSelectedCategorias(categorias);
   };
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = async event => {
     const files = event.target.files;
     if (files.length > 0) {
       const formDataToSend = new FormData();
@@ -121,16 +137,19 @@ export const EditarProducto = ({ id }) => {
 
   return (
     <>
-      <Tooltip content="Editar Producto">
-        <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={onOpen}>
+      <Tooltip content='Editar Producto'>
+        <span
+          className='text-lg text-default-400 cursor-pointer active:opacity-50'
+          onClick={onOpen}
+        >
           <EditIcon />
         </span>
       </Tooltip>
 
       <Modal
-        backdrop="opaque"
+        backdrop='opaque'
         isOpen={isOpen}
-        size="2xl"
+        size='2xl'
         onOpenChange={onOpenChange}
         motionProps={{
           variants: {
@@ -139,7 +158,7 @@ export const EditarProducto = ({ id }) => {
               opacity: 1,
               transition: {
                 duration: 0.3,
-                ease: "easeOut",
+                ease: 'easeOut',
               },
             },
             exit: {
@@ -147,52 +166,49 @@ export const EditarProducto = ({ id }) => {
               opacity: 0,
               transition: {
                 duration: 0.2,
-                ease: "easeIn",
+                ease: 'easeIn',
               },
             },
-          }
+          },
         }}
       >
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Editar Producto</ModalHeader>
+              <ModalHeader className='flex flex-col gap-1'>
+                Editar Producto
+              </ModalHeader>
               <ModalBody>
                 {loading ? (
                   <p>Cargando...</p>
                 ) : (
                   <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <Input 
-                       className='w-60'
-                        label="Nombre del Producto" 
-                        value={nombreproductos} 
-                        onChange={(e) => setNombreProductos(e.target.value)} 
-                        
+                    <div className='grid grid-cols-2 gap-4'>
+                      <Input
+                        className='sm:w-60 mr-2'
+                        label='Nombre del Producto'
+                        value={nombreproductos}
+                        onChange={e => setNombreProductos(e.target.value)}
                       />
-                        <Input 
-                       className='w-60'
-                       label="Precio" 
-                       type="number" 
-                       value={precio} 
-                       onChange={(e) => setPrecio(e.target.value)} 
+                      <Input
+                        className='sm:w-60 ml-2'
+                        label='Precio'
+                        type='number'
+                        value={precio}
+                        onChange={e => setPrecio(e.target.value)}
                       />
-                         </div>
-                         <div className="grid grid-cols-2 gap-4">
-                    
-                         </div>
-                 
-                   
-                 
-                    <Textarea 
-                      className='w-60'
-                        label="Descripción" 
-                        value={descripcion} 
-                        onChange={(e) => setDescripcion(e.target.value)} 
-                        rows={4} 
-                      />
+                    </div>
+                    <div className='grid grid-cols-2 gap-4'></div>
 
-                    <div className=" flex">
+                    <Textarea
+                      className='w-60 sm:w-full'
+                      label='Descripción'
+                      value={descripcion}
+                      onChange={e => setDescripcion(e.target.value)}
+                      rows={4}
+                    />
+
+                    <div className=' flex'>
                       <ModalColores
                         selectedColores={selectedColores}
                         onColoresChange={handleColoresChange}
@@ -212,16 +228,17 @@ export const EditarProducto = ({ id }) => {
                       />
                       <div className='flex flex-wrap gap-2  sm:ml-5 ml-3  '>
                         {selectedTallas.map((tallas, index) => (
-                          <div key={index} className='w-14 h-10 mr-3 bg-gray-300 rounded-xl flex items-center justify-center' >
+                          <div
+                            key={index}
+                            className='w-14 h-10 mr-3 bg-gray-300 rounded-xl flex items-center justify-center'
+                          >
                             {tallas}
                           </div>
                         ))}
                       </div>
                     </div>
-                    <div className=" flex">
-                 
-                    </div>
-                    <div className="mt-2 flex">
+                    <div className=' flex'></div>
+                    <div className='mt-2 flex'>
                       <ModalCategoria
                         selectedCategorias={selectedCategorias}
                         onCategoriasChange={handleCategoriasChange}
@@ -237,15 +254,25 @@ export const EditarProducto = ({ id }) => {
                         ))}
                       </div>
                     </div>
-                    <div className="mt-2">
+                    <div className='mt-2'>
                       <label>Imágenes</label>
-                      <div className="imagenes-container grid sm:grid-cols-9 grid-cols-6 gap-4">
-                        {imagenes && imagenes.map((img, index) => (
-                          <div key={index} className="relative">
-                            <img src={`http://localhost:3000/public/${img}`} alt={`Imagen ${index}`} className="h-20 w-20 object-cover rounded-2xl" />
-                            <button className="absolute top-0  right-0  bg-red-500 text-white h-8 w-8 rounded-full flex items-center justify-center" onClick={() => handleRemoveImage(img)}>X</button>
-                          </div>
-                        ))}
+                      <div className='imagenes-container grid sm:grid-cols-9 grid-cols-6 gap-4'>
+                        {imagenes &&
+                          imagenes.map((img, index) => (
+                            <div key={index} className='relative'>
+                              <img
+                                src={`http://localhost:3000/public/${img}`}
+                                alt={`Imagen ${index}`}
+                                className='h-20 w-20 object-cover rounded-2xl'
+                              />
+                              <button
+                                className='absolute top-0  right-0  bg-red-500 text-white h-8 w-8 rounded-full flex items-center justify-center'
+                                onClick={() => handleRemoveImage(img)}
+                              >
+                                X
+                              </button>
+                            </div>
+                          ))}
                       </div>
                       <label
                         className='h-40 w-56 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md ml-8 mt-6 sm:ml-52 '
@@ -273,11 +300,11 @@ export const EditarProducto = ({ id }) => {
                 )}
               </ModalBody>
               <ModalFooter className='mr-48 sm:mr-0 sm:mt-5'>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color='danger' variant='light' onPress={onClose}>
                   Cancelar
                 </Button>
-                <Button color="primary" onPress={handleUpdate} className='w-44'>
-                  Guardar 
+                <Button color='primary' onPress={handleUpdate} className='w-44'>
+                  Guardar
                 </Button>
               </ModalFooter>
             </>

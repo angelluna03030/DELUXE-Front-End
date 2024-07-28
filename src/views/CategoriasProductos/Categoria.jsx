@@ -7,42 +7,24 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
+
 export const Categoria = () => {
   const { id } = useParams();
-  const [nombre, setNombre] = useState("");
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    const loadCategoria = async () => {
-      try {
-        const response = await fetch(`${RUTA_API}/api/categoria/${id}`);
-        const data = await response.json();
-        setNombre(data.nombre || '');
-      } catch (error) {
-        console.error('Error cargando la categoría:', error);
-      }
-    };
-
-    if (id) {
-      loadCategoria();
-    }
-  }, [id]);
-
-  useEffect(() => {
     const loadProductos = async () => {
-      if (nombre) {
-        try {
-          const response = await fetch(`${RUTA_API}/api/productos/categoria/${nombre}`);
-          const data = await response.json();
-          setProductos(data);
-        } catch (error) {
-          console.error('Error cargando los productos:', error);
-        }
+      try {
+        const response = await fetch(`http://localhost:3000/api/productos/categoria/batas`);
+        const data = await response.json();
+        setProductos(data);
+      } catch (error) {
+        console.error('Error cargando los productos:', error);
       }
     };
 
     loadProductos();
-  }, [nombre]);
+  }, []);
 
   return (
     <>
@@ -56,7 +38,6 @@ export const Categoria = () => {
               <CardCategoria
                 key={producto._id}
                 id={producto._id}
-
                 name={producto.nombreproductos}
                 price={producto.precio}
                 imageSrc={`${RUTA_API}/public/${producto.imagenes[0]}`}

@@ -23,9 +23,9 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
             alt="Active Product"
           />
         </div>
-        <div className="grid grid-cols-5 gap-4 mt-auto">
+        <div className="grid grid-cols-5 gap-4 mt-auto mt-32">
           {imagenes.map((imagen, index) => (
-            <div key={index} className="relative w-full h-24 flex items-center justify-center  border-2 border-gray-300	rounded-md">
+            <div key={index} className="relative  w-full h-24 flex items-center justify-center  border-2 border-gray-300	rounded-md">
               <Image
                 src={imagen.src}
                 alt={imagen.alt || `Imagen ${index + 1}`}

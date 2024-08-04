@@ -5,7 +5,7 @@ import { Producto } from '../views/Producto';
 import { Categoria } from '../views/CategoriasProductos';
 import {Productos} from "../views/Productos.modulo"
 import {BuscarProductos} from "../views/BuscarProductos"
-
+import {TablaCarrito} from "../views/CarritoComprar/TablaCarritoCompras"
 import {Categorias} from "../views/Categorias.modulo"
 import {RegistrarCatalogo} from "../views/RegistrarCatalogo"
 export const Rutas = () => {
@@ -21,6 +21,7 @@ export const Rutas = () => {
       <Route path='/productos/buscar/:query' element={<BuscarProductos />} />
       <Route path='/registrarcategoria' element={<Categorias />} />
       <Route path='/registrarcatalogo' element={<RegistrarCatalogo />} />
+      <Route path='/carritocompras' element={<TablaCarrito />} />
     </Routes>
   );
 };

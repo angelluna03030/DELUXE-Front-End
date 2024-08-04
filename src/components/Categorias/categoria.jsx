@@ -54,8 +54,8 @@ export const Categorias = () => {
         {categories.length > 0 ? (
           categories.map(category => (
             <SwiperSlide key={category._id}>
-              <Link to={`/categoria/${category._id}`}>
-                <div className='w-28 h-52 flex flex-col items-center font-medium justify-between sm:m-5'>
+              <Link to={`/categoria/${category.nombre}`}>
+                <div className='w-28 h-52 flex flex-col items-center font-medium justify-between '>
                   <div className='w-full h-44'>
                     <img
                       src={`${RUTA_API}/public/${category.imagen}`}

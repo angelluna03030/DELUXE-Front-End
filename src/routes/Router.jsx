@@ -14,12 +14,10 @@ export const Rutas = () => {
       <Route path='/*' element={<Catalogo />} />
       <Route path='/' element={<Catalogo />} />
       <Route path='/producto/:id' element={<Producto />} />
-      <Route path='/categoria/:id' element={<Categoria />} />
+      <Route path='/categoria/:categoria' element={<Categoria />} />
       <Route path='/registrarproductos' element={<Productos />} />
       <Route path='/registrarcategoria' element={<Categorias />} />
       <Route path='/registrarcatalogo' element={<RegistrarCatalogo />} />
-
-
     </Routes>
   );
 };

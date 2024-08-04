@@ -24,7 +24,9 @@ export const Producto = () => {
     const loadData = async () => {
       setLoading(true);
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/producto/${id}`);
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/productos/${id}`,
+        );
         if (status >= 200 && status < 300) {
           setProducto(dataResponse);
         } else {
@@ -41,11 +43,11 @@ export const Producto = () => {
     loadData();
   }, [id]);
 
-  const handleSelectColor = (color) => {
+  const handleSelectColor = color => {
     setSelectedColor(color);
   };
 
-  const handleSelectTalla = (size) => {
+  const handleSelectTalla = size => {
     setSelectedTalla(size);
   };
 
@@ -57,14 +59,17 @@ export const Producto = () => {
       <Buscador />
       {producto && (
         <>
-         <GaleriaProductos 
-  imagenes={producto.imagenes.map(img => ({
-    src: `http://localhost:3000/public/${img}`,
-    alt: `Imagen de producto ${img}` // Puedes personalizar el texto según sea necesario
-  }))} 
-/>
+          <GaleriaProductos
+            imagenes={producto.imagenes.map(img => ({
+              src: `http://localhost:3000/public/${img}`,
+              alt: `Imagen de producto ${img}`, // Puedes personalizar el texto según sea necesario
+            }))}
+          />
           <div style={{ display: 'flex' }} className='ml-6'>
-            <Titulo titulo={producto.nombreproductos} precio={producto.precio} />
+            <Titulo
+              titulo={producto.nombreproductos}
+              precio={producto.precio}
+            />
           </div>
           <br />
           <Descripcion descripcion={producto.descripcion} />
@@ -82,7 +87,10 @@ export const Producto = () => {
                     checked={selectedTalla === size}
                     onChange={() => handleSelectTalla(size)}
                   />
-                  <label className='day-label' htmlFor={`size-${size.toLowerCase()}`}>
+                  <label
+                    className='day-label'
+                    htmlFor={`size-${size.toLowerCase()}`}
+                  >
                     {size}
                   </label>
                 </div>

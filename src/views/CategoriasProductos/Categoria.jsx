@@ -9,13 +9,13 @@ import { useState, useEffect } from 'react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const Categoria = () => {
-  const { id } = useParams();
+  const { categoria } = useParams();
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
     const loadProductos = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/productos/categoria/batas`);
+        const response = await fetch(`${RUTA_API}/api/productos/categorias/${categoria}`);
         const data = await response.json();
         setProductos(data);
       } catch (error) {

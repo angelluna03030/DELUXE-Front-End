@@ -37,7 +37,7 @@ export const BuscarProductos = () => {
       <Layout />
       <CarritoComprasIcono />
       <Buscador />
-      <div className='flex min-h-screen items-center justify-center px-2'>
+      <div className='flex min-h-screen  px-2'>
         <div>
           {loading ? ( // Mostrar Skeleton mientras se cargan los productos
             <div className='flex space-x-4'>

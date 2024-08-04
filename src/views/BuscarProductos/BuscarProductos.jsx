@@ -2,16 +2,16 @@ import { Layout } from '../../components/Layout';
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { CardCategoria } from '../../components/Card';
-import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
-import { useParams } from 'react-router-dom';
+import { CarritoComprasIcono } from "../CarritoComprar/IconoCarritoCompras";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Skeleton } from '@nextui-org/react';
-import { TablaVaciaImagen } from '../../components/NoProductos';
+import { TablaVaciaImagen } from "../../components/NoProductos";
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
-export const Categoria = () => {
-  const { categoria } = useParams();
+export const BuscarProductos = () => {
+  const { query } = useParams();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
 
@@ -19,11 +19,9 @@ export const Categoria = () => {
     const loadProductos = async () => {
       try {
         setLoading(true); // Inicia la carga
-        const response = await fetch(
-          `${RUTA_API}/api/productos/categorias/${categoria}`,
-        );
+        const response = await fetch(`${RUTA_API}/api/productos/buscar/${query}`);
         const data = await response.json();
-        setProductos(data || []);
+        setProductos(data);
       } catch (error) {
         console.error('Error cargando los productos:', error);
       } finally {
@@ -32,29 +30,21 @@ export const Categoria = () => {
     };
 
     loadProductos();
-  }, [categoria]); // Agrega `categoria` como dependencia
+  }, [query]); // Agrega `query` como dependencia
 
   return (
     <>
       <Layout />
       <CarritoComprasIcono />
       <Buscador />
-      <div className='flex min-h-screen px-2'>
+      <div className='flex min-h-screen items-center justify-center px-2'>
         <div>
           {loading ? ( // Mostrar Skeleton mientras se cargan los productos
-            <div className=' grid grid-cols-2 gap-6 md:grid-cols-4 mb-10 m-auto'>
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+            <div className='flex space-x-4'>
+              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
+              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
+              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
+              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
             </div>
           ) : productos.length > 0 ? (
             <div className='grid grid-cols-2 gap-6 md:grid-cols-4 mb-10'>
@@ -69,7 +59,7 @@ export const Categoria = () => {
               ))}
             </div>
           ) : (
-            <div className='m-20'>
+            <div className="m-20">
               <TablaVaciaImagen />
             </div>
           )}

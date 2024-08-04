@@ -33,7 +33,7 @@ export const Categorias = () => {
     <div className='my-10 mx-5'>
       <Swiper
         spaceBetween={10}
-        slidesPerView={2}
+        slidesPerView={3}
         breakpoints={{
           640: {
             slidesPerView: 3,
@@ -72,11 +72,9 @@ export const Categorias = () => {
           ))
         ) : (
           <div className='flex'>
-            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 '></Skeleton>
             <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
             <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
-      
-
+            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
           </div>
         )}
       </Swiper>

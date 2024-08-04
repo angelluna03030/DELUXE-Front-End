@@ -15,7 +15,7 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
   return (
     <div className="flex flex-col items-center">
       <div className=" max-w-5xl">
-        <div className="relative h-80 w-80 m-auto">
+        <div className="relative h-80 w-80 m-auto mb-40">
           <Image
             layout="fill"
             className="rounded-lg object-cover object-center"
@@ -23,7 +23,8 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
             alt="Active Product"
           />
         </div>
-        <div className="grid grid-cols-5 gap-4 mt-auto mt-40">
+
+        <div className="grid grid-cols-5 gap-4 mt-auto ">
           {imagenes.map((imagen, index) => (
             <div key={index} className="relative  w-full h-24 flex items-center justify-center 	rounded-md  ">
               <Image

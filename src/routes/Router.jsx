@@ -4,6 +4,8 @@ import { Catalogo } from '../views/Catalogo';
 import { Producto } from '../views/Producto';
 import { Categoria } from '../views/CategoriasProductos';
 import {Productos} from "../views/Productos.modulo"
+import {BuscarProductos} from "../views/BuscarProductos"
+
 import {Categorias} from "../views/Categorias.modulo"
 import {RegistrarCatalogo} from "../views/RegistrarCatalogo"
 export const Rutas = () => {
@@ -16,6 +18,7 @@ export const Rutas = () => {
       <Route path='/producto/:id' element={<Producto />} />
       <Route path='/categoria/:categoria' element={<Categoria />} />
       <Route path='/registrarproductos' element={<Productos />} />
+      <Route path='/productos/buscar/:query' element={<BuscarProductos />} />
       <Route path='/registrarcategoria' element={<Categorias />} />
       <Route path='/registrarcatalogo' element={<RegistrarCatalogo />} />
     </Routes>

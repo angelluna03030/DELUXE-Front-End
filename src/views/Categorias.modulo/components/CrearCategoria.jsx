@@ -60,7 +60,7 @@ export const CrearCategoria = () => {
       }));
 
       // Enviar información de la categoría al servidor
-      const categoryResponse = await fetch(`${RUTA_API}/api/categoria`, {
+      const categoryResponse = await fetch(`${RUTA_API}/api/categorias`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

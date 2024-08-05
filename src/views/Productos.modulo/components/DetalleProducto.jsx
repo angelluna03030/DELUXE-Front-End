@@ -8,12 +8,12 @@ import {
   Button,
   useDisclosure,
   Tooltip,
-  Input,CircularProgress
+  Input,
+  CircularProgress,
 } from '@nextui-org/react';
 import { EyeIcon } from '../../../states/icons/EyeIcon';
 import { toast } from 'react-toastify';
 import { getData } from '../../../config/utils/metodoFecht';
-
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -93,27 +93,26 @@ export const DetalleProducto = ({ id }) => {
               <ModalBody>
                 {loading ? (
                   <div className='m-auto'>
-                  <CircularProgress aria-label="Loading..." />
-                 </div>
+                    <CircularProgress aria-label='Loading...' />
+                  </div>
                 ) : (
                   <div className='flex flex-col gap-4'>
                     <div>
                       <strong>Imágenes:</strong>
                     </div>
-
-                    <div className='imagenes-container grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
-  {producto.imagenes
-    ? producto.imagenes.map((imagen, index) => (
-        <div key={index} className='flex justify-center'>
-          <img
-            src={`${RUTA_API}/public/${imagen}`}
-            alt={`Imagen ${index + 1}`}
-            className='h-32 w-32 object-cover rounded-2xl'
-          />
-        </div>
-      ))
-    : null}
-</div>
+                    <div className='imagenes-container grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+                      {producto.imagenes
+                        ? producto.imagenes.map((imagen, index) => (
+                            <div key={index} className='flex'>
+                              <img
+                                src={`${RUTA_API}/public/${imagen}`}
+                                alt={`Imagen ${index + 1}`}
+                                className='sm:h-40 sm:w-40 object-cover rounded-2xl h-10 w-10'
+                              />
+                            </div>
+                          ))
+                        : null}
+                    </div>
 
                     <div className='flex'>
                       <Input
@@ -135,13 +134,17 @@ export const DetalleProducto = ({ id }) => {
                         label='Precio'
                         value={producto.precio}
                         type='number'
-                          className='mr-2'
-                          disabled={true}
+                        className='mr-2'
+                        disabled={true}
                       />
-                      <Input label='Descripción' value={producto.descripcion}    className='ml-2'/>
+                      <Input
+                        label='Descripción'
+                        value={producto.descripcion}
+                        className='ml-2'
+                      />
                     </div>
                     <Input
-                          disabled={true}
+                      disabled={true}
                       label='Materiales'
                       value={
                         producto.materiales
@@ -149,7 +152,7 @@ export const DetalleProducto = ({ id }) => {
                           : ''
                       }
                     />
-                  
+
                     <div className='flex flex-wrap gap-2  sm:ml-5 ml-5 '>
                       <h2>Colores: </h2>
                       {producto.colores && producto.colores.length > 0 ? (
@@ -165,25 +168,27 @@ export const DetalleProducto = ({ id }) => {
                       )}
                     </div>
                     <div className='flex'>
-                    <Input
-                          disabled={true}
-                    className=''
-                      label='Tallas'
-                      value={producto.tallas ? producto.tallas.join(', ') : ''}
-                    />
-                  <Input
+                      <Input
                         disabled={true}
-                    className='ml-2'
-                      label='Fecha de creación'
-                      value={new Date(
-                        producto.fechaCreacion,
-                      ).toLocaleDateString()}
-                      readOnly
-                    />
+                        className=''
+                        label='Tallas'
+                        value={
+                          producto.tallas ? producto.tallas.join(', ') : ''
+                        }
+                      />
+                      <Input
+                        disabled={true}
+                        className='ml-2'
+                        label='Fecha de creación'
+                        value={new Date(
+                          producto.fechaCreacion,
+                        ).toLocaleDateString()}
+                        readOnly
+                      />
                     </div>
                     <Input
-                          disabled={true}
-                        className='mr-2'
+                      disabled={true}
+                      className='mr-2'
                       label='Categorías'
                       value={
                         producto.categorias
@@ -191,12 +196,16 @@ export const DetalleProducto = ({ id }) => {
                           : ''
                       }
                     />
-                  
                   </div>
                 )}
               </ModalBody>
               <ModalFooter>
-                <Button color='danger' variant='light' onPress={onClose} className=' mr-72 sm:mr-0' >
+                <Button
+                  color='danger'
+                  variant='light'
+                  onPress={onClose}
+                  className=' mr-72 sm:mr-0'
+                >
                   Cerrar
                 </Button>
               </ModalFooter>

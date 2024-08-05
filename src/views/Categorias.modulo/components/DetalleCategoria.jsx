@@ -30,7 +30,7 @@ export const DetalleCategoria = ({ id }) => {
     if (isOpen) {
       const loadData = async () => {
         try {
-          const response = await fetch(`${RUTA_API}/api/categoria/${id}`);
+          const response = await fetch(`${RUTA_API}/api/categorias/${id}`);
           const data = await response.json();
           setCategoria(data);
           setNombre(data.nombre || '');

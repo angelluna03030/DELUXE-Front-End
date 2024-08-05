@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Modal,
   ModalContent,
@@ -9,8 +9,7 @@ import {
   Input,
   Textarea,
   useDisclosure,
-  Autocomplete,
-  AutocompleteItem,
+
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
@@ -18,30 +17,87 @@ import imagen from '../../../assets/imagen.svg'; // Asegúrate de que esta ruta 
 import { ModalColores } from './ModalColores';
 import { ModalTallas } from './ModalTallas';
 import { ModalCategoria } from './ModalCategoria';
-
+import { postData } from '../../../config/utils/metodoFecht';
+import { InputForm } from '../../../components/Inputs/InputForm';
 const RUTA_API = import.meta.env.VITE_API_URL;
-
 export const ModalCrearProductos = () => {
+  const [errors, setErrors] = useState({
+    nombreproductos: '',
+    precio: '',
+    descripcion: '',
+    tallas: '',
+    colores: '',
+    imagenes: '',
+    categorias: ''
+  })
+  const validateRequiredFields = () => {
+    const newErrors = {};
+    if (formData.tallas.length === 0) {
+      newErrors.tallas = 'Debe seleccionar al menos una talla.';
+    }
+    if (formData.colores.length === 0) {
+      newErrors.colores = 'Debe seleccionar al menos un color.';
+    }
+    if (formData.imagenes.length === 0) {
+      newErrors.imagenes = 'Debe subir al menos una imagen.';
+    }
+    if (formData.categorias.length === 0) {
+      newErrors.categorias = 'Debe seleccionar al menos una categoría.';
+    }
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      ...newErrors
+    }));
+    return Object.keys(newErrors).length === 0;
+  };
+
+  
+  const validateNombre = (value) => /^[a-zA-Z\s]{5,15}$/.test(value);
+  const validatePrecio = (value) => /^\d+$/.test(value) && parseFloat(value) <= 1000000;
+  const validateDescripcion = (value) => /^.{15,40}$/.test(value);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Validaciones en tiempo real
+    if (name === 'nombreproductos') {
+      setErrors(prev => ({
+        ...prev,
+        nombreproductos: validateNombre(value) ? '' : 'El valor debe contener entre 5 y 15 letras sin números.',
+      }));
+    } else if (name === 'precio') {
+      setErrors(prev => ({
+        ...prev,
+        precio: validatePrecio(value) ? '' : 'El precio debe ser numérico y no superar el millón.',
+      }));
+    } else if (name === 'descripcion') {
+      setErrors(prev => ({
+        ...prev,
+        descripcion: validateDescripcion(value) ? '' : 'La descripción debe tener entre 15 y 40 caracteres.',
+      }));
+    }
+  };
+
+
   const [formData, setFormData] = useState({
     nombreproductos: '',
     estado: 1,
     precio: 0,
     descripcion: '',
-    materiales: [],
     tallas: [],
     colores: [],
     imagenes: [],
     categorias: [],
   });
 
-  const [inputValue, setInputValue] = useState('');
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState('md');
   const [selectedFiles, setSelectedFiles] = useState([]);
-
-  const handleInputChange = e => {
-    setInputValue(e.target.value);
-  };
 
   const handleCategoriasChange = selectedCategorias => {
     setFormData(prevFormData => ({
@@ -60,32 +116,23 @@ export const ModalCrearProductos = () => {
       imagenes: files,
     }));
   };
-  const handleMaterialesChange = e => {
-    const materialesArray = e.target.value.split(',').map(item => item.trim());
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      materiales: materialesArray,
-    }));
-  };
+
   const handleSubmit = async e => {
     e.preventDefault();
 
+    // Verificar los campos requeridos
+    if (!validateRequiredFields()) {
+      toast.error('Por favor complete todos los campos requeridos.');
+      return;
+    }
+  
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('nombreproductos', formData.nombreproductos);
       formDataToSend.append('estado', formData.estado);
       formDataToSend.append('precio', formData.precio);
       formDataToSend.append('descripcion', formData.descripcion);
-
-      // Asegúrate de que `materiales` sea un array
-      if (Array.isArray(formData.materiales)) {
-        formDataToSend.append('materiales', formData.materiales.join(','));
-      } else {
-        formDataToSend.append('materiales', '');
-      }
-
       formDataToSend.append('categorias', formData.categorias);
-
       formData.tallas.forEach(talla => formDataToSend.append('tallas', talla));
       formData.colores.forEach(color =>
         formDataToSend.append('colores', color),
@@ -100,9 +147,15 @@ export const ModalCrearProductos = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Error en la subida de imágenes');
+        // Manejo de errores específico
+        const errorText = await response.text();
+        if (errorText === true) {
+          toast.error('La imagen ya se ha subido o hay un problema con la imagen.');
+        } else {
+          toast.error('Las imágenes no se subieron correctamente.');
+        }
+        return;
       }
-
       const imageData = await response.json();
       const imageFiles = imageData.files;
 
@@ -113,24 +166,24 @@ export const ModalCrearProductos = () => {
       }));
 
       // Enviar información del producto al servidor
-      const productResponse = await fetch(`${RUTA_API}/api/producto`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      try {
+        const productResponse = await postData(`${RUTA_API}/api/productos`, {
           ...formData,
           imagenes: imageFiles,
-        }),
-      });
+        });
 
-      const productData = await productResponse.json();
-
-      if (productResponse.ok) {
-        toast.success('Producto registrado exitosamente');
-        onClose(); // Cerrar el modal al éxito
-      } else {
-        toast.warn(productData.mensaje || 'Error al registrar el producto');
+        if (productResponse.status >= 200 && productResponse.status < 300) {
+          toast.success('Producto registrado exitosamente');
+          onClose(); // Cerrar el modal al éxito
+        } else {
+          toast.warn(
+            productResponse.dataResponse.mensaje ||
+              'Error al registrar el producto',
+          );
+        }
+      } catch (err) {
+        toast.error('Problemas al registrar el producto');
+        console.error(err);
       }
     } catch (err) {
       toast.error('Problemas al registrar el producto');
@@ -172,53 +225,42 @@ export const ModalCrearProductos = () => {
             <ModalBody>
               <form onSubmit={handleSubmit}>
                 <div className='sm:flex sm:mb-5'>
-                  <Input
-                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
-                    type='text'
-                    value={formData.nombreproductos}
-                    onChange={e =>
-                      setFormData({
-                        ...formData,
-                        nombreproductos: e.target.value,
-                      })
-                    }
-                    placeholder='Nombre del producto'
-                    required
-                  />
-                  <Input
-                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
-                    type='number'
-                    value={formData.precio}
-                    onChange={e =>
-                      setFormData({
-                        ...formData,
-                        precio: e.target.value,
-                      })
-                    }
-                    placeholder='Precio del producto'
-                    required
-                  />
+                <InputForm
+                  name='nombreproductos'
+                  label='Nombre del producto'
+                  isInvalid={!!errors.nombreproductos}
+                  messajeError={errors.nombreproductos}
+                  tipo='text'
+                  placeholder='Nombre del producto'
+                  estilos='sm:ml-5 sm:mr-5 mb-2 flex w-full flex-wrap md:flex-nowrap gap-4'
+                  value={formData.nombreproductos}
+                  onChange={handleInputChange}
+                />
+                <InputForm
+                  name='precio'
+                  label='Precio del producto'
+                  isInvalid={!!errors.precio}
+                  messajeError={errors.precio}
+                  tipo='number'
+                  placeholder='Precio del producto'
+                  estilos='sm:ml-5 sm:mr-5 mb-2 flex w-full flex-wrap md:flex-nowrap gap-4'
+                  value={formData.precio}
+                  onChange={handleInputChange}
+                />
+            
                 </div>
                 <div className='sm:flex sm:mb-5'>
                   <Textarea
-                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
+                    name='descripcion'
+                    className='sm:ml-5 sm:mr-5 mb-2 flex w-full flex-wrap md:flex-nowrap gap-4'
                     type='text'
                     value={formData.descripcion}
-                    onChange={e =>
-                      setFormData({ ...formData, descripcion: e.target.value })
-                    }
+                    onChange={handleInputChange}
                     placeholder='Descripcion del producto'
-                    required
-                  />
-                  <Input
-                    className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
-                    type='text'
-                    value={formData.materiales}
-                    onChange={e =>
-                      setFormData({ ...formData, materiales: e.target.value })
-                    }
-                    placeholder='Separa los Materiales con comas'
-                    required
+                    variant="bordered"
+                    label="Descripción"
+                    errorMessage={errors.descripcion}
+                    isInvalid={!!errors.descripcion}
                   />
                 </div>
                 <div className='sm:flex sm:mb-5 mx-5 mb-2'>
@@ -237,6 +279,7 @@ export const ModalCrearProductos = () => {
                             {categoria}
                           </div>
                         ))}
+                           {errors.categorias && <p className="text-red-500">{errors.categorias}</p>}
                       </div>
                     </div>
                   </div>
@@ -257,6 +300,8 @@ export const ModalCrearProductos = () => {
                           ></div>
                         ))}
                       </div>
+                      {errors.colores && <p className="text-red-500">{errors.colores}</p>}
+
                     </div>
                     <div className='sm:mt-5 flex sm:ml-16'>
                       <ModalTallas
@@ -270,6 +315,7 @@ export const ModalCrearProductos = () => {
                             {tallas}
                           </div>
                         ))}
+                         {errors.tallas && <p className="text-red-500">{errors.tallas}</p>}
                       </div>
                     </div>
                   </div>
@@ -297,6 +343,7 @@ export const ModalCrearProductos = () => {
                       onChange={handleFileChange}
                       className='hidden'
                     />
+                        {errors.imagenes && <p className="text-red-500">{errors.imagenes}</p>}
                   </label>
                 ) : (
                   <div className='flex flex-wrap gap-4 m-5'>
@@ -305,7 +352,7 @@ export const ModalCrearProductos = () => {
                         key={index}
                         src={file}
                         alt={`preview ${index}`}
-                        className='h-40 w-40 object-cover rounded-2xl'
+                        className='sm:h-40 sm:w-40 object-cover rounded-2xl h-10 w-10'
                       />
                     ))}
                   </div>
@@ -319,7 +366,7 @@ export const ModalCrearProductos = () => {
                   >
                     Cerrar
                   </Button>
-                  <Button color='primary' type='submit'>
+                  <Button color='primary' type='submit'  className='ursor-not-allowed'>
                     Enviar
                   </Button>
                 </ModalFooter>

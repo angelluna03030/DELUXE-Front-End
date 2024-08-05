@@ -39,7 +39,7 @@ export const EditarProducto = ({ id }) => {
         setLoading(true);
         try {
           const { status, dataResponse } = await getData(
-            `${RUTA_API}/api/producto/${id}`,
+            `${RUTA_API}/api/productos/${id}`,
           );
           if (status >= 200 && status < 300) {
             setProducto(dataResponse);
@@ -78,7 +78,7 @@ export const EditarProducto = ({ id }) => {
 
     try {
       const response = await putData(
-        `${RUTA_API}/api/producto/${id}`,
+        `${RUTA_API}/api/productos/${id}`,
         updatedProduct,
       );
       console.log('Product updated:', response);

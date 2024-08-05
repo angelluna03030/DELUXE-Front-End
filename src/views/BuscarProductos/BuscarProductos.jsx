@@ -40,12 +40,20 @@ export const BuscarProductos = () => {
       <div className='flex min-h-screen  px-2'>
         <div>
           {loading ? ( // Mostrar Skeleton mientras se cargan los productos
-            <div className='flex space-x-4'>
-              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
-              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
-              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
-              <Skeleton className='rounded-lg w-40 h-44 sm:m-5' />
-            </div>
+            <div className=' grid grid-cols-2 gap-6 md:grid-cols-4 mb-10 m-auto'>
+            <Skeleton className='rounded-lg w-40 h-52  m-5' />
+            <Skeleton className='rounded-lg w-40 h-52 m-5' />
+            <Skeleton className='rounded-lg w-40 h-52  m-5' />
+            <Skeleton className='rounded-lg w-40 h-52 m-5' />
+            <Skeleton className='rounded-lg w-40 h-52  m-5' />
+            <Skeleton className='rounded-lg w-40 h-52 m-5' />
+            <Skeleton className='rounded-lg w-40 h-52  m-5' />
+            <Skeleton className='rounded-lg w-40 h-52 m-5' />
+            <Skeleton className='rounded-lg w-40 h-52  m-5' />
+            <Skeleton className='rounded-lg w-40 h-52 m-5' />
+            <Skeleton className='rounded-lg w-40 h-52  m-5' />
+            <Skeleton className='rounded-lg w-40 h-52 m-5' />
+          </div>
           ) : productos.length > 0 ? (
             <div className='grid grid-cols-2 gap-6 md:grid-cols-4 mb-10'>
               {productos.map(producto => (

@@ -92,9 +92,9 @@ export const DetalleProducto = ({ id }) => {
               </ModalHeader>
               <ModalBody>
                 {loading ? (
-                  <div className='m-auto'>
-                    <CircularProgress aria-label='Loading...' />
-                  </div>
+                   <div className='flex justify-center items-center h-40'>
+                   <CircularProgress />
+                 </div>
                 ) : (
                   <div className='flex flex-col gap-4'>
                     <div>

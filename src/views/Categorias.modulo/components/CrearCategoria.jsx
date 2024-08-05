@@ -2,7 +2,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
 import imagen from '../../../assets/imagen.svg'; // Asegúrate de que esta ruta sea correcta
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -14,8 +14,35 @@ export const CrearCategoria = () => {
   });
 
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [errors, setErrors] = useState({
+    nombre: '',
+    descripcion: '',
+    imagen: '',
+  });
+ 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState('md');
+
+  useEffect(() => {
+    if (formData.nombre && (formData.nombre.length < 5 || formData.nombre.length > 15 || /\d/.test(formData.nombre))) {
+      setErrors(prev => ({ ...prev, nombre: 'El nombre debe contener entre 5 y 15 letras sin números.' }));
+    } else {
+      setErrors(prev => ({ ...prev, nombre: '' }));
+    }
+
+    if (formData.descripcion && (formData.descripcion.length < 15 || formData.descripcion.length > 100)) {
+      setErrors(prev => ({ ...prev, descripcion: 'La descripción debe tener entre 15 y 100 caracteres.' }));
+    } else {
+      setErrors(prev => ({ ...prev, descripcion: '' }));
+    }
+
+    if (selectedFiles.length === 0) {
+      setErrors(prev => ({ ...prev, imagen: 'Se debe seleccionar una imagen.' }));
+    } else {
+      setErrors(prev => ({ ...prev, imagen: '' }));
+    }
+  }, [formData, selectedFiles]);
 
   const handleFileChange = e => {
     const files = Array.from(e.target.files);
@@ -31,7 +58,13 @@ export const CrearCategoria = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
+    if (errors.nombre || errors.descripcion || errors.imagen) {
+      return; // No enviar el formulario si hay errores
+    }
+
     try {
+      setIsSubmitting(true);
+
       const formDataToSend = new FormData();
       formDataToSend.append('nombre', formData.nombre);
       formDataToSend.append('descripcion', formData.descripcion);
@@ -47,7 +80,14 @@ export const CrearCategoria = () => {
       });
 
       if (!imageResponse.ok) {
-        throw new Error('Error en la subida de imágenes');
+        // Manejo de errores específico
+        const errorText = await imageResponse.text();
+        if (errorText === true) {
+          toast.error('La imagen ya se ha subido o hay un problema con la imagen.');
+        } else {
+          toast.error('Las imágenes no se subieron correctamente.');
+        }
+        return;
       }
 
       const imageData = await imageResponse.json();
@@ -84,6 +124,8 @@ export const CrearCategoria = () => {
     } catch (err) {
       toast.error('Problemas al crear la categoría');
       console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -107,7 +149,7 @@ export const CrearCategoria = () => {
             </ModalHeader>
             <ModalBody>
               <form onSubmit={handleSubmit}>
-              {selectedFiles.length === 0 ? (
+                {selectedFiles.length === 0 ? (
                   <label
                     className='h-52 w-72 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md ml-8 mt-6 sm:ml-52'
                     htmlFor='file'
@@ -127,7 +169,9 @@ export const CrearCategoria = () => {
                       onChange={handleFileChange}
                       className='hidden'
                     />
+                      {errors.imagen && <p className="text-red-500">{errors.imagen}</p>}
                   </label>
+                 
                 ) : (
                   <div className='flex flex-wrap gap-4 m-5'>
                     {selectedFiles.map((file, index) => (
@@ -142,6 +186,9 @@ export const CrearCategoria = () => {
                 )}
                 <div className='sm:flex sm:mb-5 mt-5'>
                   <Input
+                    isInvalid={!!errors.nombre}
+                    color={errors.nombre ? "danger" : ""}
+                    errorMessage={errors.nombre}
                     className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
                     type='text'
                     value={formData.nombre}
@@ -155,8 +202,11 @@ export const CrearCategoria = () => {
                     required
                   />
                 </div>
- 
+
                 <Textarea
+                  isInvalid={!!errors.descripcion}
+                  color={errors.descripcion ? "danger" : ""}
+                  errorMessage={errors.descripcion}
                   className='sm:ml-5 sm:mr-5 mb-5 flex w-full flex-wrap md:flex-nowrap gap-4'
                   value={formData.descripcion}
                   onChange={e =>
@@ -166,7 +216,6 @@ export const CrearCategoria = () => {
                   required
                 />
 
-             
                 <ModalFooter className='mr-48 sm:mr-0 sm:mt-5'>
                   <Button
                     color='danger'
@@ -176,7 +225,7 @@ export const CrearCategoria = () => {
                   >
                     Cerrar
                   </Button>
-                  <Button color='primary' type='submit'>
+                  <Button color='primary' type='submit'  >
                     Enviar
                   </Button>
                 </ModalFooter>

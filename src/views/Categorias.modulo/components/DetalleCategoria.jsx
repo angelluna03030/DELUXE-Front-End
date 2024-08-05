@@ -11,10 +11,9 @@ import {
   Input,
   Textarea,
   Image,
+
+  CircularProgress,
 } from '@nextui-org/react';
-import { EditIcon } from '../../../states/icons/EditIcon';
-import imagen from '../../../assets/imagen.svg'; // Ruta al icono de imagen
-import { toast } from 'react-toastify'; // Importa toast
 import { EyeIcon } from '../../../states/icons/EyeIcon';
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -26,9 +25,12 @@ export const DetalleCategoria = ({ id }) => {
   const [imagenActual, setImagenActual] = useState('');
   const [nuevaImagen, setNuevaImagen] = useState(null);
   const [FechaCreacion, setFechaCreacion] = useState('');
+  const [loading, setLoading] = useState(false); // Estado para la carga
+
   useEffect(() => {
     if (isOpen) {
       const loadData = async () => {
+        setLoading(true); // Inicia el indicador de carga
         try {
           const response = await fetch(`${RUTA_API}/api/categorias/${id}`);
           const data = await response.json();
@@ -39,6 +41,8 @@ export const DetalleCategoria = ({ id }) => {
           setFechaCreacion(data.fechaCreacion || '');
         } catch (error) {
           console.error('Error cargando la categoría:', error);
+        } finally {
+          setLoading(false); // Finaliza el indicador de carga
         }
       };
 
@@ -97,46 +101,54 @@ export const DetalleCategoria = ({ id }) => {
                 <h3>Detalle Categoría</h3>
               </ModalHeader>
               <ModalBody>
-                <label className='block text-sm font-medium text-gray-700'>
-                  Imagen Actual
-                </label>
-                <div className='relative mt-2 m-auto'>
-                  <Image
-                    src={`${RUTA_API}/public/${imagenActual}`}
-                    alt='Imagen Actual'
-                    width={200}
-                    height={200}
-                    className='object-cover rounded-md'
-                  />
-                </div>
+                {loading ? (
+                  <div className='flex justify-center items-center h-40'>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <>
+                    <label className='block text-sm font-medium text-gray-700'>
+                      Imagen Actual
+                    </label>
+                    <div className='relative mt-2 m-auto'>
+                      <Image
+                        src={`${RUTA_API}/public/${imagenActual}`}
+                        alt='Imagen Actual'
+                        width={200}
+                        height={200}
+                        className='object-cover rounded-md'
+                      />
+                    </div>
 
-                <Input
-                  disabled
-                  className='w-full'
-                  fullWidth
-                  clearable
-                  label='Nombre'
-                  value={nombre}
-                />
+                    <Input
+                      disabled
+                      className='w-full'
+                      fullWidth
+                      clearable
+                      label='Nombre'
+                      value={nombre}
+                    />
 
-                <Textarea
-                  disabled
-                  fullWidth
-                  label='Descripción'
-                  value={descripcion}
-                  rows={4}
-                  className='  w-full'
-                />
-                <Input
-                  disabled
-                  className='w-full'
-                  fullWidth
-                  clearable
-                  label='Fecha Creacion'
-                  value={new Date(FechaCreacion).toLocaleDateString()}
-                />
+                    <Textarea
+                      disabled
+                      fullWidth
+                      label='Descripción'
+                      value={descripcion}
+                      rows={4}
+                      className='w-full'
+                    />
+                    <Input
+                      disabled
+                      className='w-full'
+                      fullWidth
+                      clearable
+                      label='Fecha Creacion'
+                      value={new Date(FechaCreacion).toLocaleDateString()}
+                    />
+                  </>
+                )}
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className='mr-72 sm:mr-0 sm:mt-5'>
                 <Button auto flat color='error' onClick={onClose}>
                   Cancelar
                 </Button>

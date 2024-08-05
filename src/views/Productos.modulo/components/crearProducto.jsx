@@ -54,7 +54,7 @@ export const ModalCrearProductos = () => {
   
   const validateNombre = (value) => /^[a-zA-Z\s]{5,15}$/.test(value);
   const validatePrecio = (value) => /^\d+$/.test(value) && parseFloat(value) <= 1000000;
-  const validateDescripcion = (value) => /^.{15,40}$/.test(value);
+  const validateDescripcion = (value) => /^.{15,100}$/.test(value);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,7 +77,7 @@ export const ModalCrearProductos = () => {
     } else if (name === 'descripcion') {
       setErrors(prev => ({
         ...prev,
-        descripcion: validateDescripcion(value) ? '' : 'La descripción debe tener entre 15 y 40 caracteres.',
+        descripcion: validateDescripcion(value) ? '' : 'La descripción debe tener entre 15 y 100 caracteres.',
       }));
     }
   };
@@ -321,10 +321,10 @@ export const ModalCrearProductos = () => {
                   </div>
                 </div>
 
-                <div className='flex w-full flex-wrap md:flex-nowrap gap-4'></div>
+                <div className='flex w-full flex-wrap md:flex-nowrap gap-4 '></div>
                 {selectedFiles.length === 0 ? (
                   <label
-                    className='h-52 w-72 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md ml-8 mt-6 sm:ml-52'
+                    className='h-52 w-72 m-auto flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md ml-8 mt-6 sm:ml-52 '
                     htmlFor='file'
                   >
                     <div className='sm:flex sm:items-center sm:justify-center'>

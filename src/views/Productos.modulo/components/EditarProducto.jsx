@@ -179,9 +179,9 @@ export const EditarProducto = ({ id }) => {
               </ModalHeader>
               <ModalBody>
                 {loading ? (
-                  <div className='m-auto'>
-                   <CircularProgress aria-label="Loading..." />
-                  </div>
+                   <div className='flex justify-center items-center h-40'>
+                   <CircularProgress />
+                 </div>
                 ) : (
                   <>
                     <div className='grid grid-cols-2 gap-4'>
@@ -276,7 +276,7 @@ export const EditarProducto = ({ id }) => {
                           ))}
                       </div>
                       <label
-                        className='h-40 w-56 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md ml-8 mt-6 sm:ml-52 '
+                        className='h-40 w-56 flex flex-col items-center justify-between gap-5 cursor-pointer border-2 border-dashed border-gray-300 bg-white p-6 rounded-lg shadow-md mx-auto mt-6 sm:ml-52 '
                         htmlFor='file'
                       >
                         <div className='sm:flex sm:items-center sm:justify-center'>

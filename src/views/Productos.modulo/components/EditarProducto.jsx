@@ -10,6 +10,7 @@ import {
   Tooltip,
   Input,
   Textarea,
+  CircularProgress
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import { ModalTallas } from './ModalTallas';
@@ -18,8 +19,8 @@ import { ModalColores } from './ModalColores';
 import { getData, putData } from '../../../config/utils/metodoFecht';
 import { toast } from 'react-toastify';
 import imagen from '../../../assets/imagen.svg';
-const RUTA_API = import.meta.env.VITE_API_URL;
 
+const RUTA_API = import.meta.env.VITE_API_URL;
 export const EditarProducto = ({ id }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [producto, setProducto] = useState(null);
@@ -31,8 +32,6 @@ export const EditarProducto = ({ id }) => {
   const [precio, setPrecio] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [loading, setLoading] = useState(false);
-  const [fileInput, setFileInput] = useState(null); // For file input
-
   useEffect(() => {
     if (isOpen) {
       const loadData = async () => {
@@ -180,7 +179,9 @@ export const EditarProducto = ({ id }) => {
               </ModalHeader>
               <ModalBody>
                 {loading ? (
-                  <p>Cargando...</p>
+                  <div className='m-auto'>
+                   <CircularProgress aria-label="Loading..." />
+                  </div>
                 ) : (
                   <>
                     <div className='grid grid-cols-2 gap-4'>

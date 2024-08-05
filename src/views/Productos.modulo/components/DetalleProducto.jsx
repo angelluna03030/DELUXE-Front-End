@@ -8,12 +8,12 @@ import {
   Button,
   useDisclosure,
   Tooltip,
-  Input,
+  Input,CircularProgress
 } from '@nextui-org/react';
 import { EyeIcon } from '../../../states/icons/EyeIcon';
 import { toast } from 'react-toastify';
 import { getData } from '../../../config/utils/metodoFecht';
-import { Swiper, SwiperSlide } from 'swiper/react';
+
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -28,7 +28,7 @@ export const DetalleProducto = ({ id }) => {
         setLoading(true);
         try {
           const { status, dataResponse } = await getData(
-            `${RUTA_API}/api/producto/${id}`,
+            `${RUTA_API}/api/productos/${id}`,
           );
           if (status >= 200 && status < 300) {
             setProducto(dataResponse);
@@ -92,7 +92,9 @@ export const DetalleProducto = ({ id }) => {
               </ModalHeader>
               <ModalBody>
                 {loading ? (
-                  <p>Cargando...</p>
+                  <div className='m-auto'>
+                  <CircularProgress aria-label="Loading..." />
+                 </div>
                 ) : (
                   <div className='flex flex-col gap-4'>
                     <div>

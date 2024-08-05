@@ -98,7 +98,7 @@ export const TablaProductos = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const { status, dataResponse } = await putData(`${RUTA_API}/api/producto/estado/${id}`);
+          const { status, dataResponse } = await putData(`${RUTA_API}/api/productos/estado/${id}`);
           if (status >= 200 && status < 300) {
             toast.success('Estado cambiado');
             // Actualizar los productos después del cambio de estado

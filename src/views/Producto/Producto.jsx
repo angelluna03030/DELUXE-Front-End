@@ -11,7 +11,7 @@ import { Color } from '../../components/Color';
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { toast } from 'react-toastify'; // Asegúrate de importar toast si usas react-toastify
 import { getData } from '../../config/utils/metodoFecht'; // Asegúrate de tener estos métodos correctamente importados
-import {CargarProductos} from "../../components/CarcCargando/CargarProductos/CargarProductos"
+import {CargarProductos} from "../../components/CardCargando/CargarProductos/CargarProductos"
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const Producto = () => {

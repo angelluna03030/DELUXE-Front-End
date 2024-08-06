@@ -33,6 +33,7 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 const columns = [
   { name: 'Nombre Categoria', uid: 'nombre', sortable: true },
   { name: 'Descripción', uid: 'descripcion', sortable: true },
+  { name: 'estado', uid: 'estado' },
 
   { name: 'Acciones', uid: 'actions' },
 ];
@@ -109,8 +110,10 @@ export const TablaCategoria = () => {
             toast.success('Estado cambiado');
             // Actualizar los categorias después del cambio de estado
             refreshcategorias();
+  
           } else if (status >= 400 && status < 500) {
             toast.warn(dataResponse.mensaje);
+           
           }
         } catch (err) {
           toast.error('Hubo un error al cambiar el estado');
@@ -193,6 +196,7 @@ export const TablaCategoria = () => {
               </p>
             </div>
           );
+          
         case 'descripcion':
           // Verificar si cellValue es un array antes de usar map
           if (Array.isArray(cellValue)) {
@@ -205,7 +209,10 @@ export const TablaCategoria = () => {
                 ))}
               </div>
             );
-          } else {
+          } 
+          
+          
+          else {
             return (
               <div className='flex flex-col'>
                 <p className='text-bold text-small capitalize'>
@@ -214,7 +221,12 @@ export const TablaCategoria = () => {
               </div>
             );
           }
-
+          case "estado":
+            return (
+              <Button className="capitalize" color={statusColorMap[item.estado]} size="sm" variant="flat" onClick={() => handleChipClick(item._id)}>
+                {item.estado === 1 ? 'Activo' : 'Inactivo'}
+              </Button>
+            );
         case 'actions':
           return (
             <div className='relative flex items-center gap-2'>

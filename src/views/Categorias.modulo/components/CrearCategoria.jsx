@@ -25,12 +25,11 @@ export const CrearCategoria = () => {
   const [size, setSize] = useState('md');
 
   useEffect(() => {
-    if (formData.nombre && (formData.nombre.length < 5 || formData.nombre.length > 15 || /\d/.test(formData.nombre))) {
-      setErrors(prev => ({ ...prev, nombre: 'El nombre debe contener entre 5 y 15 letras sin números.' }));
-    } else {
+    if (formData.nombre && (formData.nombre.length < 5 || formData.nombre.length > 15 || /\d/.test(formData.nombre) || /\s$/.test(formData.nombre))) {
+      setErrors(prev => ({ ...prev, nombre: 'El nombre debe contener entre 5 y 15 letras sin números y no debe tener espacios al final.' }));
+  } else {
       setErrors(prev => ({ ...prev, nombre: '' }));
-    }
-
+  }
     if (formData.descripcion && (formData.descripcion.length < 15 || formData.descripcion.length > 100)) {
       setErrors(prev => ({ ...prev, descripcion: 'La descripción debe tener entre 15 y 100 caracteres.' }));
     } else {

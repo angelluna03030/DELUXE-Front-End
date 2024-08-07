@@ -7,10 +7,11 @@ export const TablaCarrito = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Layout />
-      <div className="flex-grow">
+      <TablaInformacionProductoPedido></TablaInformacionProductoPedido>
+      <div className="flex flex-col flex-grow justify-end">
         <DetallePedidos />
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };

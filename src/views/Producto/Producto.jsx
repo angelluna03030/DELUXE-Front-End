@@ -21,6 +21,7 @@ export const Producto = () => {
   const [producto, setProducto] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedTalla, setSelectedTalla] = useState(null);
+  const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
   const [loading, setLoading] = useState(false);
   const { agregarProducto } = useContext(CarritoContext);
 
@@ -33,6 +34,7 @@ export const Producto = () => {
         );
         if (status >= 200 && status < 300) {
           setProducto(dataResponse);
+          setSelectedImagen(dataResponse.imagenes[0]); // Selecciona la primera imagen
         } else {
           toast.error('No se encontraron los recursos (404)');
         }
@@ -51,13 +53,13 @@ export const Producto = () => {
     agregarProducto(
       {
         id: producto._id,
-        imagen: producto.imagenes[0],
+        imagen: producto.imagenes[0], // Utiliza la imagen seleccionada (la primera imagen)
         nombre: producto.nombreproductos,
         precio: producto.precio,
         talla: selectedTalla,
         color: selectedColor,
       },
-      1, // Cantidad seleccionada. Puedes cambiar esto a una variable de estado si es necesario.
+      1 // Cantidad seleccionada
     );
     toast.success('Producto agregado exitosamente');
   };

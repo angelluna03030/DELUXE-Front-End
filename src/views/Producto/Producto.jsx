@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { CargarProductos } from '../../components/CardCargando/CargarProductos/CargarProductos';
 import { CarritoContext } from '../../states/context/ContextCarrito';
-
+import {Tooltip, Button} from "@nextui-org/react";
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const Producto = () => {
@@ -24,6 +24,8 @@ export const Producto = () => {
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
   const [loading, setLoading] = useState(false);
   const { agregarProducto } = useContext(CarritoContext);
+  const [validar, setValidar] = useState(true);
+  const [mensajeTooltip, setMensajeTooltip] = useState('');
 
   useEffect(() => {
     const loadData = async () => {
@@ -50,18 +52,22 @@ export const Producto = () => {
   }, [id]);
 
   const handleAgregarProducto = () => {
-    agregarProducto(
-      {
-        id: producto._id,
-        imagen: producto.imagenes[0], // Utiliza la imagen seleccionada (la primera imagen)
-        nombre: producto.nombreproductos,
-        precio: producto.precio,
-        talla: selectedTalla,
-        color: selectedColor,
-      },
-      1 // Cantidad seleccionada
-    );
-    toast.success('Producto agregado exitosamente');
+    if (validar) {
+      agregarProducto(
+        {
+          id: producto._id,
+          imagen: producto.imagenes[0], // Utiliza la imagen seleccionada (la primera imagen)
+          nombre: producto.nombreproductos,
+          precio: producto.precio,
+          talla: selectedTalla,
+          color: selectedColor,
+        },
+        1 // Cantidad seleccionada
+      );
+      toast.success('Producto agregado exitosamente');
+    } else {
+      toast.error(mensajeTooltip); // Muestra el mensaje del tooltip como un error si la validación falla
+    }
   };
 
   const handleSelectColor = color => {
@@ -71,6 +77,29 @@ export const Producto = () => {
   const handleSelectTalla = size => {
     setSelectedTalla(size);
   };
+
+  useEffect(() => {
+    if (
+      producto &&
+      (producto.colores.length === 0 ||
+      producto.tallas.length === 0)
+    ) {
+      setMensajeTooltip('Este producto no tiene opciones de talla ni color.');
+      setValidar(true); // Permite la compra si no hay tallas ni colores
+    } else if (selectedColor === null && selectedTalla === null) {
+      setMensajeTooltip('Elige Talla y Color para continuar con tu compra.');
+      setValidar(false);
+    } else if (selectedColor === null && producto.colores.length > 0) {
+      setMensajeTooltip('Elige Color para continuar con tu compra.');
+      setValidar(false);
+    } else if (selectedTalla === null && producto.tallas.length > 0) {
+      setMensajeTooltip('Elige Talla para continuar con tu compra.');
+      setValidar(false);
+    } else {
+      setMensajeTooltip('');
+      setValidar(true);
+    }
+  }, [selectedColor, selectedTalla, producto]);
 
   if (loading) {
     return (
@@ -142,9 +171,33 @@ export const Producto = () => {
           </div>
           <div className='mt-4 flex ml-6'>
             <div className='bg-white border border-sky-950 rounded-full m-3 p-4'>
-              <button type='button' onClick={handleAgregarProducto}>
-                Agregar Al Carrito
-              </button>
+            <Tooltip
+												isDisabled={validar}
+												content={mensajeTooltip}
+												showArrow
+												placement='top-start'
+												classNames={{
+													base: [
+														// arrow color
+														'before:bg-neutral-400 dark:before:bg-white',
+													],
+													content: [
+														'py-2 px-4 shadow-xl bg-[#358FED]',
+														'text-white ',
+													],
+												}}
+											>
+                              <button
+                  type='button'
+                  onClick={handleAgregarProducto}
+                  className={` font-semibold  rounded-full ${ validar ? "text-black" : "text-gray-400"}`
+                  }
+              
+                >
+                  Agregar Al Carrito
+                </button>
+
+              </Tooltip>
             </div>
             <Comprar />
             <CarritoComprasIcono />

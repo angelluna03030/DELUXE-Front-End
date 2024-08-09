@@ -55,7 +55,21 @@ const StateCarrito = ({ children }) => {
       0,
     );
   };
-
+  const cambiarTalla = (productoId, nuevaTalla) => {
+    setCarrito(prevCarrito =>
+      prevCarrito.map(item =>
+        item.id === productoId ? { ...item, talla: nuevaTalla } : item
+      )
+    );
+  };
+  
+  const cambiarColor = (productoId, nuevoColor) => {
+    setCarrito(prevCarrito =>
+      prevCarrito.map(item =>
+        item.id === productoId ? { ...item, color: nuevoColor } : item
+      )
+    );
+  };
   const contarProductos = () => {
     return carrito.reduce((total, item) => total + item.cantidad, 0);
   };
@@ -70,6 +84,8 @@ const StateCarrito = ({ children }) => {
         vaciarCarrito,
         calcularTotal,
         contarProductos,
+        cambiarTalla, // Agregar aquí
+        cambiarColor, // Agregar aquí
       }}
     >
       {children}

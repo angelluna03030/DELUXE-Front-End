@@ -55,7 +55,7 @@ export const TablaInformacionProductoPedido = () => {
                 height='152'
                 rx='8'
                 transform='rotate(-45 159.52 175)'
-                fill='white'
+                fill='black'
               />
               <rect
                 y='107.48'
@@ -63,7 +63,8 @@ export const TablaInformacionProductoPedido = () => {
                 height='152'
                 rx='8'
                 transform='rotate(-45 0 107.48)'
-                fill='white'
+                fill='black'
+               
               />
             </svg>
             <div className='relative pt-10 px-10 flex items-center justify-center'>
@@ -83,10 +84,10 @@ export const TablaInformacionProductoPedido = () => {
 
             </div>
             <div className='relative text-white px-6 pb-6 mt-6'>
-              <span className='block opacity-75 -mb-1'>{item.talla}</span>
+              <span className='block opacity-75 -mb-1'>{item.nombre}</span>
               <div className='flex justify-between'>
                 <span className='block font-semibold text-xl'>
-                  {item.nombre}
+                  {item.talla}
                 </span>
                 <span className='block bg-white rounded-full text-black text-xs font-bold px-3 py-2 leading-none flex items-center'>
                   ${item.precio}

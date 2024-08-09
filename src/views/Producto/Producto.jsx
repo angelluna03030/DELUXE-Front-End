@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Layout } from '../../components/Layout';
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { Titulo } from '../../components/Titulo';
 import { Descripcion } from '../../components/Descripcion';
-import { Comprar, AgregarCarrito } from '../../components/Boton';
+import { Comprar } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
-import { toast } from 'react-toastify'; // Asegúrate de importar toast si usas react-toastify
-import { getData } from '../../config/utils/metodoFecht'; // Asegúrate de tener estos métodos correctamente importados
-import {CargarProductos} from "../../components/CardCargando/CargarProductos/CargarProductos"
+import { toast } from 'react-toastify';
+import { getData } from '../../config/utils/metodoFecht';
+import { CargarProductos } from "../../components/CardCargando/CargarProductos/CargarProductos";
+import { CarritoContext } from '../../states/context/ContextCarrito';
+
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const Producto = () => {
@@ -20,6 +22,7 @@ export const Producto = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedTalla, setSelectedTalla] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { agregarProducto } = useContext(CarritoContext);
 
   useEffect(() => {
     const loadData = async () => {
@@ -44,6 +47,21 @@ export const Producto = () => {
     loadData();
   }, [id]);
 
+  const handleAgregarProducto = () => {
+    agregarProducto(
+      {
+        id: producto._id,
+        imagen:  producto.imagenes[0],
+        nombre: producto.nombreproductos,
+        precio: producto.precio,
+        talla: selectedTalla,
+        color: selectedColor,
+      },
+      1, // Cantidad seleccionada. Puedes cambiar esto a una variable de estado si es necesario.
+    );
+    toast.success('Producto agregado exitosamente');
+  };
+
   const handleSelectColor = color => {
     setSelectedColor(color);
   };
@@ -52,15 +70,16 @@ export const Producto = () => {
     setSelectedTalla(size);
   };
 
-  if (loading)
+  if (loading) {
     return (
-      <p>
+      <>
         <Layout />
         <Buscador />
-        <CargarProductos></CargarProductos> 
+        <CargarProductos />
         <Footer />
-      </p>
+      </>
     );
+  }
 
   return (
     <>
@@ -70,8 +89,8 @@ export const Producto = () => {
         <>
           <GaleriaProductos
             imagenes={producto.imagenes.map(img => ({
-              src: `http://localhost:3000/public/${img}`,
-              alt: `Imagen de producto ${img}`, // Puedes personalizar el texto según sea necesario
+              src: `${RUTA_API}/public/${img}`,
+              alt: `Imagen de producto ${img}`,
             }))}
           />
           <div style={{ display: 'flex' }} className='ml-6'>
@@ -120,7 +139,9 @@ export const Producto = () => {
             </div>
           </div>
           <div className='mt-4 flex ml-6'>
-            <AgregarCarrito />
+            <div className='bg-white border border-sky-950 rounded-full m-3 p-4'>
+              <button type='button' onClick={handleAgregarProducto}>Agregar Al Carrito</button>
+            </div>
             <Comprar />
             <CarritoComprasIcono />
           </div>

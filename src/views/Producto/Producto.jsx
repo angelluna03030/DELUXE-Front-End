@@ -11,7 +11,7 @@ import { Color } from '../../components/Color';
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
-import { CargarProductos } from "../../components/CardCargando/CargarProductos/CargarProductos";
+import { CargarProductos } from '../../components/CardCargando/CargarProductos/CargarProductos';
 import { CarritoContext } from '../../states/context/ContextCarrito';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
@@ -51,7 +51,7 @@ export const Producto = () => {
     agregarProducto(
       {
         id: producto._id,
-        imagen:  producto.imagenes[0],
+        imagen: producto.imagenes[0],
         nombre: producto.nombreproductos,
         precio: producto.precio,
         talla: selectedTalla,
@@ -140,7 +140,9 @@ export const Producto = () => {
           </div>
           <div className='mt-4 flex ml-6'>
             <div className='bg-white border border-sky-950 rounded-full m-3 p-4'>
-              <button type='button' onClick={handleAgregarProducto}>Agregar Al Carrito</button>
+              <button type='button' onClick={handleAgregarProducto}>
+                Agregar Al Carrito
+              </button>
             </div>
             <Comprar />
             <CarritoComprasIcono />

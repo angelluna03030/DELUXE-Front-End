@@ -1,1 +1,1 @@
-export * from "./Categorias"
+export * from './Categorias';

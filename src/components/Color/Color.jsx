@@ -8,4 +8,4 @@ export const Color = ({ color, isSelected, onSelect }) => {
       onClick={() => onSelect(color)}
     ></div>
   );
-}
+};

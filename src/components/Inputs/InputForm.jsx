@@ -16,7 +16,6 @@ export const InputForm = ({
       name={name}
       required
       isInvalid={isInvalid}
-    
       placeholder={placeholder}
       type={tipo}
       label={label}
@@ -28,4 +27,3 @@ export const InputForm = ({
     />
   );
 };
-

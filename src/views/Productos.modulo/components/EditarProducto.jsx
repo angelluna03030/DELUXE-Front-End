@@ -10,7 +10,7 @@ import {
   Tooltip,
   Input,
   Textarea,
-  CircularProgress
+  CircularProgress,
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import { ModalTallas } from './ModalTallas';
@@ -179,9 +179,9 @@ export const EditarProducto = ({ id }) => {
               </ModalHeader>
               <ModalBody>
                 {loading ? (
-                   <div className='flex justify-center items-center h-40'>
-                   <CircularProgress />
-                 </div>
+                  <div className='flex justify-center items-center h-40'>
+                    <CircularProgress />
+                  </div>
                 ) : (
                   <>
                     <div className='grid grid-cols-2 gap-4'>

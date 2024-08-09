@@ -2,11 +2,11 @@ import { Layout } from '../../components/Layout';
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { CardCategoria } from '../../components/Card';
-import { CarritoComprasIcono } from "../CarritoComprar/IconoCarritoCompras";
-import { useParams } from "react-router-dom";
+import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Skeleton } from '@nextui-org/react';
-import { TablaVaciaImagen } from "../../components/NoProductos";
+import { TablaVaciaImagen } from '../../components/NoProductos';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -19,7 +19,9 @@ export const BuscarProductos = () => {
     const loadProductos = async () => {
       try {
         setLoading(true); // Inicia la carga
-        const response = await fetch(`${RUTA_API}/api/productos/buscar/${query}`);
+        const response = await fetch(
+          `${RUTA_API}/api/productos/buscar/${query}`,
+        );
         const data = await response.json();
         setProductos(data);
       } catch (error) {
@@ -41,19 +43,19 @@ export const BuscarProductos = () => {
         <div>
           {loading ? ( // Mostrar Skeleton mientras se cargan los productos
             <div className=' grid grid-cols-2 gap-6 md:grid-cols-4 mb-10 m-auto'>
-            <Skeleton className='rounded-lg w-40 h-52  m-5' />
-            <Skeleton className='rounded-lg w-40 h-52 m-5' />
-            <Skeleton className='rounded-lg w-40 h-52  m-5' />
-            <Skeleton className='rounded-lg w-40 h-52 m-5' />
-            <Skeleton className='rounded-lg w-40 h-52  m-5' />
-            <Skeleton className='rounded-lg w-40 h-52 m-5' />
-            <Skeleton className='rounded-lg w-40 h-52  m-5' />
-            <Skeleton className='rounded-lg w-40 h-52 m-5' />
-            <Skeleton className='rounded-lg w-40 h-52  m-5' />
-            <Skeleton className='rounded-lg w-40 h-52 m-5' />
-            <Skeleton className='rounded-lg w-40 h-52  m-5' />
-            <Skeleton className='rounded-lg w-40 h-52 m-5' />
-          </div>
+              <Skeleton className='rounded-lg w-40 h-52  m-5' />
+              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+              <Skeleton className='rounded-lg w-40 h-52  m-5' />
+              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+              <Skeleton className='rounded-lg w-40 h-52  m-5' />
+              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+              <Skeleton className='rounded-lg w-40 h-52  m-5' />
+              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+              <Skeleton className='rounded-lg w-40 h-52  m-5' />
+              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+              <Skeleton className='rounded-lg w-40 h-52  m-5' />
+              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+            </div>
           ) : productos.length > 0 ? (
             <div className='grid grid-cols-2 gap-6 md:grid-cols-4 mb-10'>
               {productos.map(producto => (
@@ -67,7 +69,7 @@ export const BuscarProductos = () => {
               ))}
             </div>
           ) : (
-            <div className="m-20">
+            <div className='m-20'>
               <TablaVaciaImagen />
             </div>
           )}

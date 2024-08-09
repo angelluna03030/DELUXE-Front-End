@@ -6,8 +6,8 @@ import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
-  DropdownItem
-} from "@nextui-org/react";
+  DropdownItem,
+} from '@nextui-org/react';
 import Icon from '@mui/material/Icon';
 
 import ModalComponent from '../../../components/Modal';
@@ -28,7 +28,7 @@ const ContenidoSuperior = ({
   setData,
   dataLength,
   onRowsPerPageChange,
-  statusOptions
+  statusOptions,
 }) => {
   return (
     <div className='flex flex-col gap-4'>
@@ -45,10 +45,7 @@ const ContenidoSuperior = ({
         <div className='flex gap-3'>
           <Dropdown>
             <DropdownTrigger className='hidden sm:flex'>
-              <Button
-                endContent={<Icon>arrow_drop_down</Icon>}
-                variant='flat'
-              >
+              <Button endContent={<Icon>arrow_drop_down</Icon>} variant='flat'>
                 Estado
               </Button>
             </DropdownTrigger>
@@ -78,7 +75,10 @@ const ContenidoSuperior = ({
             open={modalRegistrar}
             onClose={handleCloseModalRegistrar}
           >
-            <RegistrarProducto onSuccess={handleCloseModalRegistrar} setData={setData} />
+            <RegistrarProducto
+              onSuccess={handleCloseModalRegistrar}
+              setData={setData}
+            />
           </ModalComponent>
         </div>
       </div>

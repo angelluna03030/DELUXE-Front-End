@@ -5,43 +5,43 @@
  * @return { object } Resupuesta de la petición
  */
 export const postData = async (url = '', data = {}) => {
-	const response = await fetch(url, {
-		method: 'POST',
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-		body: JSON.stringify(data),
-	});
-	const responseData = await response.json();
-	// Devolver tanto el código de estado como los datos de respuesta
-	return { status: response.status, dataResponse: responseData };
+  const response = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(data),
+  });
+  const responseData = await response.json();
+  // Devolver tanto el código de estado como los datos de respuesta
+  return { status: response.status, dataResponse: responseData };
 };
 
 /**
  * Metodo para obtener datos por una petición HTTP [GET]
  * @param { string } url Recibe la ruta completa para enviar los datos
  * @return { Array } Respuesta de la petición
-*/
+ */
 export const getData = async (url = '') => {
-	const response = await fetch(url, {
-		method: 'GET',
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-	});
-	const responseData = await response.json();
-	// Devolver tanto el código de estado como los datos de respuesta
-	return { status: response.status, dataResponse: responseData };
+  const response = await fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  });
+  const responseData = await response.json();
+  // Devolver tanto el código de estado como los datos de respuesta
+  return { status: response.status, dataResponse: responseData };
 };
 
 /**
@@ -51,26 +51,26 @@ export const getData = async (url = '') => {
  * @return { object } Resupuesta de la petición
  */
 export const putData = async (url = '', data = {}) => {
-	try {
-	  const response = await fetch(url, {
-		method: 'PUT',
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
-		headers: {
-		  'Content-Type': 'application/json',
-		},
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-		body: JSON.stringify(data),
-	  });
-	  const responseData = await response.json();
-	  return { status: response.status, dataResponse: responseData };
-	} catch (error) {
-	  console.error('Error en la solicitud PUT:', error);
-	  throw error;
-	}
-  };
+  try {
+    const response = await fetch(url, {
+      method: 'PUT',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data),
+    });
+    const responseData = await response.json();
+    return { status: response.status, dataResponse: responseData };
+  } catch (error) {
+    console.error('Error en la solicitud PUT:', error);
+    throw error;
+  }
+};
 /**
  * Método para enviar datos por una petición HTTP [POST]
  * @param { string } url Recibe la ruta completa para enviar los datos
@@ -78,22 +78,22 @@ export const putData = async (url = '', data = {}) => {
  * @return { object } Respuesta de la petición
  */
 export const postFormData = async (url = '', formData) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-            // No es necesario el 'Content-Type' para FormData
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: formData,
-    });
+  const response = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      // No es necesario el 'Content-Type' para FormData
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: formData,
+  });
 
-    const responseData = await response.json();
-    // Devolver tanto el código de estado como los datos de respuesta
-    return { status: response.status, dataResponse: responseData };
+  const responseData = await response.json();
+  // Devolver tanto el código de estado como los datos de respuesta
+  return { status: response.status, dataResponse: responseData };
 };
 
 /**
@@ -103,20 +103,20 @@ export const postFormData = async (url = '', formData) => {
  * @return { object } Respuesta de la petición
  */
 export const putFormData = async (url = '', formData) => {
-    const response = await fetch(url, {
-        method: 'PUT',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-            // No es necesario el 'Content-Type' para FormData
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: formData,
-    });
+  const response = await fetch(url, {
+    method: 'PUT',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      // No es necesario el 'Content-Type' para FormData
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: formData,
+  });
 
-    const responseData = await response.json();
-    // Devolver tanto el código de estado como los datos de respuesta
-    return { status: response.status, dataResponse: responseData };
+  const responseData = await response.json();
+  // Devolver tanto el código de estado como los datos de respuesta
+  return { status: response.status, dataResponse: responseData };
 };

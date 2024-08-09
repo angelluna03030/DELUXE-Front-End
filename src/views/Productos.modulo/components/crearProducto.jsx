@@ -9,7 +9,6 @@ import {
   Input,
   Textarea,
   useDisclosure,
-
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
@@ -28,8 +27,8 @@ export const ModalCrearProductos = () => {
     tallas: '',
     colores: '',
     imagenes: '',
-    categorias: ''
-  })
+    categorias: '',
+  });
   const validateRequiredFields = () => {
     const newErrors = {};
     if (formData.tallas.length === 0) {
@@ -46,42 +45,47 @@ export const ModalCrearProductos = () => {
     }
     setErrors(prevErrors => ({
       ...prevErrors,
-      ...newErrors
+      ...newErrors,
     }));
     return Object.keys(newErrors).length === 0;
   };
 
-  
-  const validateNombre = (value) => /^[a-zA-Z\s]{5,15}$/.test(value);
-  const validatePrecio = (value) => /^\d+$/.test(value) && parseFloat(value) <= 1000000;
-  const validateDescripcion = (value) => /^.{15,100}$/.test(value);
+  const validateNombre = value => /^[a-zA-Z\s]{5,15}$/.test(value);
+  const validatePrecio = value =>
+    /^\d+$/.test(value) && parseFloat(value) <= 1000000;
+  const validateDescripcion = value => /^.{15,100}$/.test(value);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
 
     // Validaciones en tiempo real
     if (name === 'nombreproductos') {
       setErrors(prev => ({
         ...prev,
-        nombreproductos: validateNombre(value) ? '' : 'El valor debe contener entre 5 y 15 letras sin números.',
+        nombreproductos: validateNombre(value)
+          ? ''
+          : 'El valor debe contener entre 5 y 15 letras sin números.',
       }));
     } else if (name === 'precio') {
       setErrors(prev => ({
         ...prev,
-        precio: validatePrecio(value) ? '' : 'El precio debe ser numérico y no superar el millón.',
+        precio: validatePrecio(value)
+          ? ''
+          : 'El precio debe ser numérico y no superar el millón.',
       }));
     } else if (name === 'descripcion') {
       setErrors(prev => ({
         ...prev,
-        descripcion: validateDescripcion(value) ? '' : 'La descripción debe tener entre 15 y 100 caracteres.',
+        descripcion: validateDescripcion(value)
+          ? ''
+          : 'La descripción debe tener entre 15 y 100 caracteres.',
       }));
     }
   };
-
 
   const [formData, setFormData] = useState({
     nombreproductos: '',
@@ -93,7 +97,6 @@ export const ModalCrearProductos = () => {
     imagenes: [],
     categorias: [],
   });
-
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState('md');
@@ -125,7 +128,7 @@ export const ModalCrearProductos = () => {
       toast.error('Por favor complete todos los campos requeridos.');
       return;
     }
-  
+
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('nombreproductos', formData.nombreproductos);
@@ -150,7 +153,9 @@ export const ModalCrearProductos = () => {
         // Manejo de errores específico
         const errorText = await response.text();
         if (errorText === true) {
-          toast.error('La imagen ya se ha subido o hay un problema con la imagen.');
+          toast.error(
+            'La imagen ya se ha subido o hay un problema con la imagen.',
+          );
         } else {
           toast.error('Las imágenes no se subieron correctamente.');
         }
@@ -225,29 +230,28 @@ export const ModalCrearProductos = () => {
             <ModalBody>
               <form onSubmit={handleSubmit}>
                 <div className='sm:flex sm:mb-5'>
-                <InputForm
-                  name='nombreproductos'
-                  label='Nombre del producto'
-                  isInvalid={!!errors.nombreproductos}
-                  messajeError={errors.nombreproductos}
-                  tipo='text'
-                  placeholder='Nombre del producto'
-                  estilos='sm:ml-5 sm:mr-5 mb-2 flex w-full flex-wrap md:flex-nowrap gap-4'
-                  value={formData.nombreproductos}
-                  onChange={handleInputChange}
-                />
-                <InputForm
-                  name='precio'
-                  label='Precio del producto'
-                  isInvalid={!!errors.precio}
-                  messajeError={errors.precio}
-                  tipo='number'
-                  placeholder='Precio del producto'
-                  estilos='sm:ml-5 sm:mr-5 mb-2 flex w-full flex-wrap md:flex-nowrap gap-4'
-                  value={formData.precio}
-                  onChange={handleInputChange}
-                />
-            
+                  <InputForm
+                    name='nombreproductos'
+                    label='Nombre del producto'
+                    isInvalid={!!errors.nombreproductos}
+                    messajeError={errors.nombreproductos}
+                    tipo='text'
+                    placeholder='Nombre del producto'
+                    estilos='sm:ml-5 sm:mr-5 mb-2 flex w-full flex-wrap md:flex-nowrap gap-4'
+                    value={formData.nombreproductos}
+                    onChange={handleInputChange}
+                  />
+                  <InputForm
+                    name='precio'
+                    label='Precio del producto'
+                    isInvalid={!!errors.precio}
+                    messajeError={errors.precio}
+                    tipo='number'
+                    placeholder='Precio del producto'
+                    estilos='sm:ml-5 sm:mr-5 mb-2 flex w-full flex-wrap md:flex-nowrap gap-4'
+                    value={formData.precio}
+                    onChange={handleInputChange}
+                  />
                 </div>
                 <div className='sm:flex sm:mb-5'>
                   <Textarea
@@ -257,8 +261,8 @@ export const ModalCrearProductos = () => {
                     value={formData.descripcion}
                     onChange={handleInputChange}
                     placeholder='Descripcion del producto'
-                    variant="bordered"
-                    label="Descripción"
+                    variant='bordered'
+                    label='Descripción'
                     errorMessage={errors.descripcion}
                     isInvalid={!!errors.descripcion}
                   />
@@ -279,7 +283,9 @@ export const ModalCrearProductos = () => {
                             {categoria}
                           </div>
                         ))}
-                           {errors.categorias && <p className="text-red-500">{errors.categorias}</p>}
+                        {errors.categorias && (
+                          <p className='text-red-500'>{errors.categorias}</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -300,8 +306,9 @@ export const ModalCrearProductos = () => {
                           ></div>
                         ))}
                       </div>
-                      {errors.colores && <p className="text-red-500">{errors.colores}</p>}
-
+                      {errors.colores && (
+                        <p className='text-red-500'>{errors.colores}</p>
+                      )}
                     </div>
                     <div className='sm:mt-5 flex sm:ml-16'>
                       <ModalTallas
@@ -315,7 +322,9 @@ export const ModalCrearProductos = () => {
                             {tallas}
                           </div>
                         ))}
-                         {errors.tallas && <p className="text-red-500">{errors.tallas}</p>}
+                        {errors.tallas && (
+                          <p className='text-red-500'>{errors.tallas}</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -343,7 +352,9 @@ export const ModalCrearProductos = () => {
                       onChange={handleFileChange}
                       className='hidden'
                     />
-                        {errors.imagenes && <p className="text-red-500">{errors.imagenes}</p>}
+                    {errors.imagenes && (
+                      <p className='text-red-500'>{errors.imagenes}</p>
+                    )}
                   </label>
                 ) : (
                   <div className='flex flex-wrap gap-4 m-5'>
@@ -366,7 +377,11 @@ export const ModalCrearProductos = () => {
                   >
                     Cerrar
                   </Button>
-                  <Button color='primary' type='submit'  className='ursor-not-allowed'>
+                  <Button
+                    color='primary'
+                    type='submit'
+                    className='ursor-not-allowed'
+                  >
                     Enviar
                   </Button>
                 </ModalFooter>

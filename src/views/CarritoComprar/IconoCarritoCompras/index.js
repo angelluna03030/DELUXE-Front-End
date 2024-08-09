@@ -1,1 +1,1 @@
-export * from "./IconoCarritoCompras"
+export * from './IconoCarritoCompras';

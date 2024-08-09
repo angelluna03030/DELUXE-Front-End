@@ -12,7 +12,6 @@ import {
   Textarea,
   Image,
   CircularProgress,
-
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import imagen from '../../../assets/imagen.svg'; // Ruta al icono de imagen
@@ -31,7 +30,7 @@ export const EditarCategoria = ({ id }) => {
   const [errors, setErrors] = useState({
     nombre: '',
     descripcion: '',
-    imagen: ''
+    imagen: '',
   });
 
   useEffect(() => {
@@ -58,22 +57,34 @@ export const EditarCategoria = ({ id }) => {
 
   useEffect(() => {
     // Validación de nombre
-    if (nombre && (nombre.length < 5 || nombre.length > 15 || /\d/.test(nombre))) {
-      setErrors(prev => ({ ...prev, nombre: 'El nombre debe contener entre 5 y 15 letras sin números.' }));
+    if (
+      nombre &&
+      (nombre.length < 5 || nombre.length > 15 || /\d/.test(nombre))
+    ) {
+      setErrors(prev => ({
+        ...prev,
+        nombre: 'El nombre debe contener entre 5 y 15 letras sin números.',
+      }));
     } else {
       setErrors(prev => ({ ...prev, nombre: '' }));
     }
 
     // Validación de descripción
     if (descripcion && (descripcion.length < 15 || descripcion.length > 100)) {
-      setErrors(prev => ({ ...prev, descripcion: 'La descripción debe tener entre 15 y 100 caracteres.' }));
+      setErrors(prev => ({
+        ...prev,
+        descripcion: 'La descripción debe tener entre 15 y 100 caracteres.',
+      }));
     } else {
       setErrors(prev => ({ ...prev, descripcion: '' }));
     }
 
     // Validación de imagen
     if (!nuevaImagen && !imagenActual) {
-      setErrors(prev => ({ ...prev, imagen: 'Se debe seleccionar una imagen.' }));
+      setErrors(prev => ({
+        ...prev,
+        imagen: 'Se debe seleccionar una imagen.',
+      }));
     } else {
       setErrors(prev => ({ ...prev, imagen: '' }));
     }
@@ -172,8 +183,8 @@ export const EditarCategoria = ({ id }) => {
               <ModalBody>
                 {cargando ? (
                   <div className='flex justify-center items-center h-40'>
-                  <CircularProgress />
-                </div>
+                    <CircularProgress />
+                  </div>
                 ) : (
                   <>
                     <label
@@ -209,15 +220,17 @@ export const EditarCategoria = ({ id }) => {
                           />
                         </div>
                         {errors.imagen && (
-                          <div className='text-red-500 text-sm mt-2'>{errors.imagen}</div>
+                          <div className='text-red-500 text-sm mt-2'>
+                            {errors.imagen}
+                          </div>
                         )}
                       </div>
                     </label>
 
                     <Input
-                        isInvalid={!!errors.nombre}
-                        color={errors.nombre ? "danger" : ""}
-                        errorMessage={errors.nombre}
+                      isInvalid={!!errors.nombre}
+                      color={errors.nombre ? 'danger' : ''}
+                      errorMessage={errors.nombre}
                       className='w-full'
                       fullWidth
                       clearable
@@ -225,12 +238,11 @@ export const EditarCategoria = ({ id }) => {
                       value={nombre}
                       onChange={e => setNombre(e.target.value)}
                     />
-                    
 
                     <Textarea
-                     isInvalid={!!errors.descripcion}
-                     color={errors.descripcion ? "danger" : ""}
-                     errorMessage={errors.descripcion}
+                      isInvalid={!!errors.descripcion}
+                      color={errors.descripcion ? 'danger' : ''}
+                      errorMessage={errors.descripcion}
                       fullWidth
                       label='Descripción'
                       value={descripcion}
@@ -238,7 +250,6 @@ export const EditarCategoria = ({ id }) => {
                       rows={4}
                       className='mt-4  w-full'
                     />
-                   
                   </>
                 )}
               </ModalBody>

@@ -1,8 +1,3 @@
-
 export const InformacionProductos = () => {
-  return (
-    <>
-     
-    </>
-  );
+  return <></>;
 };

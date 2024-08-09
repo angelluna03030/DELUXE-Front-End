@@ -1,1 +1,1 @@
-export * from "./Navegacion"
+export * from './Navegacion';

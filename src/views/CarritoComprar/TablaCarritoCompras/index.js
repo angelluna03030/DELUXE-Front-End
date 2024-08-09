@@ -1,2 +1,2 @@
-export * from "./TablaCarrito"
-export * from "./TablaInformacionProductoPedido"
+export * from './TablaCarrito';
+export * from './TablaInformacionProductoPedido';

@@ -1,1 +1,1 @@
-export * from "./RegistrarCatalogo"
+export * from './RegistrarCatalogo';

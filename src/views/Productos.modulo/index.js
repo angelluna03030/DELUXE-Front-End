@@ -1,3 +1,3 @@
-export * from "./Productos"
+export * from './Productos';
 
-export * from "./components/ModalColores"
+export * from './components/ModalColores';

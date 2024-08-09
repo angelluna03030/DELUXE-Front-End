@@ -3,11 +3,11 @@ import { Sesion } from '../views/Sesion';
 import { Catalogo } from '../views/Catalogo';
 import { Producto } from '../views/Producto';
 import { Categoria } from '../views/CategoriasProductos';
-import {Productos} from "../views/Productos.modulo"
-import {BuscarProductos} from "../views/BuscarProductos"
-import {TablaCarrito} from "../views/CarritoComprar/TablaCarritoCompras"
-import {Categorias} from "../views/Categorias.modulo"
-import {RegistrarCatalogo} from "../views/RegistrarCatalogo"
+import { Productos } from '../views/Productos.modulo';
+import { BuscarProductos } from '../views/BuscarProductos';
+import { TablaCarrito } from '../views/CarritoComprar/TablaCarritoCompras';
+import { Categorias } from '../views/Categorias.modulo';
+import { RegistrarCatalogo } from '../views/RegistrarCatalogo';
 export const Rutas = () => {
   return (
     <Routes>

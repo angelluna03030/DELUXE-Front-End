@@ -11,7 +11,6 @@ import {
   Input,
   Textarea,
   Image,
-
   CircularProgress,
 } from '@nextui-org/react';
 import { EyeIcon } from '../../../states/icons/EyeIcon';

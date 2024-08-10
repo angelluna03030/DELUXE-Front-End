@@ -15,7 +15,9 @@ export const Categorias = () => {
       const response = await fetch(`${RUTA_API}/api/categorias`);
       const dataResponse = await response.json();
       if (response.status >= 200 && response.status < 300) {
-        setCategorias(dataResponse);
+        const productosFiltrados = dataResponse.filter(dataResponse => dataResponse.estado !== 0);
+
+        setCategorias(productosFiltrados);
       } else {
         toast.error('No se encontraron los recursos (404)');
       }

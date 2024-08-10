@@ -13,7 +13,7 @@ export const Navegacion = () => {
             DELUXE
           </Link>
           <button
-            className='rounded-lg md:hidden rounded-lg focus:outline-none focus:shadow-outline'
+            className='rounded-lg md:hidden  focus:outline-none focus:shadow-outline'
             onClick={() => setIsOpen(!isOpen)}
           >
             <svg fill='currentColor' viewBox='0 0 20 20' className='w-6 h-6'>

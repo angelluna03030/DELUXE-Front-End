@@ -23,7 +23,15 @@ export const Categoria = () => {
           `${RUTA_API}/api/productos/categorias/${categoria}`,
         );
         const data = await response.json();
-        setProductos(data || []);
+
+        if (data.message){
+          return;
+        }
+        const productosFiltrados = data.filter(producto => producto.estado !== 0);
+
+        setProductos(productosFiltrados || []);
+  
+        
       } catch (error) {
         console.error('Error cargando los productos:', error);
       } finally {

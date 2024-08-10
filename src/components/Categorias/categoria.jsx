@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'; // Asegúrate de importar toast si lo us
 import 'swiper/swiper-bundle.css'; // Importar los estilos de Swiper
 import { Skeleton } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
-
+import imagen_No_funtion from "../../assets/no-fotos.png"
 export const Categorias = () => {
   const [categories, setCategorias] = useState([]);
 
@@ -58,6 +58,9 @@ export const Categorias = () => {
                 <div className='w-28 h-52 flex flex-col items-center font-medium justify-between '>
                   <div className='w-full h-44'>
                     <img
+                     onError={e => {
+                      e.target.src = imagen_No_funtion;
+                    }}
                       src={`${RUTA_API}/public/${category.imagen}`}
                       alt={category.nombre}
                       className='rounded-2xl w-full h-full object-cover'

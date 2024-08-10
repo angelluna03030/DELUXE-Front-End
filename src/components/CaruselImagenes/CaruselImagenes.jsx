@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import imagen_No_funtion from "../../assets/no-fotos.png"
 import imagen from '../../assets/OIP.jpg';
 import imagen1 from '../../assets/imagen1.jpeg';
 import imagen2 from '../../assets/imagen2.jpeg';
@@ -46,6 +47,9 @@ export const Carrusel = () => {
             style={{ minWidth: `${100 / productos.length}%` }}
           >
             <img
+               onError={e => {
+                e.target.src = imagen_No_funtion;
+              }}
               src={producto.src}
               alt={producto.alt}
               className='w-[100%] h-full object-cover '

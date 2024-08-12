@@ -24,14 +24,14 @@ export const Categoria = () => {
         );
         const data = await response.json();
 
-        if (data.message){
+        if (data.message) {
           return;
         }
-        const productosFiltrados = data.filter(producto => producto.estado !== 0);
+        const productosFiltrados = data.filter(
+          producto => producto.estado !== 0,
+        );
 
         setProductos(productosFiltrados || []);
-  
-        
       } catch (error) {
         console.error('Error cargando los productos:', error);
       } finally {

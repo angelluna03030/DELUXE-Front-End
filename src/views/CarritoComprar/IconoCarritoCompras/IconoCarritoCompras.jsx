@@ -8,7 +8,10 @@ export const CarritoComprasIcono = () => {
   const { carrito } = useContext(CarritoContext);
 
   // Contar la cantidad total de productos en el carrito
-  const cantidadProductos = carrito.reduce((total, item) => total + item.cantidad, 0);
+  const cantidadProductos = carrito.reduce(
+    (total, item) => total + item.cantidad,
+    0,
+  );
 
   return (
     <Link to={'/carritocompras'}>

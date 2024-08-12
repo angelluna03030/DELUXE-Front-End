@@ -1,6 +1,6 @@
 import { Image } from '@nextui-org/react';
 import { useState, useEffect } from 'react';
-import imagen_No_funtion from "../../assets/no-fotos.png"
+import imagen_No_funtion from '../../assets/no-fotos.png';
 export const GaleriaProductos = ({ imagenes = [] }) => {
   const [active, setActive] = useState(imagenes[0]?.src || '');
   useEffect(() => {
@@ -37,9 +37,9 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
               className='relative  w-full h-24 flex items-center justify-center 	rounded-md  '
             >
               <Image
-               onError={e => {
-                e.target.src = imagen_No_funtion;
-              }}
+                onError={e => {
+                  e.target.src = imagen_No_funtion;
+                }}
                 src={imagen.src}
                 alt={imagen.alt || `Imagen ${index + 1}`}
                 className='w-full h-full object-cover rounded-lg cursor-pointer'

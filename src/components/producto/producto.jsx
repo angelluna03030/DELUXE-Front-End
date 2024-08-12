@@ -1,6 +1,6 @@
 import React from 'react';
 import imagen from '../../assets/OIP.jpg';
-import imagen_No_funtion from "../../assets/no-fotos.png"
+import imagen_No_funtion from '../../assets/no-fotos.png';
 export const Producto = () => {
   return (
     <div className='container mx-auto p-4 lg:min-h-screen flex items-center justify-center'>
@@ -8,9 +8,9 @@ export const Producto = () => {
         {/* Producto 1 */}
         <div className='max-w-xs sm:max-w-sm mx-auto relative shadow-md rounded-lg cursor-pointer'>
           <img
-           onError={e => {
-            e.target.src = imagen_No_funtion;
-          }}
+            onError={e => {
+              e.target.src = imagen_No_funtion;
+            }}
             src={imagen}
             alt='Img by Meriç Dağlı https://unsplash.com/@meric'
             className='w-full h-auto object-cover rounded-lg'

@@ -58,16 +58,16 @@ const StateCarrito = ({ children }) => {
   const cambiarTalla = (productoId, nuevaTalla) => {
     setCarrito(prevCarrito =>
       prevCarrito.map(item =>
-        item.id === productoId ? { ...item, talla: nuevaTalla } : item
-      )
+        item.id === productoId ? { ...item, talla: nuevaTalla } : item,
+      ),
     );
   };
-  
+
   const cambiarColor = (productoId, nuevoColor) => {
     setCarrito(prevCarrito =>
       prevCarrito.map(item =>
-        item.id === productoId ? { ...item, color: nuevoColor } : item
-      )
+        item.id === productoId ? { ...item, color: nuevoColor } : item,
+      ),
     );
   };
   const contarProductos = () => {

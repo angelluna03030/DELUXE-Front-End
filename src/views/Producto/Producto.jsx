@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { CargarProductos } from '../../components/CardCargando/CargarProductos/CargarProductos';
 import { CarritoContext } from '../../states/context/ContextCarrito';
-import {Tooltip, Button} from "@nextui-org/react";
+import { Tooltip, Button } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const Producto = () => {
@@ -62,7 +62,7 @@ export const Producto = () => {
           talla: selectedTalla,
           color: selectedColor,
         },
-        1 // Cantidad seleccionada
+        1, // Cantidad seleccionada
       );
       toast.success('Producto agregado exitosamente');
     } else {
@@ -81,8 +81,7 @@ export const Producto = () => {
   useEffect(() => {
     if (
       producto &&
-      (producto.colores.length === 0 ||
-      producto.tallas.length === 0)
+      (producto.colores.length === 0 || producto.tallas.length === 0)
     ) {
       setMensajeTooltip('Este producto no tiene opciones de talla ni color.');
       setValidar(true); // Permite la compra si no hay tallas ni colores
@@ -171,32 +170,26 @@ export const Producto = () => {
           </div>
           <div className='mt-4 flex ml-6'>
             <div className='bg-white border border-sky-950 rounded-full m-3 p-4'>
-            <Tooltip
-												isDisabled={validar}
-												content={mensajeTooltip}
-												showArrow
-												placement='top-start'
-												classNames={{
-													base: [
-														// arrow color
-														'before:bg-neutral-400 dark:before:bg-white',
-													],
-													content: [
-														'py-2 px-4 shadow-xl bg-[#358FED]',
-														'text-white ',
-													],
-												}}
-											>
-                              <button
+              <Tooltip
+                isDisabled={validar}
+                content={mensajeTooltip}
+                showArrow
+                placement='top-start'
+                classNames={{
+                  base: [
+                    // arrow color
+                    'before:bg-neutral-400 dark:before:bg-white',
+                  ],
+                  content: ['py-2 px-4 shadow-xl bg-[#358FED]', 'text-white '],
+                }}
+              >
+                <button
                   type='button'
                   onClick={handleAgregarProducto}
-                  className={` font-semibold  rounded-full ${ validar ? "text-black" : "text-gray-400"}`
-                  }
-              
+                  className={` font-semibold  rounded-full ${validar ? 'text-black' : 'text-gray-400'}`}
                 >
                   Agregar Al Carrito
                 </button>
-
               </Tooltip>
             </div>
             <Comprar />

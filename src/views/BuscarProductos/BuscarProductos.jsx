@@ -23,10 +23,11 @@ export const BuscarProductos = () => {
           `${RUTA_API}/api/productos/buscar/${query}`,
         );
         const data = await response.json();
-        const productosFiltrados = data.filter(producto => producto.estado !== 0);
+        const productosFiltrados = data.filter(
+          producto => producto.estado !== 0,
+        );
 
         setProductos(productosFiltrados);
-  
       } catch (error) {
         console.error('Error cargando los productos:', error);
       } finally {

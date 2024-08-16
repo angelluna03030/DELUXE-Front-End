@@ -7,7 +7,7 @@ import { Productos } from '../views/Productos.modulo';
 import { BuscarProductos } from '../views/BuscarProductos';
 import { TablaCarrito } from '../views/CarritoComprar/TablaCarritoCompras';
 import { Categorias } from '../views/Categorias.modulo';
-import { RegistrarCatalogo } from '../views/RegistrarCatalogo';
+import { RegistrarCatalogo } from '../views/Catalogo.module';
 export const Rutas = () => {
   return (
     <Routes>

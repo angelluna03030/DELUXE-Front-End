@@ -1,53 +1,27 @@
-import React, { useState } from 'react';
+import { Layout } from '../../../components/Layout';
+import { Carrusel } from '../../../components/CaruselImagenes';
+import { VideoPlayer } from '../../../components/Video';
+import { Producto } from '../../../components/Producto';
+import { Categorias } from '../../../components/Categorias';
 
+import { GaleriaImagenes } from '../../../components/GaleriadeImagenes';
+import {EditarCatalogo} from "./index"
 export const TablaCatalogo = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadStatus, setUploadStatus] = useState('');
-
-  // Manejar la selección del archivo
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
-  // Manejar la carga del archivo
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      setUploadStatus('No file selected');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('files', selectedFile);
-
-    try {
-      const response = await fetch('http://localhost:3000/public', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setUploadStatus(`Upload successful: ${result.data}`);
-        console.log(result.data)
-      } else {
-        const errorData = await response.json();
-        setUploadStatus(`Upload failed: ${errorData.error || 'Unknown error'}`);
-      }
-    } catch (error) {
-      setUploadStatus(`Error: ${error.message}`);
-    }
-  };
-
   return (
-    <div>
-      <h1>Upload Video</h1>
-      <input
-        type="file"
-        accept="video/*"
-        onChange={handleFileChange}
-      />
-      <button onClick={handleUpload}>Upload Video</button>
-      {uploadStatus && <p>{uploadStatus}</p>}
+    <div className='flex flex-col gap-6'>
+      <EditarCatalogo></EditarCatalogo>
+      <div className='sm:flex'>
+      <Layout />
+
+      </div>
+      <Carrusel />
+      <Categorias />
+      <div className='w-80 h-80 justify-center items-center mb-64 ml-20  sm:ml-96'>
+      <VideoPlayer />
+
+      </div>
+      <GaleriaImagenes />
+      <Producto />
     </div>
   );
 };

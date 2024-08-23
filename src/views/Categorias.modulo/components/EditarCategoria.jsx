@@ -11,7 +11,7 @@ import {
   Input,
   Textarea,
   CircularProgress,
-  Image
+  Image,
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import { getData, putData } from '../../../config/utils/metodoFecht';
@@ -48,10 +48,7 @@ export const EditarCategoria = ({ id }) => {
     } else {
       setErrors(prev => ({ ...prev, nombre: '' }));
     }
-    if (
-      descripcion &&
-      (descripcion.length < 15 || descripcion.length > 100)
-    ) {
+    if (descripcion && (descripcion.length < 15 || descripcion.length > 100)) {
       setErrors(prev => ({
         ...prev,
         descripcion: 'La descripción debe tener entre 15 y 100 caracteres.',
@@ -59,7 +56,6 @@ export const EditarCategoria = ({ id }) => {
     } else {
       setErrors(prev => ({ ...prev, descripcion: '' }));
     }
-
   }, [descripcion, nombre]);
 
   useEffect(() => {
@@ -68,7 +64,7 @@ export const EditarCategoria = ({ id }) => {
         setLoading(true);
         try {
           const { status, dataResponse } = await getData(
-            `${RUTA_API}/api/categorias/${id}`
+            `${RUTA_API}/api/categorias/${id}`,
           );
           if (status >= 200 && status < 300) {
             setCategoria(dataResponse);
@@ -104,7 +100,7 @@ export const EditarCategoria = ({ id }) => {
     try {
       const response = await putData(
         `${RUTA_API}/api/categorias/${id}`,
-        updatedCategoria
+        updatedCategoria,
       );
       console.log('Categoria actualizada:', response);
       toast.success('Categoría actualizada con éxito');
@@ -134,7 +130,7 @@ export const EditarCategoria = ({ id }) => {
         }
 
         const imageData = await response.json();
-        console.log(imageData.message)
+        console.log(imageData.message);
         setImagen(imageData.files[0]); // Ajusta esta línea según el formato de respuesta del servidor
       } catch (error) {
         toast.error('Error subiendo la imagen');
@@ -205,34 +201,28 @@ export const EditarCategoria = ({ id }) => {
                     onChange={handleFileChange}
                     className='hidden'
                   />
-                   {imagen && (
-                  <div className='mt-4'>
-                    <label className='block text-sm font-medium text-gray-700'>
-                      Imagen Actual
-                    </label>
-                    <div className='relative mt-2'>
-                      <Image
-                        src={
-                          imagen
-                            ? `${RUTA_API}/public/${imagen}`
-                            : imagen
-                        }
-                        alt='Imagen Actual'
-                        width={100}
-                        height={100}
-                        className='object-cover rounded-md'
-                      />
+                  {imagen && (
+                    <div className='mt-4'>
+                      <label className='block text-sm font-medium text-gray-700'>
+                        Imagen Actual
+                      </label>
+                      <div className='relative mt-2'>
+                        <Image
+                          src={imagen ? `${RUTA_API}/public/${imagen}` : imagen}
+                          alt='Imagen Actual'
+                          width={100}
+                          height={100}
+                          className='object-cover rounded-md'
+                        />
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
                 </label>
 
-               
-
                 <Input
-                    isInvalid={!!errors.nombre}
-                    color={errors.nombre ? 'danger' : ''}
-                    errorMessage={errors.nombre}
+                  isInvalid={!!errors.nombre}
+                  color={errors.nombre ? 'danger' : ''}
+                  errorMessage={errors.nombre}
                   className='w-full mt-4'
                   clearable
                   label='Nombre'

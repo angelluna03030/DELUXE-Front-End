@@ -120,7 +120,6 @@ export const EditarProducto = ({ id }) => {
         });
 
         if (!response.ok) {
-          
           throw new Error('Error en la subida de imágenes');
         }
 

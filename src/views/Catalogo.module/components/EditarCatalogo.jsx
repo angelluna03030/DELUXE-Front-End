@@ -1,4 +1,9 @@
-import { EditarImagenesParaVideo, EditarVideo, EditarGaleriaDeImagenes, EditarProductosDestacados } from './index';
+import {
+  EditarImagenesParaVideo,
+  EditarVideo,
+  EditarGaleriaDeImagenes,
+  EditarProductosDestacados,
+} from './index';
 
 export const EditarCatalogo = () => {
   return (

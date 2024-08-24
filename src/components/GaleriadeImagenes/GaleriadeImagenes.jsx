@@ -4,16 +4,18 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { EffectCoverflow } from 'swiper/modules';
 import imagen_No_funtion from '../../assets/no-fotos.png';
+import { Skeleton } from '@nextui-org/react';
+
 
 export const GaleriaImagenes = ({ imagenes = [] }) => {
   if (!imagenes || imagenes.length === 0) {
     return (
       <div className="flex justify-center items-center">
-        <img
-          src={imagen_No_funtion}
-          alt="Sin imágenes disponibles"
-          className="w-[100%] h-full object-cover"
-        />
+ 
+      <div className="overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10">
+        <Skeleton className='rounded-lg  sm:m-5  h-96 w-80 m-auto mb-10' />;
+      </div>
+    
       </div>
     );
   }

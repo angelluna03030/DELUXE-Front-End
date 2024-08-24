@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 const RUTA_API = import.meta.env.VITE_API_URL;
-
+import { Skeleton } from '@nextui-org/react';
 // Componente Carrusel que acepta un array de imágenes como prop
 export const Carrusel = ({ imagenes = [] }) => {
   const [offset, setOffset] = useState(0);
@@ -19,11 +19,7 @@ export const Carrusel = ({ imagenes = [] }) => {
   if (!imagenes.length) {
     return (
       <div className="overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10">
-        <img
-          src={imagen_No_funtion}
-          alt="Sin imágenes disponibles"
-          className="w-[100%] h-full object-cover"
-        />
+        <Skeleton className='rounded-lg  sm:m-5  h-96 w-80 m-auto mb-10' />;
       </div>
     );
   }

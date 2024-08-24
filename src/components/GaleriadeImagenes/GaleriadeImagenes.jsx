@@ -1,23 +1,24 @@
 import React from 'react';
 import { Productos } from './index';
-import imagen from '../../assets/OIP.jpg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { EffectCoverflow } from 'swiper/modules';
+import imagen_No_funtion from '../../assets/no-fotos.png';
 
-import imagen2 from '../../assets/imagen2.jpeg';
-
-export const GaleriaImagenes = () => {
-  const productos = [
-    { src: imagen2, alt: 'Producto 1' },
-    { src: imagen2, alt: 'Producto 2' },
-    { src: imagen2, alt: 'Producto 3' },
-    { src: imagen2, alt: 'Producto 4' },
-    { src: imagen2, alt: 'Producto 5' },
-  ];
-
+export const GaleriaImagenes = ({ imagenes = [] }) => {
+  if (!imagenes || imagenes.length === 0) {
+    return (
+      <div className="flex justify-center items-center">
+        <img
+          src={imagen_No_funtion}
+          alt="Sin imágenes disponibles"
+          className="w-[100%] h-full object-cover"
+        />
+      </div>
+    );
+  }
   return (
-    <div className='flex justify-center items-center  md:ml-12 md:mb-12 '>
+    <div className='flex justify-center items-center md:ml-12 md:mb-12'>
       <Swiper
         modules={[EffectCoverflow]}
         effect={'coverflow'}
@@ -40,16 +41,18 @@ export const GaleriaImagenes = () => {
         }}
         className=''
       >
-        {productos.map((producto, index) => (
+        {imagenes.map((imagen, index) => (
           <SwiperSlide
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={index}
-            className='flex items-center md:ml-2 mb-10  md:mb-16'
+            className='flex items-center md:ml-2 mb-10 md:mb-16'
           >
             <Productos
-              src={producto.src}
-              alt={producto.alt}
-              className='rounded-lg  '
+              src={imagen}
+              alt={imagen}
+              onError={e => {
+                e.target.src = imagen_No_funtion;
+              }}
+              className='rounded-lg'
             />
           </SwiperSlide>
         ))}

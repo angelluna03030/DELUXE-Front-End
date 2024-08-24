@@ -1,7 +1,52 @@
 import React from 'react';
 import imagen from '../../assets/OIP.jpg';
 import imagen_No_funtion from '../../assets/no-fotos.png';
-export const Producto = () => {
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+const RUTA_API = import.meta.env.VITE_API_URL;
+
+export const Producto = ({Ids}) => {
+  const [Producto, setProducto] = useState({
+    nombreproductos: '',
+    estado: 1,
+    precio: 0,
+    descripcion: '',
+    tallas: [],
+    colores: [],
+    imagenes: [],
+    categorias: [],
+  });
+
+  useEffect(() => {
+    const obtenerCatalogo = async () => {
+      try {
+        const response = await fetch(`${RUTA_API}/public`, {
+          method: 'POST',
+          body: Ids,
+        });
+  
+        if (respuesta.ok) {
+          const data = await respuesta.json();
+          if (data.length > 0) {
+            // Asumiendo que solo hay un catálogo
+            setProducto(data[0]); 
+          } else {
+            toast.error('No se encontraron recursos');
+          }
+       
+        } else {
+          toast.error('No se encontraron los recursos (404)');
+          console.error('Error al obtener el catálogo:', respuesta.status);
+        }
+      } catch (err) {
+        toast.error('No se ha podido traer el catálogo');
+        console.error('Error al traer el catálogo:', err);
+      }
+    };
+
+    obtenerCatalogo();
+  }, []); // Se ejecuta solo una vez cuando el componente se monta.
+
   return (
     <div className='container mx-auto p-4 lg:min-h-screen flex items-center justify-center'>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>

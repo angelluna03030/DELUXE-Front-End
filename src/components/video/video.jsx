@@ -3,16 +3,12 @@ import React from 'react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const VideoPlayer = ({ video }) => {
-  console.log(video);
-
   // Verifica si video tiene un valor válido antes de renderizar
   if (!video) {
     return <p>No se ha proporcionado un video.</p>;
   }
-
   // Construye la URL completa para el video
   const videoUrl = `${RUTA_API}/public/${video}`;
-
   return (
     <div className='flex justify-center items-center mt-10 mb-10 bg-gray-100 mr-2 ml-2'>
       <div className='w-full md:max-w-screen-lg'>

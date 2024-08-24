@@ -57,7 +57,7 @@ export const TablaCatalogo = () => {
         <VideoPlayer video={catalogo.video} />
       </div>
       <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
-      <Producto />
+      <Producto Ids={catalogo.productosdestacados}/>
     </div>
   );
 };

@@ -53,7 +53,7 @@ export const TablaCatalogo = () => {
       </div>
       <Carrusel imagenes={catalogo.imagenesparavideo} />
       <Categorias />
-      <div className='w-80 h-80 justify-center items-center mb-64 ml-14 sm:ml-96'>
+      <div className='w-80 h-80 justify-center items-center mb-64 ml-12 sm:ml-96 m-auto'>
         <VideoPlayer video={catalogo.video} />
       </div>
       <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />

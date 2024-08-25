@@ -14,7 +14,7 @@ export const VideoPlayer = ({ video }) => {
   // Construye la URL completa para el video
   const videoUrl = `${RUTA_API}/public/${video}`;
   return (
-    <div className='flex justify-center items-center mt-10 mb-10 bg-gray-100 mr-2 ml-2'>
+    <div className='flex justify-center items-center mt-10 mb-10 bg-gray-100 mx-2 '>
       <div className='w-full md:max-w-screen-lg'>
         <div className='relative overflow-hidden rounded-lg shadow-lg'>
           <video
@@ -22,7 +22,7 @@ export const VideoPlayer = ({ video }) => {
             muted
             loop
             playsInline
-            className='w-full md:h-auto'
+            className='w-full md:h-auto m-auto'
             controls // Añadido para los controles del video
             onError={() => console.error('Error al cargar el video')}
           >

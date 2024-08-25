@@ -51,7 +51,7 @@ export const TablaCatalogo = () => {
       <div className='sm:flex'>
         <Layout />
       </div>
-      <Carrusel imagenes={catalogo.imagenesparagaleria} />
+      <Carrusel imagenes={catalogo.imagenesparavideo} />
       <Categorias />
       <div className='w-80 h-80 justify-center items-center mb-64 ml-14 sm:ml-96'>
         <VideoPlayer video={catalogo.video} />

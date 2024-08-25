@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   ModalContent,
@@ -10,31 +10,29 @@ import {
 } from '@nextui-org/react';
 import { Carrusel } from '../../../components/CaruselImagenes';
 import { toast } from 'react-toastify';
+
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const EditarImagenesParaVideo = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [catalogo, setCatalogo] = useState({
     imagenesparavideo: [],
-    video: '',
-    imagenesparagaleria: [],
-    productosdestacados: [],
   });
+  const [nuevasImagenes, setNuevasImagenes] = useState([]);
+  const [imagenesEliminadas, setImagenesEliminadas] = useState([]);
 
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
         const respuesta = await fetch(`${RUTA_API}/api/catalogo`);
-        
+
         if (respuesta.ok) {
           const data = await respuesta.json();
           if (data.length > 0) {
-            // Asumiendo que solo hay un catálogo
-            setCatalogo(data[0]); 
+            setCatalogo(data[0]);
           } else {
             toast.error('No se encontraron recursos');
           }
-       
         } else {
           toast.error('No se encontraron los recursos (404)');
           console.error('Error al obtener el catálogo:', respuesta.status);
@@ -46,13 +44,89 @@ export const EditarImagenesParaVideo = () => {
     };
 
     obtenerCatalogo();
-  }, []); // Se ejecuta solo una vez cuando el componente se monta.
+  }, []);
+
+  const eliminarImagen = (indice) => {
+    const imagenEliminada = catalogo.imagenesparavideo[indice];
+    setCatalogo((prevState) => ({
+      ...prevState,
+      imagenesparavideo: prevState.imagenesparavideo.filter(
+        (_, i) => i !== indice
+      ),
+    }));
+    setImagenesEliminadas((prevState) => [...prevState, imagenEliminada]);
+  };
+
+  const agregarImagenes = (e) => {
+    const files = Array.from(e.target.files);
+    if (catalogo.imagenesparavideo.length + files.length > 10) {
+      toast.error('No puedes tener más de 10 imágenes.');
+      return;
+    }
+    setNuevasImagenes((prevState) => [...prevState, ...files]);
+  };
+
+  const actualizarImagenes = async () => {
+    const formData = new FormData();
+  
+    // Agregar las nuevas imágenes al FormData
+    nuevasImagenes.forEach((img) => {
+      formData.append('files', img);
+    });
+
+    try {
+      // Subir nuevas imágenes
+      const respuesta = await fetch(`${RUTA_API}/public`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (respuesta.ok) {
+        const data = await respuesta.json();
+        const nombresImagenes = data.files || [];
+
+        // Combina las imágenes actuales que no han sido eliminadas con las nuevas imágenes subidas
+        const imagenesActualizadas = [
+          ...catalogo.imagenesparavideo.filter(
+            (img) => !imagenesEliminadas.includes(img)
+          ),
+          ...nombresImagenes,
+        ];
+
+        // Actualizar las imágenes en el catálogo
+        const respuestaUpdate = await fetch(`${RUTA_API}/api/catalogo/imagenesparavideo`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ imagenesparavideo: imagenesActualizadas }),
+        });
+
+        if (respuestaUpdate.ok) {
+          const dataUpdate = await respuestaUpdate.json();
+          setCatalogo(dataUpdate);
+          setNuevasImagenes([]);
+          setImagenesEliminadas([]);
+          toast.success('Imágenes actualizadas correctamente');
+        } else {
+          toast.error('Error al actualizar las imágenes en el catálogo');
+          console.error('Error al actualizar las imágenes:', respuestaUpdate.status);
+        }
+      } else {
+        toast.error('Error al subir las nuevas imágenes');
+        console.error('Error al subir las nuevas imágenes:', respuesta.status);
+      }
+    } catch (err) {
+      toast.error('Error al actualizar las imágenes');
+      console.error('Error:', err);
+    }
+  };
 
   return (
     <>
       <Button onPress={onOpen}>Imagenes Para Video</Button>
       <Modal
-        backdrop='opaque'
+        backdrop="opaque"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         classNames={{
@@ -63,21 +137,47 @@ export const EditarImagenesParaVideo = () => {
         <ModalContent>
           {onClose => (
             <>
-              <ModalHeader className='flex flex-col gap-1'>
-                Editar Imagenes para el primer video 
+              <ModalHeader className="flex flex-col gap-1">
+                Editar Imagenes para el primer video <p className='text-red-700'> (Solo 10 Imagenes)</p>
               </ModalHeader>
               <ModalBody>
-             
-              <Carrusel imagenes={catalogo.imagenesparagaleria} />
-
-
-
+                <Carrusel imagenes={catalogo.imagenesparavideo} />
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {catalogo.imagenesparavideo.map((img, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={`${RUTA_API}/public/${img}`}
+                        alt={`Imagen ${index}`}
+                        className="w-24 h-24 object-cover rounded"
+                      />
+                      <button
+                        onClick={() => eliminarImagen(index)}
+                        className="absolute top-0 right-0 p-1 bg-red-500 rounded-full text-white"
+                      >
+                        X
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <div className="grid w-full max-w-xs items-center gap-1.5">
+                  <label className="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Imagenes
+                  </label>
+                  <input
+                    type="file"
+                    id="picture"
+                    multiple
+                    onChange={agregarImagenes}
+                    className="mt-4 flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium"
+                  />
+                </div>
               </ModalBody>
               <ModalFooter>
-                <Button color='danger' variant='light' onPress={onClose}>
-                Cerrar 
+              <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Cerrar
                 </Button>
-                <Button color='primary' onPress={onClose}>
+                <Button color="primary" onPress={actualizarImagenes}>
                   Enviar
                 </Button>
               </ModalFooter>

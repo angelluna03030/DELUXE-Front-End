@@ -48,7 +48,7 @@ export const Catalogo = () => {
     <>
       <Layout />
       <Buscador />
-      <Carrusel imagenes={catalogo.imagenesparagaleria} />
+      <Carrusel imagenes={catalogo.imagenesparavideo} />
       <Categorias />
       <VideoPlayer video={catalogo.video} />
 

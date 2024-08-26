@@ -44,13 +44,14 @@ export const Producto = ({ Ids }) => {
   }, [Ids]); // Se ejecuta cada vez que Ids cambia
   if (!Ids) {
     return (
-      <div className="overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10">
+      <div className='overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10'>
         <Skeleton className='rounded-lg  sm:m-5  h-96 w-80 m-auto mb-10' />;
       </div>
     );
   }
 
-  if (!Ids) { // Muestra un mensaje o componente alternativo si Ids no está disponible
+  if (!Ids) {
+    // Muestra un mensaje o componente alternativo si Ids no está disponible
     return <p>Id no disponible</p>;
   }
 
@@ -59,9 +60,7 @@ export const Producto = ({ Ids }) => {
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {productos.map(producto => (
           <Link to={`/producto/${producto._id}`} key={producto._id}>
-            <div
-              className='max-w-xs sm:max-w-sm mx-auto relative shadow-md rounded-lg cursor-pointer'
-            >
+            <div className='max-w-xs sm:max-w-sm mx-auto relative shadow-md rounded-lg cursor-pointer'>
               <img
                 onError={e => {
                   e.target.src = imagen_No_funtion;

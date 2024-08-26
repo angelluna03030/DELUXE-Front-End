@@ -44,7 +44,7 @@ export const EditarVideo = () => {
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta.
 
-  const manejarCambioVideo = (e) => {
+  const manejarCambioVideo = e => {
     const archivo = e.target.files[0];
     if (archivo) {
       setNuevoVideo(archivo);
@@ -87,7 +87,10 @@ export const EditarVideo = () => {
           toast.success('Video actualizado correctamente');
         } else {
           toast.error('Error al actualizar el video en el catálogo');
-          console.error('Error al actualizar el video:', respuestaUpdate.status);
+          console.error(
+            'Error al actualizar el video:',
+            respuestaUpdate.status,
+          );
         }
       } else {
         toast.error('Error al subir el video');
@@ -103,7 +106,7 @@ export const EditarVideo = () => {
     <>
       <Button onPress={onOpen}>Editar Video</Button>
       <Modal
-        backdrop="opaque"
+        backdrop='opaque'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         classNames={{
@@ -114,31 +117,31 @@ export const EditarVideo = () => {
         <ModalContent>
           {onClose => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
+              <ModalHeader className='flex flex-col gap-1'>
                 Cambiar El Video
               </ModalHeader>
               <ModalBody>
-                <div className="h-96 w-52 m-auto">
+                <div className='h-96 w-52 m-auto'>
                   <VideoPlayer video={catalogo.video} />
                 </div>
-                <div className="grid w-full max-w-xs items-center gap-1.5 mt-4">
-                  <label className="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                <div className='grid w-full max-w-xs items-center gap-1.5 mt-4'>
+                  <label className='text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     Nuevo Video
                   </label>
                   <input
-                    type="file"
-                    id="video"
-                    accept="video/*"
+                    type='file'
+                    id='video'
+                    accept='video/*'
                     onChange={manejarCambioVideo}
-                    className="mt-2 flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium"
+                    className='mt-2 flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium'
                   />
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>
-                <Button color="primary" onPress={actualizarVideo}>
+                <Button color='primary' onPress={actualizarVideo}>
                   Enviar
                 </Button>
               </ModalFooter>

@@ -37,28 +37,31 @@ export const EditarProductosDestacados = () => {
     obtenerCatalogo();
   }, []);
 
-  const handleCheckboxChange = (productoId) => {
-    setProductosSeleccionados((prevSeleccionados) =>
+  const handleCheckboxChange = productoId => {
+    setProductosSeleccionados(prevSeleccionados =>
       prevSeleccionados.includes(productoId)
-        ? prevSeleccionados.filter((id) => id !== productoId)
-        : [...prevSeleccionados, productoId]
+        ? prevSeleccionados.filter(id => id !== productoId)
+        : [...prevSeleccionados, productoId],
     );
   };
 
   const handleEnviarProductosDestacados = async () => {
     try {
-      const respuesta = await fetch(`${RUTA_API}/api/catalogo/productosdestacados`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
+      const respuesta = await fetch(
+        `${RUTA_API}/api/catalogo/productosdestacados`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ productosdestacados: productosSeleccionados }),
         },
-        body: JSON.stringify({ productosdestacados: productosSeleccionados }),
-      });
+      );
 
       if (respuesta.ok) {
         const data = await respuesta.json();
         toast.success('Productos destacados actualizados correctamente');
-        onOpenChange(false);  // Cerrar el modal después de enviar
+        onOpenChange(false); // Cerrar el modal después de enviar
       } else {
         toast.error('Error al actualizar productos destacados');
       }
@@ -68,15 +71,15 @@ export const EditarProductosDestacados = () => {
     }
   };
 
-  const productosFiltrados = productos.filter((producto) =>
-    producto.nombreproductos.toLowerCase().includes(filtro.toLowerCase())
+  const productosFiltrados = productos.filter(producto =>
+    producto.nombreproductos.toLowerCase().includes(filtro.toLowerCase()),
   );
 
   return (
     <>
       <Button onPress={onOpen}>Productos Destacados</Button>
       <Modal
-        scrollBehavior="inside"
+        scrollBehavior='inside'
         backdrop='opaque'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -91,17 +94,19 @@ export const EditarProductosDestacados = () => {
               <ModalHeader className='flex flex-col gap-1'>
                 Productos Destacados
               </ModalHeader>
-              <ModalBody >
+              <ModalBody>
                 <Input
-                  placeholder="Buscar producto"
+                  placeholder='Buscar producto'
                   value={filtro}
-                  onChange={(e) => setFiltro(e.target.value)}
+                  onChange={e => setFiltro(e.target.value)}
                 />
                 <div className='flex flex-col gap-2'>
-                  {productosFiltrados.map((producto) => (
+                  {productosFiltrados.map(producto => (
                     <div key={producto._id} className='flex items-center'>
                       <Checkbox
-                        isSelected={productosSeleccionados.includes(producto._id)}
+                        isSelected={productosSeleccionados.includes(
+                          producto._id,
+                        )}
                         onChange={() => handleCheckboxChange(producto._id)}
                       >
                         {producto.nombreproductos}
@@ -114,7 +119,10 @@ export const EditarProductosDestacados = () => {
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>
-                <Button color='primary' onPress={handleEnviarProductosDestacados}>
+                <Button
+                  color='primary'
+                  onPress={handleEnviarProductosDestacados}
+                >
                   Enviar
                 </Button>
               </ModalFooter>

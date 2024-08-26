@@ -21,16 +21,15 @@ export const Catalogo = () => {
     const obtenerCatalogo = async () => {
       try {
         const respuesta = await fetch(`${RUTA_API}/api/catalogo`);
-        
+
         if (respuesta.ok) {
           const data = await respuesta.json();
           if (data.length > 0) {
             // Asumiendo que solo hay un catálogo
-            setCatalogo(data[0]); 
+            setCatalogo(data[0]);
           } else {
             toast.error('No se encontraron recursos');
           }
-       
         } else {
           toast.error('No se encontraron los recursos (404)');
           console.error('Error al obtener el catálogo:', respuesta.status);
@@ -53,7 +52,7 @@ export const Catalogo = () => {
       <VideoPlayer video={catalogo.video} />
 
       <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
-      <Producto Ids={catalogo.productosdestacados}/>
+      <Producto Ids={catalogo.productosdestacados} />
       <CarritoComprasIcono />
       <Footer />
     </>

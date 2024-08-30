@@ -6,7 +6,7 @@ export const Productos = ({ alt, src }) => {
   return (
     <div>
       <img
-        className='rounded-md'
+        className='rounded-md sm:p-10 sm:rounded-2xl'
         src={`${RUTA_API}/public/${src}`}
         alt={alt}
         onError={e => {

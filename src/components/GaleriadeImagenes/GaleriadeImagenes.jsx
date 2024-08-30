@@ -43,7 +43,7 @@ export const GaleriaImagenes = ({ imagenes = [] }) => {
         {imagenes.map((imagen, index) => (
           <SwiperSlide
             key={index}
-            className='flex items-center md:ml-2 mb-10 md:mb-16'
+            className='flex items-center md:ml-2 mb-10 md:mb-16 h-full'
           >
             <Productos
               src={imagen}

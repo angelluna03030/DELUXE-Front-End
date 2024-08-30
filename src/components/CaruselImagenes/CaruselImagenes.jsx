@@ -32,7 +32,7 @@ export const Carrusel = ({ imagenes = [] }) => {
   };
 
   return (
-    <div className='overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10'>
+    <div className='overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10 '>
       <div className='flex' style={containerStyle}>
         {imagenes.map((imagenSrc, index) => (
           <div

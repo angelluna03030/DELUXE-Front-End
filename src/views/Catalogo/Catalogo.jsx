@@ -49,9 +49,15 @@ export const Catalogo = () => {
       <Buscador />
       <Carrusel imagenes={catalogo.imagenesparavideo} />
       <Categorias />
+      <div className='w-80 h-80 sm:w-96 justify-center items-center mb-64 ml-12  m-auto sm:m-auto sm:mb-52 '>
       <VideoPlayer video={catalogo.video} />
+      </div>
+      <div className='sm:m-auto sm:pt-56 sm:px-10 sm:mr-16 '>
 
       <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
+      </div>
+
+
       <Producto Ids={catalogo.productosdestacados} />
       <CarritoComprasIcono />
       <Footer />

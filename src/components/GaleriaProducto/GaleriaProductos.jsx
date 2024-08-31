@@ -34,7 +34,7 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
           {imagenes.map((imagen, index) => (
             <div
               key={index}
-              className='relative  w-full h-24 flex items-center justify-center 	rounded-md  sm:w-28 sm:h-40'
+              className='relative  w-full h-24 flex items-center justify-center 	rounded-md  sm:w-24 sm:h-36'
             >
               <Image
                 onError={e => {

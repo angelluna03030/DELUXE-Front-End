@@ -4,7 +4,7 @@ import imagen_tiktok from '../../assets/imagenFooter/tik-tok.png';
 export const Footer = () => {
   return (
     <>
-      <footer className='bg-[#F2E6D6] text-black py-4 mt-auto'>
+      <footer className='bg-[#F2E6D6] text-black py-4 mt-auto sm:mt-10'>
         <div className='container mx-auto px-4 flex justify-between items-center'>
           <span>&copy; 2024 DELUXE. Derechos resevador.</span>
           <div className='flex space-x-4'>

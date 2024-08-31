@@ -73,9 +73,10 @@ export const BuscarProductos = () => {
               ))}
             </div>
           ) : (
-            <div className='m-20'>
-              <TablaVaciaImagen />
-            </div>
+            <div className="flex justify-center sm:justify-end m-20 sm:w-full sm:mr-96 sm:pl-32">
+            <TablaVaciaImagen />
+          </div>
+          
           )}
         </div>
       </div>

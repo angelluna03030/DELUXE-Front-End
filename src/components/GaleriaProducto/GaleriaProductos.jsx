@@ -18,10 +18,10 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
   return (
     <div className='flex flex-col items-center'>
       <div className=' max-w-5xl'>
-        <div className='relative h-80 w-80 m-auto mb-40'>
+        <div className='relative h-80 w-80 m-auto mb-48'>
           <Image
             layout='fill'
-            className='rounded-lg object-cover object-center'
+            className='rounded-lg object-cover object-center '
             src={active}
             alt='Active Product'
             onError={e => {
@@ -34,7 +34,7 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
           {imagenes.map((imagen, index) => (
             <div
               key={index}
-              className='relative  w-full h-24 flex items-center justify-center 	rounded-md  '
+              className='relative  w-full h-24 flex items-center justify-center 	rounded-md  sm:w-28 sm:h-40'
             >
               <Image
                 onError={e => {
@@ -42,7 +42,7 @@ export const GaleriaProductos = ({ imagenes = [] }) => {
                 }}
                 src={imagen.src}
                 alt={imagen.alt || `Imagen ${index + 1}`}
-                className='w-full h-full object-cover rounded-lg cursor-pointer'
+                className='w-full h-full object-cover rounded-lg cursor-pointer '
                 onClick={() => setActive(imagen.src)}
               />
             </div>

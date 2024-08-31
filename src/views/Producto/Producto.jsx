@@ -32,7 +32,7 @@ export const Producto = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      setLoading(true);
+      setLoading(false);
       try {
         const { status, dataResponse } = await getData(
           `${RUTA_API}/api/productos/${id}`,

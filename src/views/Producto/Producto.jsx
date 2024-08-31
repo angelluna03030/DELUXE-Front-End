@@ -192,7 +192,15 @@ export const Producto = () => {
                 </button>
               </Tooltip>
             </div>
-            <Comprar />
+            <Comprar
+            color={selectedTalla}
+            nombre={producto.nombreproductos}
+            precio={producto.precio}
+            producto={producto}
+            selectedColor={selectedColor}
+            selectedTalla={selectedTalla}
+   
+            />
             <CarritoComprasIcono />
           </div>
         </>

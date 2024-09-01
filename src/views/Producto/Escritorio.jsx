@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Layout } from '../../components/Layout';
-import { Buscador } from '../../components/Inputs';
-import { Footer } from '../../components/Footer';
+
 import { Titulo } from '../../components/Titulo';
 import { Descripcion } from '../../components/Descripcion';
 import { Comprar } from '../../components/Boton';
@@ -102,9 +100,7 @@ export const Escritorio = ({producto, setProducto}) => {
   if (loading) {
     return (
       <>
-       
-        <CargarProductosEscritorio />
-        
+        <CargarProductosEscritorio /> 
       </>
     );
   }

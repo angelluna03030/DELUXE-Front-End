@@ -32,7 +32,7 @@ export const Producto = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      setLoading(false);
+      setLoading(true);
       try {
         const { status, dataResponse } = await getData(
           `${RUTA_API}/api/productos/${id}`,
@@ -108,7 +108,9 @@ export const Producto = () => {
       <>
         <Layout />
         <Buscador />
+        {isMobile && <>
         <CargarProductos />
+        </>}
         <Footer />
       </>
     );

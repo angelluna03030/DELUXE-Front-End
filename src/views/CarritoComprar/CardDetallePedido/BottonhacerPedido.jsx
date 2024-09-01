@@ -1,5 +1,5 @@
 import { IconsConfirmar } from './index';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
 import { Colores } from '../../Productos.modulo/components/DataColores';
@@ -41,6 +41,11 @@ export const BotonHacerPedido = () => {
   };
 
   const enviarMensaje = () => {
+    if (carrito.length === 0) {
+      toast.warn('Primero debes agregar productos al carrito.');
+      return;
+    }
+
     const numero = '3017996301';
     const mensaje = encodeURIComponent(generarMensaje());
     const urlWhatsApp = `https://wa.me/57${numero}?text=${mensaje}`;

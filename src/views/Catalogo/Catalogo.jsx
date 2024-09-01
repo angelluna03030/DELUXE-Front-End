@@ -8,6 +8,9 @@ import { Producto } from '../../components/Producto';
 import { Footer } from '../../components/Footer';
 import { Categorias } from '../../components/Categorias';
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
+import { toast } from 'react-toastify';
+import { getData } from '../../config/utils/metodoFecht';
+
 const RUTA_API = import.meta.env.VITE_API_URL;
 export const Catalogo = () => {
   const [catalogo, setCatalogo] = useState({
@@ -20,29 +23,28 @@ export const Catalogo = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const respuesta = await fetch(`${RUTA_API}/api/catalogo`);
-
-        if (respuesta.ok) {
-          const data = await respuesta.json();
-          if (data.length > 0) {
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
+  
+        if (status >= 200 && status < 300) {
+          if (dataResponse.length > 0) {
             // Asumiendo que solo hay un catálogo
-            setCatalogo(data[0]);
+            setCatalogo(dataResponse[0]);
           } else {
             toast.error('No se encontraron recursos');
           }
         } else {
           toast.error('No se encontraron los recursos (404)');
-          console.error('Error al obtener el catálogo:', respuesta.status);
+          console.error('Error al obtener el catálogo:', status);
         }
       } catch (err) {
         toast.error('No se ha podido traer el catálogo');
         console.error('Error al traer el catálogo:', err);
       }
     };
-
+  
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta.
-
+  
   return (
     <>
       <Layout />

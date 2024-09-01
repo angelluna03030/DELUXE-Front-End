@@ -11,6 +11,8 @@ import {
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { toast } from 'react-toastify';
 import { VideoPlayer } from '../../../components/Video';
+import { getData } from '../../../config/utils/metodoFecht';
+const API_KEY= import.meta.env.VITE_API_KEY;
 
 export const EditarVideo = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -22,28 +24,27 @@ export const EditarVideo = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const respuesta = await fetch(`${RUTA_API}/api/catalogo`);
-
-        if (respuesta.ok) {
-          const data = await respuesta.json();
-          if (data.length > 0) {
-            setCatalogo(data[0]);
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
+  
+        if (status >= 200 && status < 300) {
+          if (dataResponse.length > 0) {
+            setCatalogo(dataResponse[0]);
           } else {
             toast.error('No se encontraron recursos');
           }
         } else {
           toast.error('No se encontraron los recursos (404)');
-          console.error('Error al obtener el catálogo:', respuesta.status);
+          console.error('Error al obtener el catálogo:', status);
         }
       } catch (err) {
         toast.error('No se ha podido traer el catálogo');
         console.error('Error al traer el catálogo:', err);
       }
     };
-
+  
     obtenerCatalogo();
-  }, []); // Se ejecuta solo una vez cuando el componente se monta.
-
+  }, []); // Se ejecuta solo una vez cuando el componente se monta
+  
   const manejarCambioVideo = e => {
     const archivo = e.target.files[0];
     if (archivo) {
@@ -74,9 +75,15 @@ export const EditarVideo = () => {
         // Actualizar el video en el catálogo
         const respuestaUpdate = await fetch(`${RUTA_API}/api/catalogo/video`, {
           method: 'PUT',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
           headers: {
             'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
           body: JSON.stringify({ video: nombreVideo }),
         });
 

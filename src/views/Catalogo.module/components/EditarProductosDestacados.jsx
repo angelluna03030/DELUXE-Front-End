@@ -12,6 +12,8 @@ import {
 } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { toast } from 'react-toastify';
+import { getData } from '../../../config/utils/metodoFecht';
+const API_KEY= import.meta.env.VITE_API_KEY;
 
 export const EditarProductosDestacados = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -22,20 +24,23 @@ export const EditarProductosDestacados = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const respuesta = await fetch(`${RUTA_API}/api/productos`);
-        if (respuesta.ok) {
-          const data = await respuesta.json();
-          setProductos(data);
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/productos`);
+  
+        if (status >= 200 && status < 300) {
+          setProductos(dataResponse);
         } else {
           toast.error('No se encontraron los recursos (404)');
+          console.error('Error al obtener los productos:', status);
         }
       } catch (err) {
         toast.error('No se ha podido traer el catálogo');
+        console.error('Error al traer el catálogo:', err);
       }
     };
-
+  
     obtenerCatalogo();
-  }, []);
+  }, []); // Se ejecuta solo una vez cuando el componente se monta
+  
 
   const handleCheckboxChange = productoId => {
     setProductosSeleccionados(prevSeleccionados =>
@@ -51,9 +56,15 @@ export const EditarProductosDestacados = () => {
         `${RUTA_API}/api/catalogo/productosdestacados`,
         {
           method: 'PUT',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
           headers: {
             'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
           },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
           body: JSON.stringify({ productosdestacados: productosSeleccionados }),
         },
       );

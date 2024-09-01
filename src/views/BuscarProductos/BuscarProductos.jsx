@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Skeleton } from '@nextui-org/react';
 import { TablaVaciaImagen } from '../../components/NoProductos';
+import { getData } from '../../config/utils/metodoFecht';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -14,30 +15,35 @@ export const BuscarProductos = () => {
   const { query } = useParams();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
-
   useEffect(() => {
     const loadProductos = async () => {
+      setLoading(true); // Inicia la carga
       try {
-        setLoading(true); // Inicia la carga
-        const response = await fetch(
-          `${RUTA_API}/api/productos/buscar/${query}`,
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/productos/buscar/${query}`
         );
-        const data = await response.json();
-        const productosFiltrados = data.filter(
-          producto => producto.estado !== 0,
-        );
-
-        setProductos(productosFiltrados);
+  
+        if (status >= 200 && status < 300) {
+          // Filtra los productos cuyo estado no es 0
+          const productosFiltrados = dataResponse.filter(
+            producto => producto.estado !== 0
+          );
+          setProductos(productosFiltrados);
+        } else {
+          toast.error('Error al cargar los productos');
+          console.error('Error al cargar los productos:', status);
+        }
       } catch (error) {
+        toast.error('Error al cargar los productos');
         console.error('Error cargando los productos:', error);
       } finally {
         setLoading(false); // Termina la carga
       }
     };
-
+  
     loadProductos();
   }, [query]); // Agrega `query` como dependencia
-
+  
   return (
     <>
       <Layout />

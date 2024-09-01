@@ -14,6 +14,7 @@ import {
   CircularProgress,
 } from '@nextui-org/react';
 import { EyeIcon } from '../../../states/icons/EyeIcon';
+import { getData } from '../../../config/utils/metodoFecht';
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const DetalleCategoria = ({ id }) => {
@@ -31,24 +32,31 @@ export const DetalleCategoria = ({ id }) => {
       const loadData = async () => {
         setLoading(true); // Inicia el indicador de carga
         try {
-          const response = await fetch(`${RUTA_API}/api/categorias/${id}`);
-          const data = await response.json();
-          setCategoria(data);
-          setNombre(data.nombre || '');
-          setDescripcion(data.descripcion || '');
-          setImagenActual(data.imagen || '');
-          setFechaCreacion(data.fechaCreacion || '');
+          const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias/${id}`);
+          
+          if (status >= 200 && status < 300) {
+            // Suponiendo que la respuesta es un objeto
+            setCategoria(dataResponse);
+            setNombre(dataResponse.nombre || '');
+            setDescripcion(dataResponse.descripcion || '');
+            setImagenActual(dataResponse.imagen || '');
+            setFechaCreacion(dataResponse.fechaCreacion || '');
+          } else {
+            toast.error('Error al cargar la categoría');
+            console.error('Error al cargar la categoría:', status);
+          }
         } catch (error) {
+          toast.error('Error al cargar la categoría');
           console.error('Error cargando la categoría:', error);
         } finally {
           setLoading(false); // Finaliza el indicador de carga
         }
       };
-
+  
       loadData();
     }
-  }, [isOpen, id]);
-
+  }, [isOpen, id]); // Se ejecuta cuando `isOpen` o `id` cambian
+  
   const handleFileChange = event => {
     const file = event.target.files[0];
     if (file) {

@@ -15,6 +15,7 @@ import imagen from '../../../assets/imagen.svg'; // Asegúrate de que esta ruta 
 import { useState, useEffect } from 'react';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
+const API_KEY= import.meta.env.VITE_API_KEY;
 
 export const CrearCategoria = () => {
   const [formData, setFormData] = useState({
@@ -132,9 +133,15 @@ export const CrearCategoria = () => {
       // Enviar información de la categoría al servidor
       const categoryResponse = await fetch(`${RUTA_API}/api/categorias`, {
         method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
         },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
         body: JSON.stringify({
           nombre: formData.nombre,
           descripcion: formData.descripcion,

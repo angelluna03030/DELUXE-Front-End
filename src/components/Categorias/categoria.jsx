@@ -7,27 +7,29 @@ import 'swiper/swiper-bundle.css'; // Importar los estilos de Swiper
 import { Skeleton } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import imagen_No_funtion from '../../assets/no-fotos.png';
+import { getData } from '../../config/utils/metodoFecht';
 export const Categorias = () => {
   const [categories, setCategorias] = useState([]);
 
   const refreshCategorias = async () => {
     try {
-      const response = await fetch(`${RUTA_API}/api/categorias`);
-      const dataResponse = await response.json();
-      if (response.status >= 200 && response.status < 300) {
+      const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias`);
+  
+      if (status >= 200 && status < 300) {
+        // Filtrar los datos según el estado
         const productosFiltrados = dataResponse.filter(
-          dataResponse => dataResponse.estado !== 0,
+          categoria => categoria.estado !== 0
         );
-
         setCategorias(productosFiltrados);
       } else {
         toast.error('No se encontraron los recursos (404)');
       }
     } catch (err) {
-      toast.error('No se ha podido traer las categorias');
+      toast.error('No se ha podido traer las categorías');
       console.error(err);
     }
   };
+  
 
   useEffect(() => {
     refreshCategorias();

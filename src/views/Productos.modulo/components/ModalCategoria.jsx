@@ -11,34 +11,33 @@ import {
   Checkbox,
   CheckboxGroup,
 } from '@nextui-org/react';
+import { getData } from '../../../config/utils/metodoFecht';
 
 export const ModalCategoria = ({ selectedCategoria, onCategoriasChange }) => {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [categoriasSelect, setCategoriasSelect] = useState(selectedCategoria);
   const [categorias, setCategorias] = useState([]);
-
   useEffect(() => {
     // Función para obtener las categorías desde la API
     const fetchCategorias = async () => {
       try {
-        const response = await fetch(`${RUTA_API}/api/categorias`);
-        if (response.ok) {
-          const data = await response.json();
-          setCategorias(data);
+        const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias`);
+  
+        if (status >= 200 && status < 300) {
+          setCategorias(dataResponse);
         } else {
-          console.error(
-            'Error al obtener las categorías:',
-            response.statusText,
-          );
+          toast.error('Error al obtener las categorías');
+          console.error('Error al obtener las categorías:', status);
         }
       } catch (error) {
+        toast.error('Error al obtener las categorías');
         console.error('Error al obtener las categorías:', error);
       }
     };
-
+  
     fetchCategorias();
-  }, []);
-
+  }, []); // Se ejecuta solo una vez cuando el componente se monta
+  
   const handleCheckboxChange = selected => {
     setCategoriasSelect(selected);
     onCategoriasChange(selected);

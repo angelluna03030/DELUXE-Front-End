@@ -8,20 +8,22 @@ import { BuscarProductos } from '../views/BuscarProductos';
 import { TablaCarrito } from '../views/CarritoComprar/TablaCarritoCompras';
 import { Categorias } from '../views/Categorias.modulo';
 import { RegistrarCatalogo } from '../views/Catalogo.module';
+import PrivateRoute from './RutasPrivadas';
+
 export const Rutas = () => {
   return (
     <Routes>
+      <Route path='/*' element={<Catalogo />} />
       <Route path='/sesion' element={<Sesion />} />
       <Route path='/catalogo' element={<Catalogo />} />
-      <Route path='/*' element={<Catalogo />} />
-      <Route path='/' element={<Catalogo />} />
       <Route path='/producto/:id' element={<Producto />} />
-      <Route path='/categoria/:categoria' element={<Categoria />} />
-      <Route path='/registrarproductos' element={<Productos />} />
-      <Route path='/productos/buscar/:query' element={<BuscarProductos />} />
-      <Route path='/registrarcategoria' element={<Categorias />} />
-      <Route path='/registrarcatalogo' element={<RegistrarCatalogo />} />
       <Route path='/carritocompras' element={<TablaCarrito />} />
+      <Route path='/categoria/:categoria' element={<Categoria />} />
+      <Route path='/productos/buscar/:query' element={<BuscarProductos />} />
+
+      <Route path='/registrarproductos' element={<PrivateRoute><Productos /></PrivateRoute>} />
+      <Route path='/registrarcategoria' element={<PrivateRoute><Categorias /></PrivateRoute>} />
+      <Route path='/registrarcatalogo' element={<PrivateRoute><RegistrarCatalogo /></PrivateRoute>} />
     </Routes>
   );
 };

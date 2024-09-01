@@ -1,7 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 export const Navegacion = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Tu sesión se cerrará y serás redirigido al catálogo.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Eliminar sesión
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('sessionExpiration');
+        // Redirigir al catálogo
+        navigate('/catalogo');
+        Swal.fire(
+          'Sesión cerrada',
+          'Tu sesión ha sido cerrada exitosamente.',
+          'success'
+        );
+      }
+    });
+  };
+
   return (
     <div className='md:flex flex-col md:flex-row md:min-h-screen w-full'>
       <div className='flex flex-col w-full md:w-64 text-gray-700 bg-gray-300 dark:text-gray-200 dark:bg-gray-800 flex-shrink-0'>
@@ -13,7 +42,7 @@ export const Navegacion = () => {
             DELUXE
           </Link>
           <button
-            className='rounded-lg md:hidden  focus:outline-none focus:shadow-outline'
+            className='rounded-lg md:hidden focus:outline-none focus:shadow-outline'
             onClick={() => setIsOpen(!isOpen)}
           >
             <svg fill='currentColor' viewBox='0 0 20 20' className='w-6 h-6'>
@@ -54,8 +83,12 @@ export const Navegacion = () => {
           >
             Catalogo
           </Link>
-
-          <div className='relative'></div>
+          <button
+            className='block w-full text-left px-4 py-2 mt-2 text-sm font-semibold  text-gray-900 bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-red-600 dark:focus:bg-red-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline'
+            onClick={handleLogout}
+          >
+            Cerrar Sesión
+          </button>
         </nav>
       </div>
     </div>

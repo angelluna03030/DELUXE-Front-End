@@ -7,8 +7,8 @@ export const TablaCarrito = () => {
   return (
     <div className='flex flex-col min-h-screen'>
       <Layout />
-      <TablaInformacionProductoPedido></TablaInformacionProductoPedido>
-      <div className='flex flex-col flex-grow justify-end'>
+      <TablaInformacionProductoPedido/>
+      <div className='flex flex-col flex-grow justify-end sm:mt-10'>
         <DetallePedidos />
         <Footer />
       </div>

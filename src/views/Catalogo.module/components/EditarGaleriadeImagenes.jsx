@@ -139,6 +139,7 @@ export const EditarGaleriaDeImagenes = () => {
     <>
       <Button onPress={onOpen}>Galería de Imágenes </Button>
       <Modal
+      size='4xl'
         backdrop='opaque'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -155,7 +156,10 @@ export const EditarGaleriaDeImagenes = () => {
                 <p className='text-red-700'> (Solo 10 Imagenes)</p>
               </ModalHeader>
               <ModalBody>
+              <div className='sm:mr-16'>
                 <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
+
+              </div>
                 <div className='flex flex-wrap gap-2 mt-2'>
                   {catalogo.imagenesparagaleria.map((img, index) => (
                     <div key={index} className='relative'>
@@ -186,15 +190,15 @@ export const EditarGaleriaDeImagenes = () => {
                   />
                 </div>
               </ModalBody>
-              <ModalFooter>
-                <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
-
+              <ModalFooter className='mr-32 sm:mr-0 sm:mt-5'>
                 <Button color='danger' variant='light' onPress={onClose}>
+
                   Cerrar
                 </Button>
                 <Button color='primary' onPress={actualizarImagenes}>
                   Enviar
                 </Button>
+                <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
               </ModalFooter>
             </>
           )}

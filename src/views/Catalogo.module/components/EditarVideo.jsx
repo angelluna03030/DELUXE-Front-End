@@ -144,7 +144,7 @@ export const EditarVideo = () => {
                   />
                 </div>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className='mr-48 sm:mr-0 sm:mt-5'>
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>

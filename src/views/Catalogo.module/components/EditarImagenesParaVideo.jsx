@@ -186,14 +186,14 @@ export const EditarImagenesParaVideo = () => {
                   />
                 </div>
               </ModalBody>
-              <ModalFooter>
-                <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
+              <ModalFooter className='mr-32 sm:mr-0 sm:mt-5'>
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>
                 <Button color='primary' onPress={actualizarImagenes}>
                   Enviar
                 </Button>
+                <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
               </ModalFooter>
             </>
           )}

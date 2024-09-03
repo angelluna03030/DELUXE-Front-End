@@ -19,7 +19,7 @@ export const Escritorio = ({producto, setProducto}) => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedTalla, setSelectedTalla] = useState(null);
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { agregarProducto } = useContext(CarritoContext);
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');

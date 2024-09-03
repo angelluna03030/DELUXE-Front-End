@@ -22,8 +22,10 @@ export const TablaCatalogo = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
-  
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/catalogo`,
+        );
+
         if (status >= 200 && status < 300) {
           if (dataResponse.length > 0) {
             // Asumiendo que solo hay un catálogo
@@ -40,10 +42,10 @@ export const TablaCatalogo = () => {
         console.error('Error al traer el catálogo:', err);
       }
     };
-  
+
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta.
-  
+
   return (
     <div className='flex flex-col gap-6'>
       <EditarCatalogo />

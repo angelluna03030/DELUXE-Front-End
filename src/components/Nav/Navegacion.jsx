@@ -15,7 +15,7 @@ export const Navegacion = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, cerrar sesión',
-    }).then((result) => {
+    }).then(result => {
       if (result.isConfirmed) {
         // Eliminar sesión
         localStorage.removeItem('isAuthenticated');
@@ -25,7 +25,7 @@ export const Navegacion = () => {
         Swal.fire(
           'Sesión cerrada',
           'Tu sesión ha sido cerrada exitosamente.',
-          'success'
+          'success',
         );
       }
     });

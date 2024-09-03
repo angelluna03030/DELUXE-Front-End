@@ -20,7 +20,7 @@ export const Sesion = () => {
     }
   }, [navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     const form = e.target;
@@ -34,13 +34,18 @@ export const Sesion = () => {
       localStorage.setItem('sessionExpiration', expirationTime.toISOString());
       navigate('/registrarproductos');
     } else {
-      setAttempts((prev) => prev + 1);
+      setAttempts(prev => prev + 1);
       setError('Documento o contraseña incorrectos');
       if (attempts >= 2) {
-        alert('Demasiados intentos fallidos. Intenta nuevamente en 10 minutos.');
-        setTimeout(() => {
-          setAttempts(0);
-        }, 10 * 60 * 1000); // 10 minutos de espera
+        alert(
+          'Demasiados intentos fallidos. Intenta nuevamente en 10 minutos.',
+        );
+        setTimeout(
+          () => {
+            setAttempts(0);
+          },
+          10 * 60 * 1000,
+        ); // 10 minutos de espera
       }
     }
   };
@@ -54,7 +59,10 @@ export const Sesion = () => {
         <div className='text-xs md:text-sm font-normal mb-4 text-center text-[#1e0e4b]'>
           Inicia sesión en tu cuenta
         </div>
-        <form onSubmit={handleSubmit} className='flex flex-col gap-2 md:gap-3 lg:gap-4 xl:gap-5'>
+        <form
+          onSubmit={handleSubmit}
+          className='flex flex-col gap-2 md:gap-3 lg:gap-4 xl:gap-5'
+        >
           <div className='block relative'>
             <label
               htmlFor='email'
@@ -83,7 +91,7 @@ export const Sesion = () => {
               required
             />
           </div>
-          {error && <div className="text-red-500 text-sm">{error}</div>}
+          {error && <div className='text-red-500 text-sm'>{error}</div>}
           <div>
             <a
               className='text-xs md:text-sm text-[#7747ff]'

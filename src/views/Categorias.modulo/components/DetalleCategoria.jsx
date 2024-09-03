@@ -32,8 +32,10 @@ export const DetalleCategoria = ({ id }) => {
       const loadData = async () => {
         setLoading(true); // Inicia el indicador de carga
         try {
-          const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias/${id}`);
-          
+          const { status, dataResponse } = await getData(
+            `${RUTA_API}/api/categorias/${id}`,
+          );
+
           if (status >= 200 && status < 300) {
             // Suponiendo que la respuesta es un objeto
             setCategoria(dataResponse);
@@ -52,11 +54,11 @@ export const DetalleCategoria = ({ id }) => {
           setLoading(false); // Finaliza el indicador de carga
         }
       };
-  
+
       loadData();
     }
   }, [isOpen, id]); // Se ejecuta cuando `isOpen` o `id` cambian
-  
+
   const handleFileChange = event => {
     const file = event.target.files[0];
     if (file) {

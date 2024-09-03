@@ -13,12 +13,14 @@ export const Categorias = () => {
 
   const refreshCategorias = async () => {
     try {
-      const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias`);
-  
+      const { status, dataResponse } = await getData(
+        `${RUTA_API}/api/categorias`,
+      );
+
       if (status >= 200 && status < 300) {
         // Filtrar los datos según el estado
         const productosFiltrados = dataResponse.filter(
-          categoria => categoria.estado !== 0
+          categoria => categoria.estado !== 0,
         );
         setCategorias(productosFiltrados);
       } else {
@@ -29,7 +31,6 @@ export const Categorias = () => {
       console.error(err);
     }
   };
-  
 
   useEffect(() => {
     refreshCategorias();

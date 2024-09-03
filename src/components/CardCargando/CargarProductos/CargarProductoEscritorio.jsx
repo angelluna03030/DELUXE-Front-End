@@ -3,10 +3,10 @@ import { Skeleton } from '@nextui-org/react';
 export const CargarProductosEscritorio = () => {
   return (
     <>
-      {(
-        <div className="flex">
+      {
+        <div className='flex'>
           {/* Parte izquierda */}
-          <div className="w-1/2 sm:ml-40">
+          <div className='w-1/2 sm:ml-40'>
             <Skeleton className='rounded-lg sm:m-5 h-96 w-80 m-auto mb-10 sm:ml-24' />
             <div className='flex m-5'>
               <Skeleton className='rounded-lg w-20 h-32 sm:m-5 m-auto ' />
@@ -17,7 +17,7 @@ export const CargarProductosEscritorio = () => {
           </div>
 
           {/* Parte derecha */}
-          <div className="w-1/2 ml-6">
+          <div className='w-1/2 ml-6'>
             <div className='flex ml-10 my-10'>
               <Skeleton className='h-5 w-40 rounded-lg mr-32' />
               <Skeleton className='h-5 w-20 rounded-lg' />
@@ -55,7 +55,7 @@ export const CargarProductosEscritorio = () => {
             </div>
           </div>
         </div>
-      )}
+      }
     </>
   );
 };

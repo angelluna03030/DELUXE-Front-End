@@ -2,10 +2,16 @@ import { Tooltip, Button } from '@nextui-org/react';
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import { Colores } from '../../views/Productos.modulo/components/DataColores';
-export const Comprar = ({ nombre, precio, producto, selectedColor, selectedTalla }) => {
+export const Comprar = ({
+  nombre,
+  precio,
+  producto,
+  selectedColor,
+  selectedTalla,
+}) => {
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
-  
+
   const obtenerNombreColor = colorHex => {
     const colorEncontrado = Colores.find(c => c.color === colorHex);
     return colorEncontrado ? colorEncontrado.label : colorHex;
@@ -20,12 +26,10 @@ export const Comprar = ({ nombre, precio, producto, selectedColor, selectedTalla
   };
 
   const generarMensaje = () => {
-    let mensaje = 'Quiero hacer este pedido en Deluxe Uniformes: ========================\n';
+    let mensaje =
+      'Quiero hacer este pedido en Deluxe Uniformes: ========================\n';
 
-  
-      mensaje += `- 1 *${nombre}* - Talla: ${selectedTalla}, Color: ${obtenerNombreColor(selectedColor)}, / _$ ${precio.toLocaleString()}_\n`;
-  
-
+    mensaje += `- 1 *${nombre}* - Talla: ${selectedTalla}, Color: ${obtenerNombreColor(selectedColor)}, / _$ ${precio.toLocaleString()}_\n`;
 
     mensaje += `========================\nTOTAL: *$ ${precio.toLocaleString()}*\n========================\n`;
 
@@ -71,7 +75,7 @@ export const Comprar = ({ nombre, precio, producto, selectedColor, selectedTalla
       isDisabled={validar}
       content={mensajeTooltip}
       showArrow
-      placement="top-start"
+      placement='top-start'
       classNames={{
         base: [
           // arrow color
@@ -80,8 +84,8 @@ export const Comprar = ({ nombre, precio, producto, selectedColor, selectedTalla
         content: ['py-2 px-4 shadow-xl bg-[#358FED]', 'text-white'],
       }}
     >
-      <div className="bg-[#F2E6D6] rounded-full m-3 p-4 text-white w-40 justify-items-center text-center">
-        <button type="button" onClick={handleComprarProducto}>
+      <div className='bg-[#F2E6D6] rounded-full m-3 p-4 text-white w-40 justify-items-center text-center'>
+        <button type='button' onClick={handleComprarProducto}>
           Comprar
         </button>
       </div>

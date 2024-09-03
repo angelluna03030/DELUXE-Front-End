@@ -1,5 +1,4 @@
-
-const API_KEY= import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 /**
  * Metodo para enviar datos por una petición HTTP [POST]
  * @param { string } url Recibe la ruta completa para enviar los datos
@@ -13,9 +12,9 @@ export const postData = async (url = '', data = {}) => {
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-			'Content-Type': 'application/json',
-			'x-api-key': API_KEY,
-		},
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY,
+    },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data),
@@ -37,9 +36,9 @@ export const getData = async (url = '') => {
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-			'Content-Type': 'application/json',
-			'x-api-key': API_KEY,
-		},
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY,
+    },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
   });
@@ -89,9 +88,9 @@ export const postFormData = async (url = '', formData) => {
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-			'Content-Type': 'application/json',
-			'x-api-key': API_KEY,
-		},
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY,
+    },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
     body: formData,
@@ -115,9 +114,9 @@ export const putFormData = async (url = '', formData) => {
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-			'Content-Type': 'application/json',
-			'x-api-key': API_KEY,
-		},
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY,
+    },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
     body: formData,

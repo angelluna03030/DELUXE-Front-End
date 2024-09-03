@@ -11,7 +11,7 @@ import {
 import { Carrusel } from '../../../components/CaruselImagenes';
 import { toast } from 'react-toastify';
 import { getData } from '../../../config/utils/metodoFecht';
-const API_KEY= import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -26,8 +26,10 @@ export const EditarImagenesParaVideo = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
-  
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/catalogo`,
+        );
+
         if (status >= 200 && status < 300) {
           if (dataResponse.length > 0) {
             setCatalogo(dataResponse[0]);
@@ -43,10 +45,10 @@ export const EditarImagenesParaVideo = () => {
         console.error('Error al traer el catálogo:', err);
       }
     };
-  
+
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta
-  
+
   const eliminarImagen = indice => {
     const imagenEliminada = catalogo.imagenesparavideo[indice];
     setCatalogo(prevState => ({

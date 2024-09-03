@@ -21,8 +21,10 @@ export const ModalCategoria = ({ selectedCategoria, onCategoriasChange }) => {
     // Función para obtener las categorías desde la API
     const fetchCategorias = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/categorias`);
-  
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/categorias`,
+        );
+
         if (status >= 200 && status < 300) {
           setCategorias(dataResponse);
         } else {
@@ -34,10 +36,10 @@ export const ModalCategoria = ({ selectedCategoria, onCategoriasChange }) => {
         console.error('Error al obtener las categorías:', error);
       }
     };
-  
+
     fetchCategorias();
   }, []); // Se ejecuta solo una vez cuando el componente se monta
-  
+
   const handleCheckboxChange = selected => {
     setCategoriasSelect(selected);
     onCategoriasChange(selected);

@@ -12,7 +12,7 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 import { toast } from 'react-toastify';
 import { VideoPlayer } from '../../../components/Video';
 import { getData } from '../../../config/utils/metodoFecht';
-const API_KEY= import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const EditarVideo = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -24,8 +24,10 @@ export const EditarVideo = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
-  
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/catalogo`,
+        );
+
         if (status >= 200 && status < 300) {
           if (dataResponse.length > 0) {
             setCatalogo(dataResponse[0]);
@@ -41,10 +43,10 @@ export const EditarVideo = () => {
         console.error('Error al traer el catálogo:', err);
       }
     };
-  
+
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta
-  
+
   const manejarCambioVideo = e => {
     const archivo = e.target.files[0];
     if (archivo) {

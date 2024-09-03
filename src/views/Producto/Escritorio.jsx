@@ -13,7 +13,7 @@ import { CargarProductosEscritorio } from '../../components/CardCargando/CargarP
 import { CarritoContext } from '../../states/context/ContextCarrito';
 import { Tooltip, Button } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
-export const Escritorio = ({producto, setProducto}) => {
+export const Escritorio = ({ producto, setProducto }) => {
   const { id } = useParams();
 
   const [selectedColor, setSelectedColor] = useState(null);
@@ -100,7 +100,7 @@ export const Escritorio = ({producto, setProducto}) => {
   if (loading) {
     return (
       <>
-        <CargarProductosEscritorio /> 
+        <CargarProductosEscritorio />
       </>
     );
   }

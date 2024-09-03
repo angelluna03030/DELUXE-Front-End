@@ -4,7 +4,7 @@ import imagen_No_funtion from '../../assets/no-fotos.png';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Skeleton } from '@nextui-org/react';
-const API_KEY= import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -44,7 +44,7 @@ export const Producto = ({ Ids }) => {
       obtenerCatalogo();
     }
   }, [Ids]); // Se ejecuta cada vez que Ids cambia
-  
+
   if (!Ids) {
     return (
       <div className='overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10'>

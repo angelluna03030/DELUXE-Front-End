@@ -15,7 +15,7 @@ import imagen from '../../../assets/imagen.svg'; // Asegúrate de que esta ruta 
 import { useState, useEffect } from 'react';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
-const API_KEY= import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const CrearCategoria = () => {
   const [formData, setFormData] = useState({

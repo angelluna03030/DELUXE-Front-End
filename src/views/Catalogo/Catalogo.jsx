@@ -23,8 +23,10 @@ export const Catalogo = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
-  
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/catalogo`,
+        );
+
         if (status >= 200 && status < 300) {
           if (dataResponse.length > 0) {
             // Asumiendo que solo hay un catálogo
@@ -41,10 +43,10 @@ export const Catalogo = () => {
         console.error('Error al traer el catálogo:', err);
       }
     };
-  
+
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta.
-  
+
   return (
     <>
       <Layout />
@@ -52,13 +54,11 @@ export const Catalogo = () => {
       <Carrusel imagenes={catalogo.imagenesparavideo} />
       <Categorias />
       <div className='w-80 h-80 sm:w-96 justify-center items-center mb-64 ml-12  m-auto sm:m-auto sm:mb-52 '>
-      <VideoPlayer video={catalogo.video} />
+        <VideoPlayer video={catalogo.video} />
       </div>
       <div className='sm:m-auto sm:pt-56 sm:px-10 sm:mr-16 '>
-
-      <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
+        <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
       </div>
-
 
       <Producto Ids={catalogo.productosdestacados} />
       <CarritoComprasIcono />

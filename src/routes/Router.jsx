@@ -21,9 +21,30 @@ export const Rutas = () => {
       <Route path='/categoria/:categoria' element={<Categoria />} />
       <Route path='/productos/buscar/:query' element={<BuscarProductos />} />
 
-      <Route path='/registrarproductos' element={<PrivateRoute><Productos /></PrivateRoute>} />
-      <Route path='/registrarcategoria' element={<PrivateRoute><Categorias /></PrivateRoute>} />
-      <Route path='/registrarcatalogo' element={<PrivateRoute><RegistrarCatalogo /></PrivateRoute>} />
+      <Route
+        path='/registrarproductos'
+        element={
+          <PrivateRoute>
+            <Productos />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path='/registrarcategoria'
+        element={
+          <PrivateRoute>
+            <Categorias />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path='/registrarcatalogo'
+        element={
+          <PrivateRoute>
+            <RegistrarCatalogo />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 };

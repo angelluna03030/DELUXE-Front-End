@@ -11,7 +11,7 @@ import {
 import { toast } from 'react-toastify';
 import { GaleriaImagenes } from '../../../components/GaleriadeImagenes';
 import { getData } from '../../../config/utils/metodoFecht';
-const API_KEY= import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
@@ -26,8 +26,10 @@ export const EditarGaleriaDeImagenes = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
-  
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/catalogo`,
+        );
+
         if (status >= 200 && status < 300) {
           if (dataResponse.length > 0) {
             setCatalogo(dataResponse[0]);
@@ -43,10 +45,10 @@ export const EditarGaleriaDeImagenes = () => {
         console.error('Error al traer el catálogo:', err);
       }
     };
-  
+
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta
-  
+
   const eliminarImagen = indice => {
     const imagenEliminada = catalogo.imagenesparagaleria[indice];
     setCatalogo(prevState => ({
@@ -139,7 +141,7 @@ export const EditarGaleriaDeImagenes = () => {
     <>
       <Button onPress={onOpen}>Galería de Imágenes </Button>
       <Modal
-      size='4xl'
+        size='4xl'
         backdrop='opaque'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -156,10 +158,9 @@ export const EditarGaleriaDeImagenes = () => {
                 <p className='text-red-700'> (Solo 10 Imagenes)</p>
               </ModalHeader>
               <ModalBody>
-              <div className='sm:mr-16'>
-                <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
-
-              </div>
+                <div className='sm:mr-16'>
+                  <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
+                </div>
                 <div className='flex flex-wrap gap-2 mt-2'>
                   {catalogo.imagenesparagaleria.map((img, index) => (
                     <div key={index} className='relative'>
@@ -192,7 +193,6 @@ export const EditarGaleriaDeImagenes = () => {
               </ModalBody>
               <ModalFooter className='mr-32 sm:mr-0 sm:mt-5'>
                 <Button color='danger' variant='light' onPress={onClose}>
-
                   Cerrar
                 </Button>
                 <Button color='primary' onPress={actualizarImagenes}>

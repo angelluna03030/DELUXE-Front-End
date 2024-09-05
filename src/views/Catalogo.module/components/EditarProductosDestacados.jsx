@@ -9,8 +9,7 @@ import {
   useDisclosure,
   Checkbox,
   Input,
-  Spinner
-
+  Spinner,
 } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { toast } from 'react-toastify';
@@ -55,7 +54,6 @@ export const EditarProductosDestacados = () => {
   };
 
   const handleEnviarProductosDestacados = async () => {
-    
     setEnviando(true); // Deshabilitar el botón y mostrar el spinner
 
     try {
@@ -86,11 +84,9 @@ export const EditarProductosDestacados = () => {
     } catch (error) {
       toast.error('Error al conectar con el servidor');
       console.error('Error:', error);
-      
     }
-    
-    setEnviando(false); // Deshabilitar el botón y mostrar el spinner
 
+    setEnviando(false); // Deshabilitar el botón y mostrar el spinner
   };
 
   const productosFiltrados = productos.filter(producto =>
@@ -146,7 +142,7 @@ export const EditarProductosDestacados = () => {
                   onPress={handleEnviarProductosDestacados}
                   disabled={enviando}
                 >
-                 {enviando ? <Spinner size="sm"  color="danger" /> : 'Enviar'}
+                  {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
                 </Button>
               </ModalFooter>
             </>

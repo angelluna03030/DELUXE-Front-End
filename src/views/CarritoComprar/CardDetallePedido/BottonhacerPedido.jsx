@@ -45,17 +45,16 @@ export const BotonHacerPedido = () => {
       toast.warn('Primero debes agregar productos al carrito.');
       return;
     }
-  
+
     const numero = '3017996301';
     const mensaje = encodeURIComponent(generarMensaje());
     const urlWhatsApp = `https://wa.me/57${numero}?text=${mensaje}`;
-  
+
     console.log('URL generada:', urlWhatsApp); // Verifica la URL generada
-  
+
     window.open(urlWhatsApp, '_blank');
     vaciarCarrito();
   };
-  
 
   return (
     <div className='flex justify-around items-center py-3'>

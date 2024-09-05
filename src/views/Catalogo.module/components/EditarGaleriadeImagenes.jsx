@@ -7,7 +7,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-  Spinner
+  Spinner,
 } from '@nextui-org/react';
 import { toast } from 'react-toastify';
 import { GaleriaImagenes } from '../../../components/GaleriadeImagenes';
@@ -139,7 +139,6 @@ export const EditarGaleriaDeImagenes = () => {
       console.error('Error:', err);
     }
     setEnviando(false); // Rehabilitar el botón una vez finalizado el proceso
-
   };
 
   return (
@@ -200,9 +199,12 @@ export const EditarGaleriaDeImagenes = () => {
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>
-                <Button color='primary' onPress={actualizarImagenes}      disabled={enviando}>
-                {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
-
+                <Button
+                  color='primary'
+                  onPress={actualizarImagenes}
+                  disabled={enviando}
+                >
+                  {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
                 </Button>
                 <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
               </ModalFooter>

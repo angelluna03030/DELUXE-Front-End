@@ -11,8 +11,7 @@ import {
   Input,
   Textarea,
   CircularProgress,
-  Spinner
-
+  Spinner,
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import { ModalTallas } from './ModalTallas';
@@ -93,9 +92,8 @@ export const EditarProducto = ({ id }) => {
       toast.error('Error actualizando el producto');
       console.error('Error updating product:', error);
     }
-    
-    setEnviando(false); // habilitar el botón
 
+    setEnviando(false); // habilitar el botón
   };
 
   const handleRemoveImage = image => {
@@ -313,8 +311,13 @@ export const EditarProducto = ({ id }) => {
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cancelar
                 </Button>
-                <Button color='primary' onPress={handleUpdate} className='w-44' disabled={enviando}>
-                {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
+                <Button
+                  color='primary'
+                  onPress={handleUpdate}
+                  className='w-44'
+                  disabled={enviando}
+                >
+                  {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
                 </Button>
               </ModalFooter>
             </>

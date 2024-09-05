@@ -7,10 +7,8 @@ import {
   Button,
   useDisclosure,
   Input,
-  
   Textarea,
-  Spinner
-
+  Spinner,
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
@@ -168,8 +166,7 @@ export const CrearCategoria = () => {
       console.error(err);
     } finally {
       setIsSubmitting(false);
-    setEnviando(false); // Deshabilitar el botón y mostrar el spinner
-
+      setEnviando(false); // Deshabilitar el botón y mostrar el spinner
     }
   };
 
@@ -270,10 +267,8 @@ export const CrearCategoria = () => {
                   >
                     Cerrar
                   </Button>
-                  <Button color='primary' type='submit'
-                  disabled={enviando}
-                  >
-                  {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
+                  <Button color='primary' type='submit' disabled={enviando}>
+                    {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
                   </Button>
                 </ModalFooter>
               </form>

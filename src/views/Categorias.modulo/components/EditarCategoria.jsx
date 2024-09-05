@@ -12,8 +12,7 @@ import {
   Textarea,
   CircularProgress,
   Image,
-  Spinner
-
+  Spinner,
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import { getData, putData } from '../../../config/utils/metodoFecht';
@@ -96,7 +95,6 @@ export const EditarCategoria = ({ id }) => {
     }
     setEnviando(true); // Deshabilitar el botón y mostrar el spinner
 
-
     const updatedCategoria = {
       nombre,
       descripcion,
@@ -116,7 +114,6 @@ export const EditarCategoria = ({ id }) => {
       console.error('Error updating category:', error);
     }
     setEnviando(false); // Deshabilitar el botón y mostrar el spinner
-
   };
 
   const handleFileChange = async event => {
@@ -256,7 +253,7 @@ export const EditarCategoria = ({ id }) => {
               Cancelar
             </Button>
             <Button auto onClick={handleUpdate} disabled={enviando}>
-            {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
+              {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
             </Button>
           </ModalFooter>
         </ModalContent>

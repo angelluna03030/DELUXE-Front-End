@@ -7,7 +7,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-  Spinner
+  Spinner,
 } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { toast } from 'react-toastify';
@@ -26,7 +26,9 @@ export const EditarVideo = () => {
   useEffect(() => {
     const obtenerCatalogo = async () => {
       try {
-        const { status, dataResponse } = await getData(`${RUTA_API}/api/catalogo`);
+        const { status, dataResponse } = await getData(
+          `${RUTA_API}/api/catalogo`,
+        );
 
         if (status >= 200 && status < 300) {
           if (dataResponse.length > 0) {
@@ -98,7 +100,10 @@ export const EditarVideo = () => {
           toast.success('Video actualizado correctamente');
         } else {
           toast.error('Error al actualizar el video en el catálogo');
-          console.error('Error al actualizar el video:', respuestaUpdate.status);
+          console.error(
+            'Error al actualizar el video:',
+            respuestaUpdate.status,
+          );
         }
       } else {
         toast.error('Error al subir el video');
@@ -120,7 +125,8 @@ export const EditarVideo = () => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         classNames={{
-          backdrop: 'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20',
+          backdrop:
+            'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20',
         }}
       >
         <ModalContent>
@@ -150,8 +156,12 @@ export const EditarVideo = () => {
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>
-                <Button color='primary' onPress={actualizarVideo} disabled={enviando}>
-                  {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
+                <Button
+                  color='primary'
+                  onPress={actualizarVideo}
+                  disabled={enviando}
+                >
+                  {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
                 </Button>
               </ModalFooter>
             </>

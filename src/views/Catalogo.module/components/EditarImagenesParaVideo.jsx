@@ -7,8 +7,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-  Spinner
-  
+  Spinner,
 } from '@nextui-org/react';
 import { Carrusel } from '../../../components/CaruselImagenes';
 import { toast } from 'react-toastify';
@@ -140,14 +139,13 @@ export const EditarImagenesParaVideo = () => {
       console.error('Error:', err);
     }
     setEnviando(false); // Deshabilitar el botón y mostrar el spinner
-
   };
 
   return (
     <>
       <Button onPress={onOpen}>Imagenes Para Video</Button>
       <Modal
-      size='5xl'
+        size='5xl'
         backdrop='opaque'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -199,9 +197,12 @@ export const EditarImagenesParaVideo = () => {
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>
-                <Button color='primary' onPress={actualizarImagenes}      disabled={enviando}>
-                {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
-
+                <Button
+                  color='primary'
+                  onPress={actualizarImagenes}
+                  disabled={enviando}
+                >
+                  {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
                 </Button>
                 <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
               </ModalFooter>

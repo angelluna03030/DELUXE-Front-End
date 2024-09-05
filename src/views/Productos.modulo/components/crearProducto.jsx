@@ -9,8 +9,7 @@ import {
   Input,
   Textarea,
   useDisclosure,
-  Spinner
-
+  Spinner,
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
@@ -104,7 +103,6 @@ export const ModalCrearProductos = () => {
       }));
     }
   };
-
 
   const handleCategoriasChange = selectedCategorias => {
     setFormData(prevFormData => ({
@@ -389,7 +387,7 @@ export const ModalCrearProductos = () => {
                     className='ursor-not-allowed'
                     disabled={enviando}
                   >
-                     {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
+                    {enviando ? <Spinner size='sm' color='danger' /> : 'Enviar'}
                   </Button>
                 </ModalFooter>
               </form>

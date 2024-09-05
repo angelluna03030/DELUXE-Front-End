@@ -39,15 +39,13 @@ export const Comprar = ({
     const numero = '3017996301';
     const mensaje = encodeURIComponent(generarMensaje());
     const urlWhatsApp = `https://wa.me/57${numero}?text=${mensaje}`;
-  
+
     console.log(urlWhatsApp); // Agrega esto para verificar la URL generada
-  
+
     // Abrir WhatsApp en una nueva pestaña
     window.open(urlWhatsApp, '_blank');
-  
-
   };
-  
+
   useEffect(() => {
     if (
       producto &&

@@ -72,7 +72,7 @@ export const ModalCategoria = ({ selectedCategoria, onCategoriasChange }) => {
                   >
                     <div className='flex'>
                       <img
-                        src={`http://localhost:3000/public/${categoria.imagen}`}
+                        src={`${RUTA_API}/public/${categoria.imagen}`}
                         alt={categoria.nombre}
                         className='w-16 h-20 rounded-lg'
                       />

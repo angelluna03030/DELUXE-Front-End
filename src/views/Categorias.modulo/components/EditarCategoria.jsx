@@ -248,7 +248,7 @@ export const EditarCategoria = ({ id }) => {
               </>
             )}
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter className='mr-48 sm:mr-0 sm:mt-5'>
             <Button auto flat color='error' onClick={onClose}>
               Cancelar
             </Button>

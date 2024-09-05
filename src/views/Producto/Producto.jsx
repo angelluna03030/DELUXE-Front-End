@@ -25,7 +25,7 @@ export const Producto = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedTalla, setSelectedTalla] = useState(null);
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { agregarProducto } = useContext(CarritoContext);
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
@@ -151,7 +151,7 @@ export const Producto = () => {
                   {producto.tallas.map(size => (
                     <div key={size} className='flex items-center space-x-2'>
                       <input
-                        className='day-btn'
+                        className='day-btn m-9'
                         id={`size-${size.toLowerCase()}`}
                         type='checkbox'
                         checked={selectedTalla === size}

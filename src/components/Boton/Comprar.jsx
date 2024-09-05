@@ -83,7 +83,7 @@ export const Comprar = ({
       }}
     >
       <div className='bg-[#F2E6D6] rounded-full m-3 p-4 text-white w-40 justify-items-center text-center'>
-        <button type='button' onClick={handleComprarProducto}>
+        <button type='button' onClick={handleComprarProducto} className='mt-3  sm:mt-0'>
           Comprar
         </button>
       </div>

@@ -8,9 +8,10 @@ import { Skeleton } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import imagen_No_funtion from '../../assets/no-fotos.png';
 import { getData } from '../../config/utils/metodoFecht';
+import { useMediaQuery } from 'react-responsive';
 export const Categorias = () => {
   const [categories, setCategorias] = useState([]);
-
+  const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const refreshCategorias = async () => {
     try {
       const { status, dataResponse } = await getData(
@@ -70,7 +71,7 @@ export const Categorias = () => {
                       }}
                       src={`${RUTA_API}/public/${category.imagen}`}
                       alt={category.nombre}
-                      className='rounded-2xl w-full h-full object-cover sm:w-32 sm:h-44'
+                      className='rounded-2xl w-full h-full object-cover sm:w-32 sm:h-44 '
                     />
                   </div>
                   <span className='text-gray-800 text-sm mb-0'>
@@ -79,12 +80,25 @@ export const Categorias = () => {
                 </div>
               </Link>
             </SwiperSlide>
-          ))
+          )) 
         ) : (
           <div className='flex'>
-            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
-            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
-            <Skeleton className='rounded-lg w-40 h-44 sm:m-5 ml-5'></Skeleton>
+            <Skeleton className='rounded-lg w-40 h-44  sm:h-50 sm:m-5 ml-5'></Skeleton>
+            <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+            <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+            {isDesktopOrLaptop && (
+              <>
+               <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+
+              </>
+
+  
+      )}
           </div>
         )}
       </Swiper>

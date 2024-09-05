@@ -56,18 +56,18 @@ export const Categoria = () => {
         <div>
           {loading ? ( // Mostrar Skeleton mientras se cargan los productos
             <div className=' grid grid-cols-2 gap-6 md:grid-cols-4 mb-10 m-auto'>
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
-              <Skeleton className='rounded-lg w-40 h-52  m-5' />
-              <Skeleton className='rounded-lg w-40 h-52 m-5' />
+              <Skeleton className='rounded-lg w-40 h-52  m-2' />
+              <Skeleton className='rounded-lg w-40 h-52 m-2' />
+              <Skeleton className='rounded-lg w-40 h-52  m-2' />
+              <Skeleton className='rounded-lg w-40 h-52 m-2' />
+              <Skeleton className='rounded-lg w-40 h-52  m-2' />
+              <Skeleton className='rounded-lg w-40 h-52 m-2' />
+              <Skeleton className='rounded-lg w-40 h-52  m-2' />
+              <Skeleton className='rounded-lg w-40 h-52 m-2' />
+              <Skeleton className='rounded-lg w-40 h-52  m-2' />
+              <Skeleton className='rounded-lg w-40 h-52 m-2' />
+              <Skeleton className='rounded-lg w-40 h-52  m-2' />
+              <Skeleton className='rounded-lg w-40 h-52 m-2' />
             </div>
           ) : productos.length > 0 ? (
             <div className='grid grid-cols-2 gap-6 md:grid-cols-4 mb-10'>

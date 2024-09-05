@@ -7,6 +7,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Spinner
 } from '@nextui-org/react';
 import { toast } from 'react-toastify';
 import { GaleriaImagenes } from '../../../components/GaleriadeImagenes';
@@ -22,6 +23,7 @@ export const EditarGaleriaDeImagenes = () => {
   });
   const [nuevasImagenes, setNuevasImagenes] = useState([]);
   const [imagenesEliminadas, setImagenesEliminadas] = useState([]);
+  const [enviando, setEnviando] = useState(false); // Nuevo estado
 
   useEffect(() => {
     const obtenerCatalogo = async () => {
@@ -71,6 +73,7 @@ export const EditarGaleriaDeImagenes = () => {
 
   const actualizarImagenes = async () => {
     const formData = new FormData();
+    setEnviando(true); // Rehabilitar el botón una vez finalizado el proceso
 
     // Agregar las nuevas imágenes al FormData
     nuevasImagenes.forEach(img => {
@@ -135,6 +138,8 @@ export const EditarGaleriaDeImagenes = () => {
       toast.error('Error al actualizar las imágenes');
       console.error('Error:', err);
     }
+    setEnviando(false); // Rehabilitar el botón una vez finalizado el proceso
+
   };
 
   return (
@@ -196,7 +201,8 @@ export const EditarGaleriaDeImagenes = () => {
                   Cerrar
                 </Button>
                 <Button color='primary' onPress={actualizarImagenes}>
-                  Enviar
+                {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
+
                 </Button>
                 <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
               </ModalFooter>

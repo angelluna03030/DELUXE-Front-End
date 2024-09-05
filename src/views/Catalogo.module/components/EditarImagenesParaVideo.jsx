@@ -7,6 +7,8 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Spinner
+  
 } from '@nextui-org/react';
 import { Carrusel } from '../../../components/CaruselImagenes';
 import { toast } from 'react-toastify';
@@ -22,6 +24,7 @@ export const EditarImagenesParaVideo = () => {
   });
   const [nuevasImagenes, setNuevasImagenes] = useState([]);
   const [imagenesEliminadas, setImagenesEliminadas] = useState([]);
+  const [enviando, setEnviando] = useState(false); // Nuevo estado
 
   useEffect(() => {
     const obtenerCatalogo = async () => {
@@ -71,6 +74,7 @@ export const EditarImagenesParaVideo = () => {
 
   const actualizarImagenes = async () => {
     const formData = new FormData();
+    setEnviando(true); // Deshabilitar el botón y mostrar el spinner
 
     // Agregar las nuevas imágenes al FormData
     nuevasImagenes.forEach(img => {
@@ -135,12 +139,15 @@ export const EditarImagenesParaVideo = () => {
       toast.error('Error al actualizar las imágenes');
       console.error('Error:', err);
     }
+    setEnviando(false); // Deshabilitar el botón y mostrar el spinner
+
   };
 
   return (
     <>
       <Button onPress={onOpen}>Imagenes Para Video</Button>
       <Modal
+      size='5xl'
         backdrop='opaque'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -193,7 +200,8 @@ export const EditarImagenesParaVideo = () => {
                   Cerrar
                 </Button>
                 <Button color='primary' onPress={actualizarImagenes}>
-                  Enviar
+                {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
+
                 </Button>
                 <p className='text-red-700 mt-2'> (Solo 10 Imagenes)</p>
               </ModalFooter>

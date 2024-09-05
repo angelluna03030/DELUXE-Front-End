@@ -151,7 +151,7 @@ export const EditarVideo = () => {
                   Cerrar
                 </Button>
                 <Button color='primary' onPress={actualizarVideo} disabled={enviando}>
-                  {enviando ? <Spinner size="sm" /> : 'Enviar'}
+                  {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
                 </Button>
               </ModalFooter>
             </>

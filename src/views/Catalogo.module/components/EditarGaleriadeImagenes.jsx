@@ -200,7 +200,7 @@ export const EditarGaleriaDeImagenes = () => {
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cerrar
                 </Button>
-                <Button color='primary' onPress={actualizarImagenes}>
+                <Button color='primary' onPress={actualizarImagenes}      disabled={enviando}>
                 {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
 
                 </Button>

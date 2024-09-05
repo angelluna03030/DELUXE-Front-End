@@ -7,7 +7,10 @@ import {
   Button,
   useDisclosure,
   Input,
+  
   Textarea,
+  Spinner
+
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
@@ -18,6 +21,8 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const CrearCategoria = () => {
+  const [enviando, setEnviando] = useState(false); // Nuevo estado
+
   const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
@@ -90,6 +95,7 @@ export const CrearCategoria = () => {
     if (errors.nombre || errors.descripcion || errors.imagen) {
       return; // No enviar el formulario si hay errores
     }
+    setEnviando(true); // Deshabilitar el botón y mostrar el spinner
 
     try {
       setIsSubmitting(true);
@@ -162,6 +168,8 @@ export const CrearCategoria = () => {
       console.error(err);
     } finally {
       setIsSubmitting(false);
+    setEnviando(false); // Deshabilitar el botón y mostrar el spinner
+
     }
   };
 
@@ -262,8 +270,10 @@ export const CrearCategoria = () => {
                   >
                     Cerrar
                   </Button>
-                  <Button color='primary' type='submit'>
-                    Enviar
+                  <Button color='primary' type='submit'
+                  disabled={enviando}
+                  >
+                  {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
                   </Button>
                 </ModalFooter>
               </form>

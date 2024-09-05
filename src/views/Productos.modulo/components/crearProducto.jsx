@@ -9,6 +9,8 @@ import {
   Input,
   Textarea,
   useDisclosure,
+  Spinner
+
 } from '@nextui-org/react';
 import { PlusIcon } from '../../../states/icons/PlusIcon';
 import { toast } from 'react-toastify';
@@ -29,6 +31,22 @@ export const ModalCrearProductos = () => {
     imagenes: '',
     categorias: '',
   });
+  const [formData, setFormData] = useState({
+    nombreproductos: '',
+    estado: 1,
+    precio: 0,
+    descripcion: '',
+    tallas: [],
+    colores: [],
+    imagenes: [],
+    categorias: [],
+  });
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [size, setSize] = useState('md');
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [enviando, setEnviando] = useState(false); // Nuevo estado
+
   const validateRequiredFields = () => {
     const newErrors = {};
     if (formData.tallas.length === 0) {
@@ -87,20 +105,6 @@ export const ModalCrearProductos = () => {
     }
   };
 
-  const [formData, setFormData] = useState({
-    nombreproductos: '',
-    estado: 1,
-    precio: 0,
-    descripcion: '',
-    tallas: [],
-    colores: [],
-    imagenes: [],
-    categorias: [],
-  });
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = useState('md');
-  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleCategoriasChange = selectedCategorias => {
     setFormData(prevFormData => ({
@@ -128,6 +132,7 @@ export const ModalCrearProductos = () => {
       toast.error('Por favor complete todos los campos requeridos.');
       return;
     }
+    setEnviando(true); // Deshabilitar el botón y mostrar el spinner
 
     try {
       const formDataToSend = new FormData();
@@ -194,6 +199,7 @@ export const ModalCrearProductos = () => {
       toast.error('Problemas al registrar el producto');
       console.error(err);
     }
+    setEnviando(false); // Rehabilitar el botón una vez finalizado el proceso
   };
 
   const handleOpen = size => {
@@ -381,8 +387,9 @@ export const ModalCrearProductos = () => {
                     color='primary'
                     type='submit'
                     className='ursor-not-allowed'
+                    disabled={enviando}
                   >
-                    Enviar
+                     {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
                   </Button>
                 </ModalFooter>
               </form>

@@ -12,6 +12,8 @@ import {
   Textarea,
   CircularProgress,
   Image,
+  Spinner
+
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import { getData, putData } from '../../../config/utils/metodoFecht';
@@ -26,6 +28,8 @@ export const EditarCategoria = ({ id }) => {
   const [descripcion, setDescripcion] = useState('');
   const [imagen, setImagen] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [enviando, setEnviando] = useState(false); // Nuevo estado
+
   const [errors, setErrors] = useState({
     nombre: '',
     descripcion: '',
@@ -90,6 +94,8 @@ export const EditarCategoria = ({ id }) => {
     if (errors.nombre || errors.descripcion || errors.imagen) {
       return; // No enviar el formulario si hay errores
     }
+    setEnviando(true); // Deshabilitar el botón y mostrar el spinner
+
 
     const updatedCategoria = {
       nombre,
@@ -109,6 +115,8 @@ export const EditarCategoria = ({ id }) => {
       toast.error('Error actualizando la categoría');
       console.error('Error updating category:', error);
     }
+    setEnviando(false); // Deshabilitar el botón y mostrar el spinner
+
   };
 
   const handleFileChange = async event => {
@@ -247,8 +255,8 @@ export const EditarCategoria = ({ id }) => {
             <Button auto flat color='error' onClick={onClose}>
               Cancelar
             </Button>
-            <Button auto onClick={handleUpdate} disabled={loading}>
-              Guardar
+            <Button auto onClick={handleUpdate} disabled={enviando}>
+            {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
             </Button>
           </ModalFooter>
         </ModalContent>

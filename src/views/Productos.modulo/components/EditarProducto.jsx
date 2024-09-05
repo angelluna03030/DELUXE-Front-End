@@ -11,6 +11,8 @@ import {
   Input,
   Textarea,
   CircularProgress,
+  Spinner
+
 } from '@nextui-org/react';
 import { EditIcon } from '../../../states/icons/EditIcon';
 import { ModalTallas } from './ModalTallas';
@@ -32,6 +34,8 @@ export const EditarProducto = ({ id }) => {
   const [precio, setPrecio] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [loading, setLoading] = useState(false);
+  const [enviando, setEnviando] = useState(false); // Nuevo estado
+
   useEffect(() => {
     if (isOpen) {
       const loadData = async () => {
@@ -75,6 +79,8 @@ export const EditarProducto = ({ id }) => {
       imagenes,
     };
 
+    setEnviando(true); // Deshabilitar el botón y mostrar el spinner
+
     try {
       const response = await putData(
         `${RUTA_API}/api/productos/${id}`,
@@ -87,6 +93,9 @@ export const EditarProducto = ({ id }) => {
       toast.error('Error actualizando el producto');
       console.error('Error updating product:', error);
     }
+    
+    setEnviando(false); // habilitar el botón
+
   };
 
   const handleRemoveImage = image => {
@@ -214,7 +223,7 @@ export const EditarProducto = ({ id }) => {
                         selectedColores={selectedColores}
                         onColoresChange={handleColoresChange}
                       />
-                      <div className='flex flex-wrap gap-2  sm:ml-5 ml-5 '>
+                      <div className='flex flex-wrap gap-2  sm:ml-5 ml-5 sm:mr-2'>
                         {selectedColores.map((color, index) => (
                           <div
                             key={index}
@@ -262,7 +271,7 @@ export const EditarProducto = ({ id }) => {
                           imagenes.map((img, index) => (
                             <div key={index} className='relative'>
                               <img
-                                src={`http://localhost:3000/public/${img}`}
+                                src={`${RUTA_API}/public/${img}`}
                                 alt={`Imagen ${index}`}
                                 className='h-20 w-20 object-cover rounded-2xl'
                               />
@@ -304,8 +313,8 @@ export const EditarProducto = ({ id }) => {
                 <Button color='danger' variant='light' onPress={onClose}>
                   Cancelar
                 </Button>
-                <Button color='primary' onPress={handleUpdate} className='w-44'>
-                  Guardar
+                <Button color='primary' onPress={handleUpdate} className='w-44' disabled={enviando}>
+                {enviando ? <Spinner size="sm"  color="danger"/> : 'Enviar'}
                 </Button>
               </ModalFooter>
             </>

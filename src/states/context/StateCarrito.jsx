@@ -84,8 +84,8 @@ const StateCarrito = ({ children }) => {
         vaciarCarrito,
         calcularTotal,
         contarProductos,
-        cambiarTalla, // Agregar aquí
-        cambiarColor, // Agregar aquí
+        cambiarTalla,
+        cambiarColor, 
       }}
     >
       {children}

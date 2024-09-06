@@ -25,7 +25,8 @@ export default {
       "gray-300" :"#D1D5DB",
       "colorprimary": "#F2E6D6",
       "gray-200" : "#e5e7eb",
-      "stroke-red-700" : "#b91c1c"
+      "stroke-red-700" : "#DC2626",
+      "gray-400": "#a1a1aa"
     },
   },
   plugins: [],

@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import imagen from '../../assets/OIP.jpg';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Skeleton } from '@nextui-org/react';
 const API_KEY = import.meta.env.VITE_API_KEY;
-
 const RUTA_API = import.meta.env.VITE_API_URL;
-
 export const Producto = ({ Ids }) => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true); // Estado de carga
@@ -71,7 +68,7 @@ export const Producto = ({ Ids }) => {
                 src={
                   producto.imagenes[0]
                     ? `${RUTA_API}/public/${producto.imagenes[0]}`
-                    : imagen
+                    : imagen_No_funtion
                 }
                 alt={producto.nombreproductos}
                 className='w-full h-auto object-cover rounded-lg'

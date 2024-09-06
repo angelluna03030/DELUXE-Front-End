@@ -82,7 +82,7 @@ export const Comprar = ({
         content: ['py-2 px-4 shadow-xl bg-[#358FED]', 'text-white'],
       }}
     >
-      <div className='bg-[#F2E6D6] rounded-full m-3 p-4 text-white w-40 justify-items-center text-center'>
+      <div className='bg-colorprimary rounded-full m-3 p-4 text-white w-40 justify-items-center text-center'>
         <button
           type='button'
           onClick={handleComprarProducto}

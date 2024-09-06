@@ -84,13 +84,13 @@ export const TablaInformacionProductoPedido = () => {
             <span className='block opacity-75 -mb-1'>{item.nombre}</span>
             <div className='flex justify-between items-center'>
               <span className='block font-semibold text-xl'>{item.talla}</span>
-              <span className='block bg-white rounded-full text-black text-xs font-bold px-3 py-2 leading-none flex items-center'>
+              <span className=' bg-white rounded-full text-black text-xs font-bold px-3 py-2 leading-none flex items-center'>
                 ${item.precio}
               </span>
             </div>
             <div className='number-control flex items-center  justify-center mt-2'>
               <div
-                className='number-left flex items-center justify-center w-8 h-8 bg-white border  rounded-full cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gray-200 text-black'
+                className='number-left flex items-center justify-center w-8 h-8 bg-white border-1 border-gray-300  rounded-full cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gray-200 text-black'
                 onClick={() => handleDecrement(item)}
               >
                 -
@@ -98,14 +98,14 @@ export const TablaInformacionProductoPedido = () => {
               <input
                 type='number'
                 name='number'
-                className='number-quantity mx-2 text-center w-12 p-1 border  rounded-md text-black'
+                className='number-quantity mx-2 text-center w-12 p-1 border-1 border-gray-300  rounded-md text-black'
                 value={item.cantidad}
                 onChange={e => handleChangeCantidad(e, item)}
                 min='1'
                 max='10'
               />
               <div
-                className='number-right flex items-center justify-center w-8 h-8 bg-white border  rounded-full cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gray-200 text-black'
+                className=' number-right flex items-center justify-center w-8 h-8 bg-white border-1 border-gray-300  rounded-full cursor-pointer transition-all duration-300 hover:shadow-lg hover:bg-gray-200 text-black'
                 onClick={() => handleIncrement(item)}
               >
                 +

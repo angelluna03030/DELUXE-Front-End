@@ -2,7 +2,7 @@ export const IconEliminar = () => {
   return (
     <>
       <svg
-        className='w-6 stroke-red-700'
+        className='w-6 stroke-stroke-red-700'
         viewBox='0 0 24 24'
         fill='none'
         stroke='currentColor'

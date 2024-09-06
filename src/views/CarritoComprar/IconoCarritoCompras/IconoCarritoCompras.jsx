@@ -15,9 +15,9 @@ export const CarritoComprasIcono = () => {
 
   return (
     <Link to={'/carritocompras'}>
-      <div className='z-40 fixed bottom-4 left-4 bg-white rounded-full sm:w-16 sm:h-16 flex items-center justify-center shadow-md hover:bg-white transition duration-300 w-14 h-14 border-x-slate-100 shadow-slate-300'>
+      <div className='z-40 fixed bottom-4 left-4 bg-white rounded-full sm:w-16 sm:h-16 flex items-center justify-center shadow-md hover:bg-white transition duration-300 w-14 h-14 border-x-slate-100 shadow-[#ffffff]'>
         {cantidadProductos > 0 && (
-          <div className='bg-red-400 w-3 h-3 rounded-full fixed bottom-14 left-14 sm:bottom-16 sm:left-16'></div>
+          <div className='bg-stroke-red-700 w-3 h-3 rounded-full fixed bottom-14 left-14 sm:bottom-16 sm:left-16'></div>
         )}
         <img
           src={IconoCarritoCompras}

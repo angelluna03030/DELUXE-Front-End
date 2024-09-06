@@ -18,7 +18,7 @@ export const DetallePedidos = () => {
   const cantidad = contarProductos();
   return (
     <>
-      <div className='flex flex-col bg-white w-80 h-60 rounded-md py-4 px-6 border mb-32 m-auto '>
+      <div className='flex flex-col bg-white w-80 h-60 rounded-md py-4 px-6 border-gray-300 mb-32 m-auto border-1 '>
         <h3 className='text-center font-bold text-xl text-gray-800 pb-2'>
           ${total > 0 ? total : 0}
         </h3>

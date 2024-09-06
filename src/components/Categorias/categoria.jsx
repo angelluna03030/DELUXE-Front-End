@@ -80,7 +80,7 @@ export const Categorias = () => {
                 </div>
               </Link>
             </SwiperSlide>
-          )) 
+          ))
         ) : (
           <div className='flex'>
             <Skeleton className='rounded-lg w-40 h-44  sm:h-50 sm:m-5 ml-5'></Skeleton>
@@ -88,17 +88,14 @@ export const Categorias = () => {
             <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
             {isDesktopOrLaptop && (
               <>
-               <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
-              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
-              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
-              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
-              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
-              <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
-
+                <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+                <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+                <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+                <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+                <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
+                <Skeleton className='rounded-lg w-40 h-44 sm:h-50 sm:m-5 ml-5'></Skeleton>
               </>
-
-  
-      )}
+            )}
           </div>
         )}
       </Swiper>

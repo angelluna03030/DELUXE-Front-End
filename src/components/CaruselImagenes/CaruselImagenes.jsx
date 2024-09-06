@@ -36,7 +36,6 @@ export const Carrusel = ({ imagenes = [] }) => {
       img.onload = onLoad;
       img.onerror = onLoad; // Handle errors by considering the image loaded
     });
-
   }, [imagenes]);
 
   if (!imagesLoaded) {

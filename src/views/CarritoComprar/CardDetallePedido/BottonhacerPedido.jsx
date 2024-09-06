@@ -50,8 +50,6 @@ export const BotonHacerPedido = () => {
     const mensaje = encodeURIComponent(generarMensaje());
     const urlWhatsApp = `https://wa.me/57${numero}?text=${mensaje}`;
 
-    console.log('URL generada:', urlWhatsApp); // Verifica la URL generada
-
     window.open(urlWhatsApp, '_blank');
     vaciarCarrito();
   };

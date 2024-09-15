@@ -68,6 +68,18 @@ Asegúrate de reemplazar los valores de ejemplo con tus configuraciones reales.
 ## Estructura del Proyecto
 
 Este proyecto sigue una arquitectura cliente-servidor, con el front-end desarrollado en Vite.js y la API en Node.js. Puedes encontrar el backend en el siguiente repositorio: [DELUXE_Back-end](https://github.com/angelluna03030/DELUXE_Back-end).
+ ## Estructura de Carpetas
+
+- **`index.html`**: Archivo principal de entrada para la página web.
+- **`assets/`**: Carpeta que contiene archivos estáticos como imágenes y otros recursos.
+- **`components/`**: Carpeta para los componentes reutilizables de la interfaz de usuario.
+- **`config/utils/`**: Carpeta para funciones y utilidades importantes, como la conexión a la API.
+- **`routes/`**: Carpeta para los archivos de enrutamiento que gestionan las rutas y navegación de la página web.
+- **`states/`**: Carpeta para archivos relacionados con el estado global de la aplicación y contextos importantes.
+- **`styles/`**: Carpeta para archivos de CSS y estilos globales.
+- **`views/`**: Carpeta para las vistas o plantillas de las páginas web.
+
+
 
 ## Licencia
 

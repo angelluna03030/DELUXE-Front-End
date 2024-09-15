@@ -33,7 +33,7 @@ VITE_API_URL=https://tu-api-url.com
 VITE_API_KEY=tu_api_key
 
 # Documento de identidad (sólo números)
-VITE_ID_DOCUMENT=123456789
+VITE_DOCUMENTO=123456789
 
 # Contraseña
 VITE_PASSWORD=tu_contraseña

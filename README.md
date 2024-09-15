@@ -1,6 +1,6 @@
 
 
-```markdown
+
 # Página Web de Uniformes Odontológicos para DELUXE
 
 Bienvenido al repositorio del sitio web de uniformes para DELUXE, desarrollado utilizando Vite.js y Node.js. Este documento proporciona información sobre cómo configurar y ejecutar el proyecto, así como otros detalles relevantes.

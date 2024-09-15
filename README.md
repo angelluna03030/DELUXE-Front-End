@@ -1,16 +1,17 @@
-# Hecho en Vite.js y la api con con node.js para la empresa DELUXE
-# Página Web de Uniformes Odontológicos
+Aquí tienes una versión mejorada del archivo `README.md` con una estructura más clara y detalles adicionales:
 
-Bienvenido al repositorio de la página web de uniformes para DELUXE, desarrollada con Vite.js. Este documento proporciona información sobre cómo ejecutar el proyecto, configurar las variables de entorno y otros detalles relevantes.
+```markdown
+# Página Web de Uniformes Odontológicos para DELUXE
+
+Bienvenido al repositorio del sitio web de uniformes para DELUXE, desarrollado utilizando Vite.js y Node.js. Este documento proporciona información sobre cómo configurar y ejecutar el proyecto, así como otros detalles relevantes.
 
 ## Tabla de Contenidos
 
-1. tener instalodo node.js, vite.js npm .
-2. en la raiz del proyecto crea un archivo .env y crea una api ("ejemplo de una api peude ir a este proyecto:https://github.com/angelluna03030/DELUXE_Back-end "). 
-3. para ejecutar el proyecto utilizat npm run dev. 
-4. cuanta con estrutura de cleinte servidor.
-5. ninguna 
-6. Licencia: **Uso Comercial**: Cualquier uso comercial del código requiere una licencia adicional acordada con el autor. Copyright 2024 Angel Steven Garcia Luna. Todos los derechos reservados.
+1. [Requisitos](#requisitos)
+2. [Configuración del Entorno](#configuración-del-entorno)
+3. [Ejecución del Proyecto](#ejecución-del-proyecto)
+4. [Estructura del Proyecto](#estructura-del-proyecto)
+5. [Licencia](#licencia)
 
 ## Requisitos
 
@@ -22,7 +23,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
 ## Configuración del Entorno
 
-Para que la aplicación funcione correctamente, necesitas configurar algunas variables de entorno. Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
+Para que la aplicación funcione correctamente, debes configurar algunas variables de entorno. Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
 
 ```dotenv
 # URL de la API
@@ -36,3 +37,49 @@ VITE_ID_DOCUMENT=123456789
 
 # Contraseña
 VITE_PASSWORD=tu_contraseña
+```
+
+Asegúrate de reemplazar los valores de ejemplo con tus configuraciones reales.
+
+## Ejecución del Proyecto
+
+1. Instala las dependencias necesarias ejecutando:
+
+   ```bash
+   npm install
+   ```
+
+2. En la raíz del proyecto, crea un archivo `.env` con la configuración adecuada (consulta la sección de Configuración del Entorno).
+
+3. Para iniciar el servidor de desarrollo, utiliza:
+
+   ```bash
+   npm run dev
+   ```
+
+   o, si prefieres usar Yarn:
+
+   ```bash
+   yarn dev
+   ```
+
+4. La aplicación estará disponible en `http://localhost:3000` (o el puerto configurado en tu entorno).
+
+## Estructura del Proyecto
+
+Este proyecto sigue una arquitectura cliente-servidor, con el front-end desarrollado en Vite.js y la API en Node.js. Puedes encontrar el backend en el siguiente repositorio: [DELUXE_Back-end](https://github.com/angelluna03030/DELUXE_Back-end).
+
+## Licencia
+
+**Uso Comercial**: Cualquier uso comercial del código requiere una licencia adicional acordada con el autor. 
+
+Copyright 2024 Angel Steven Garcia Luna. Todos los derechos reservados.
+```
+
+Este formato incluye:
+
+- Secciones bien definidas y detalladas.
+- Ejemplos de comandos y configuraciones en bloques de código.
+- Enlaces y referencias a herramientas y recursos relevantes.
+
+Si necesitas ajustes adicionales o más detalles, no dudes en decírmelo.

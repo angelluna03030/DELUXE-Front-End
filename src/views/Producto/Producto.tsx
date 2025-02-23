@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Layout } from '../../components/Layout';
+import { Layout } from '../../components/Header';
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { Titulo } from '../../components/Titulo';

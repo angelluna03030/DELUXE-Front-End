@@ -1,4 +1,4 @@
-import { Layout } from '../../components/Layout';
+import { Layout } from '../../components/Header';
 import { Buscador } from '../../components/Inputs';
 import { GaleriaImagenes } from '../../components/GaleriadeImagenes';
 import React, { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import {IconWhastApp} from "../../components/WhatsApp"
+import { Header_movimiento } from '../../components/Header/Header_movimineto';
 const RUTA_API = import.meta.env.VITE_API_URL;
 export const Catalogo = () => {
   const [catalogo, setCatalogo] = useState({
@@ -49,6 +50,7 @@ export const Catalogo = () => {
 
   return (
     <>
+    <Header_movimiento></Header_movimiento>
       <Layout />
       <Buscador />
       <Carrusel imagenes={catalogo.imagenesparavideo} />

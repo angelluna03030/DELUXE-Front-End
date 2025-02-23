@@ -1,4 +1,4 @@
-import { Layout } from '../../components/Layout';
+import { Layout } from '../../components/Header';
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { CardCategoria } from '../../components/Card';

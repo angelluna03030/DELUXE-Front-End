@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from '../../../components/Layout';
+import { Layout } from '../../../components/Header';
 import { DetallePedidos } from '../CardDetallePedido';
 import { Footer } from '../../../components/Footer';
 import { TablaInformacionProductoPedido } from './index';

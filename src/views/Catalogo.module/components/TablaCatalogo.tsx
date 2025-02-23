@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Layout } from '../../../components/Layout';
+import { Layout } from '../../../components/Header';
 import { Carrusel } from '../../../components/CaruselImagenes';
 import { VideoPlayer } from '../../../components/Video';
 import { Producto } from '../../../components/Producto';

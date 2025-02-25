@@ -1,12 +1,12 @@
-import { Layout } from '../../components/Header';
+
 import { Buscador } from '../../components/Inputs';
 import { GaleriaImagenes } from '../../components/GaleriadeImagenes';
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Video } from '../../components/CaruselImagenes';
 
 import { Productos } from '../../components/Producto';
 import { Footer } from '../../components/Footer';
-import { Categorias } from '../../components/Categorias';
+
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';

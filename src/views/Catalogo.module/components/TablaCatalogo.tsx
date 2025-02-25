@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '../../../components/Header';
 import { Video } from '../../../components/CaruselImagenes';
-import { VideoPlayer } from '../../../components/Video';
 import { Producto } from '../../../components/Producto';
 import { Categorias } from '../../../components/Categorias';
 import { toast } from 'react-toastify';
@@ -54,9 +53,7 @@ export const TablaCatalogo = () => {
       </div>
       <Video />
       <Categorias />
-      <div className='w-80 h-80 justify-center items-center mb-64 ml-12 sm:ml-96 m-auto'>
-        <VideoPlayer video={catalogo.video} />
-      </div>
+      
       <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
       <Producto Ids={catalogo.productosdestacados} />
     </div>

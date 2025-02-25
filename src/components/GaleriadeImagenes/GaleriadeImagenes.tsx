@@ -5,8 +5,10 @@ import 'swiper/swiper-bundle.css';
 import { EffectCoverflow } from 'swiper/modules';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 import { Skeleton } from '@nextui-org/react';
-
-export const GaleriaImagenes = ({ imagenes = [] }) => {
+interface GaleriaImagenesProps {
+  imagenes: string[] | undefined;
+}
+export const GaleriaImagenes: React.FC<GaleriaImagenesProps> = ({ imagenes = [] }) => {
   if (!imagenes || imagenes.length === 0) {
     return (
       <div className='flex justify-center items-center'>
@@ -48,9 +50,7 @@ export const GaleriaImagenes = ({ imagenes = [] }) => {
             <Productos
               src={imagen}
               alt={imagen}
-              onError={e => {
-                e.target.src = imagen_No_funtion;
-              }}
+              onError={(e: { target: { src: string; }; }) => e.target.src = imagen_No_funtion}
               className='rounded-lg'
             />
           </SwiperSlide>

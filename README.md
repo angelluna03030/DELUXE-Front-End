@@ -1,50 +1,97 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Página Web de Uniformes Odontológicos para DELUXE
 
-## Expanding the ESLint configuration
+Bienvenido al repositorio del sitio web de uniformes para DELUXE, desarrollado utilizando Vite.js y Node.js. Este documento proporciona información sobre cómo configurar y ejecutar el proyecto, así como otros detalles relevantes.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tabla de Contenidos
 
-- Configure the top-level `parserOptions` property like this:
+1. [Requisitos](#requisitos)
+2. [Configuración del Entorno](#configuración-del-entorno)
+3. [Ejecución del Proyecto](#ejecución-del-proyecto)
+4. [Estructura del Proyecto](#estructura-del-proyecto)
+5. [Licencia](#licencia)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Requisitos
+
+Antes de comenzar, asegúrate de tener instalados los siguientes programas:
+
+- [Node.js](https://nodejs.org/) (versión 16 o superior)
+- [npm](https://www.npmjs.com/) (se incluye con Node.js)
+- [Vite.js](https://vitejs.dev/) (se instalará automáticamente con `npm`)
+
+## Configuración del Entorno
+
+Para que la aplicación funcione correctamente, debes configurar algunas variables de entorno. Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
+
+```dotenv
+# URL de la API
+VITE_API_URL=https://tu-api-url.com
+
+# Clave de la API
+VITE_API_KEY=tu_api_key
+
+# Documento de identidad (sólo números)
+VITE_DOCUMENTO=123456789
+
+# Contraseña
+VITE_PASSWORD=tu_contraseña
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Asegúrate de reemplazar los valores de ejemplo con tus configuraciones reales.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Ejecución del Proyecto
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+1. Instala las dependencias necesarias ejecutando:
+
+   ```bash
+   npm install
+   ```
+
+2. En la raíz del proyecto, crea un archivo `.env` con la configuración adecuada (consulta la sección de Configuración del Entorno).
+
+3. Para iniciar el servidor de desarrollo, utiliza:
+
+   ```bash
+   npm run dev
+   ```
+
+   o, si prefieres usar Yarn:
+
+   ```bash
+   yarn dev
+   ```
+
+4. La aplicación estará disponible en `http://localhost:3000` (o el puerto configurado en tu entorno).
+
+## Estructura del Proyecto
+
+Este proyecto sigue una arquitectura cliente-servidor, con el front-end desarrollado en Vite.js y la API en Node.js. Puedes encontrar el backend en el siguiente repositorio: [DELUXE_Back-end](https://github.com/angelluna03030/DELUXE_Back-end).
+ ## Estructura de Carpetas
+
+- **`index.html`**: Archivo principal de entrada para la página web.
+- **`assets/`**: Carpeta que contiene archivos estáticos como imágenes y otros recursos.
+- **`components/`**: Carpeta para los componentes reutilizables de la interfaz de usuario.
+- **`config/utils/`**: Carpeta para funciones y utilidades importantes, como la conexión a la API.
+- **`routes/`**: Carpeta para los archivos de enrutamiento que gestionan las rutas y navegación de la página web.
+- **`states/`**: Carpeta para archivos relacionados con el estado global de la aplicación y contextos importantes.
+- **`styles/`**: Carpeta para archivos de CSS y estilos globales.
+- **`views/`**: Carpeta para las vistas o plantillas de las páginas web.
+
+
+
+## Licencia
+
+**Uso Comercial**: Cualquier uso comercial del código requiere una licencia adicional acordada con el autor. 
+
+Copyright 2024 Angel Steven Garcia Luna. Todos los derechos reservados.
 ```
+
+Este formato incluye:
+
+- Secciones bien definidas y detalladas.
+- Ejemplos de comandos y configuraciones en bloques de código.
+- Enlaces y referencias a herramientas y recursos relevantes.
+
+Si necesitas ajustes adicionales o más detalles, no dudes en decírmelo.

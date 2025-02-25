@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/react';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { toast } from 'react-toastify';
-import { VideoPlayer } from '../../../components/Video';
+
 import { getData } from '../../../config/utils/metodoFecht';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -20,7 +20,7 @@ export const EditarVideo = () => {
   const [catalogo, setCatalogo] = useState({
     video: '',
   });
-  const [nuevoVideo, setNuevoVideo] = useState(null);
+  const [nuevoVideo, setNuevoVideo] = useState<File | null>(null);
   const [enviando, setEnviando] = useState(false); // Nuevo estado
 
   useEffect(() => {
@@ -49,8 +49,13 @@ export const EditarVideo = () => {
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta
 
-  const manejarCambioVideo = (e) => {
-    const archivo = e.target.files[0];
+  const manejarCambioVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) {
+      toast.error('No se ha seleccionado ningún archivo.');
+      return;
+    }
+    const archivo = files[0];
     if (archivo) {
       // El tamaño está en bytes, por lo que comparamos con 20 MB (20 * 1024 * 1024)
       const maxSize = 20 * 1024 * 1024;
@@ -144,19 +149,17 @@ export const EditarVideo = () => {
                 Cambiar El Video
               </ModalHeader>
               <ModalBody>
-                <div className='h-96 w-52 m-auto'>
-                  <VideoPlayer video={catalogo.video} />
-                </div>
+               
                 <div className='grid w-full max-w-xs items-center gap-1.5 mt-4'>
                   <label className='text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-                    Nuevo Video
+                  Nuevo Video
                   </label>
                   <input
-                    type='file'
-                    id='video'
-                    accept='video/*'
-                    onChange={manejarCambioVideo}
-                    className='mt-2 flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium'
+                  type='file'
+                  id='video'
+                  accept='video/*'
+                  onChange={(e) => manejarCambioVideo(e as React.ChangeEvent<HTMLInputElement>)}
+                  className='mt-2 flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium'
                   />
                 </div>
               </ModalBody>

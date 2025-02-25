@@ -81,7 +81,7 @@ export const putData = async (url = '', data = {}) => {
  * @param { FormData } formData Recibe los datos para enviar en formato FormData
  * @return { object } Respuesta de la petición
  */
-export const postFormData = async (url = '', formData) => {
+export const postFormData = async (url:string = '', formData: FormData) => {
   const response = await fetch(url, {
     method: 'POST',
     mode: 'cors',
@@ -107,7 +107,7 @@ export const postFormData = async (url = '', formData) => {
  * @param { FormData } formData Recibe los datos para enviar en formato FormData
  * @return { object } Respuesta de la petición
  */
-export const putFormData = async (url = '', formData) => {
+export const putFormData = async (url:string = '', formData: FormData) => {
   const response = await fetch(url, {
     method: 'PUT',
     mode: 'cors',

@@ -1,4 +1,4 @@
-import { Layout } from '../../components/Header';
+
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
 import { CardCategoria } from '../../components/Card';
@@ -9,12 +9,16 @@ import { Skeleton } from '@nextui-org/react';
 import { TablaVaciaImagen } from '../../components/NoProductos';
 import { getData } from '../../config/utils/metodoFecht';
 import {IconWhastApp} from "../../components/WhatsApp"
+import { HeaderNegros } from '@/components/Header/Header_negro';
+import { Producto } from '@/states/models/ModelsProductos';
+import { toast } from 'react-toastify';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const BuscarProductos = () => {
   const { query } = useParams();
-  const [productos, setProductos] = useState([]);
+  const [productos, setProductos] = useState<Producto[]>([]);
+
   const [loading, setLoading] = useState(true); // Estado para controlar el estado de carga
   useEffect(() => {
     const loadProductos = async () => {
@@ -27,7 +31,7 @@ export const BuscarProductos = () => {
         if (status >= 200 && status < 300) {
           // Filtra los productos cuyo estado no es 0
           const productosFiltrados = dataResponse.filter(
-            producto => producto.estado !== 0,
+            (            producto: { estado: number; }) => producto.estado !== 0,
           );
           setProductos(productosFiltrados);
         } else {
@@ -47,7 +51,7 @@ export const BuscarProductos = () => {
 
   return (
     <>
-      <Layout />
+      <HeaderNegros />
       <CarritoComprasIcono />
       <IconWhastApp></IconWhastApp>
       <Buscador />

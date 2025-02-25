@@ -9,8 +9,9 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 import imagen_No_funtion from '../../assets/no-fotos.png';
 import { getData } from '../../config/utils/metodoFecht';
 import { useMediaQuery } from 'react-responsive';
+import { Categoria } from '@/states/models/ModelsProductos';
 export const Categorias = () => {
-  const [categories, setCategorias] = useState([]);
+  const [categories, setCategorias] = useState<Categoria[]>([]);
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const refreshCategorias = async () => {
     try {
@@ -21,7 +22,7 @@ export const Categorias = () => {
       if (status >= 200 && status < 300) {
         // Filtrar los datos según el estado
         const productosFiltrados = dataResponse.filter(
-          categoria => categoria.estado !== 0,
+          (          categoria: { estado: number; }) => categoria.estado !== 0,
         );
         setCategorias(productosFiltrados);
       } else {
@@ -67,7 +68,7 @@ export const Categorias = () => {
                   <div className='w-full h-44'>
                     <img
                       onError={e => {
-                        e.target.src = imagen_No_funtion;
+                        (e.target as HTMLImageElement).src = imagen_No_funtion;
                       }}
                       src={`${category.imagen}`}
                       alt={category.nombre}

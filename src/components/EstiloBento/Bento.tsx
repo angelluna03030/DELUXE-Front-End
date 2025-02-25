@@ -2,29 +2,26 @@ import { Image } from "@nextui-org/react";
 import React from "react";
 
 interface BentoGalleryProps {
-    images: string[];
+    imagenes: string[] | undefined ;
 }
 
-export const BentoGallery: React.FC<BentoGalleryProps> = ({ images }) => {
-    images = [
-        "https://res.cloudinary.com/dryyuf1vh/image/upload/v1728357379/uploads/eppzeegufnz0iutkicog.jpg",
-        "https://res.cloudinary.com/dryyuf1vh/image/upload/v1728357379/uploads/eppzeegufnz0iutkicog.jpg"
-        ,
-        "https://res.cloudinary.com/dryyuf1vh/image/upload/v1728357379/uploads/eppzeegufnz0iutkicog.jpg"
-        ,
-        "https://res.cloudinary.com/dryyuf1vh/image/upload/v1728357379/uploads/eppzeegufnz0iutkicog.jpg"
-        ,
-        "https://res.cloudinary.com/dryyuf1vh/image/upload/v1728357379/uploads/eppzeegufnz0iutkicog.jpg"
-        ,
-        "https://res.cloudinary.com/dryyuf1vh/image/upload/v1728357379/uploads/eppzeegufnz0iutkicog.jpg"
-        ,
-        "https://res.cloudinary.com/dryyuf1vh/image/upload/v1728357379/uploads/eppzeegufnz0iutkicog.jpg"
-        ,
-      
-    ]
+export const BentoGallery: React.FC<BentoGalleryProps> = ({ imagenes }) => {
+    if (!imagenes || imagenes.length === 0) {
+        return (
+            <div className="flex justify-center items-center">
+                <div className="overflow-hidden rounded-lg shadow-md relative h-96 w-80 mx-auto mt-10">
+                    <Image
+                        src="/no-fotos.png"
+                        alt="No hay imágenes"
+                        className="rounded-lg sm:m-5 h-96 w-80 m-auto mb-10"
+                    />
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px] sm:auto-rows-[250px] md:auto-rows-[300px] lg:auto-rows-[350px] gap-4 p-4 sm:p-8 md:p-12 lg:p-20">
-            {images.map((image, index) => {
+            {imagenes.map((image, index) => {
                 // Alternar entre diferentes tamaños sin dejar espacios vacíos
                 let sizeClass = "col-span-1 row-span-1";
 

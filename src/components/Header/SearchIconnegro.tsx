@@ -1,8 +1,8 @@
 import React from 'react';
 import { JSX } from 'react/jsx-runtime';
-export const SearchIcon = (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+export const SearchIconNegro = (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
   <svg
-  color='#FFFFFFFF'
+  color='#000000FF'
     aria-hidden='true'
     fill='none'
     focusable='false'
@@ -10,7 +10,7 @@ export const SearchIcon = (props: JSX.IntrinsicAttributes & React.SVGProps<SVGSV
     role='presentation'
     viewBox='0 0 24 24'
     width='2em'
-  
+
     {...props}
   >
     <path

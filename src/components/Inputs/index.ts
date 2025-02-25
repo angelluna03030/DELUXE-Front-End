@@ -1,2 +1,2 @@
-export * from './Inputs';
+export * from './InputsBuscar';
 export * from './SearchIcon';

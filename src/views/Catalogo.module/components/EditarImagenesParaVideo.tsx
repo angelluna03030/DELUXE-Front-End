@@ -9,7 +9,7 @@ import {
   useDisclosure,
   Spinner,
 } from '@nextui-org/react';
-import { Carrusel } from '../../../components/CaruselImagenes';
+import { Video } from '../../../components/CaruselImagenes';
 import { toast } from 'react-toastify';
 import { getData } from '../../../config/utils/metodoFecht';
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -162,7 +162,7 @@ export const EditarImagenesParaVideo = () => {
                 <p className='text-red-700'> (Solo 10 Imagenes)</p>
               </ModalHeader>
               <ModalBody>
-                <Carrusel imagenes={catalogo.imagenesparavideo} />
+                <Video/>
                 <div className='flex flex-wrap gap-2 mt-2'>
                   {catalogo.imagenesparavideo.map((img, index) => (
                     <div key={index} className='relative'>

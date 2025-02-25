@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '../../../components/Header';
-import { Carrusel } from '../../../components/CaruselImagenes';
+import { Video } from '../../../components/CaruselImagenes';
 import { VideoPlayer } from '../../../components/Video';
 import { Producto } from '../../../components/Producto';
 import { Categorias } from '../../../components/Categorias';
@@ -52,7 +52,7 @@ export const TablaCatalogo = () => {
       <div className='sm:flex'>
         <Layout />
       </div>
-      <Carrusel imagenes={catalogo.imagenesparavideo} />
+      <Video />
       <Categorias />
       <div className='w-80 h-80 justify-center items-center mb-64 ml-12 sm:ml-96 m-auto'>
         <VideoPlayer video={catalogo.video} />

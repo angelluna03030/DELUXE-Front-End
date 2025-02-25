@@ -18,7 +18,7 @@ export const Buscador = () => {
   const onClear = () => {};
   return (
     <form onSubmit={handleSubmit}>
-      <Input
+      {/* <Input
         isClearable
         className='w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl m-auto mt-4 mb-4'
         placeholder='Buscar por Nombre o Categorias'
@@ -26,7 +26,7 @@ export const Buscador = () => {
         value={consulta}
         onChange={handleChangeInput}
         onClear={onClear}
-      />
+      /> */}
     </form>
   );
 };

@@ -2,7 +2,7 @@ import { Layout } from '../../components/Header';
 import { Buscador } from '../../components/Inputs';
 import { GaleriaImagenes } from '../../components/GaleriadeImagenes';
 import React, { useEffect, useState } from 'react';
-import { Carrusel } from '../../components/CaruselImagenes';
+import { Video } from '../../components/CaruselImagenes';
 import { VideoPlayer } from '../../components/Video';
 import { Producto } from '../../components/Producto';
 import { Footer } from '../../components/Footer';
@@ -11,7 +11,8 @@ import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import {IconWhastApp} from "../../components/WhatsApp"
-import { Header_movimiento } from '../../components/Header/Header_movimineto';
+import { HeaderMovimiento } from '../../components/Header/Header_movimineto';
+import { BentoGallery } from '../../components/EstiloBento';
 const RUTA_API = import.meta.env.VITE_API_URL;
 export const Catalogo = () => {
   const [catalogo, setCatalogo] = useState({
@@ -50,10 +51,10 @@ export const Catalogo = () => {
 
   return (
     <>
-    <Header_movimiento></Header_movimiento>
-      <Layout />
+   <HeaderMovimiento></HeaderMovimiento>
+     
       <Buscador />
-      <Carrusel imagenes={catalogo.imagenesparavideo} />
+      <Video />
       <Categorias />
       <div className='w-80 h-64 sm:w-96 justify-center items-center mb-64 ml-12  m-auto sm:m-auto sm:mb-52 '>
         <VideoPlayer video={catalogo.video} />
@@ -61,7 +62,7 @@ export const Catalogo = () => {
       <div className='sm:m-auto sm:pt-56 sm:px-10 sm:mr-16 '>
         <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
       </div>
-
+      <BentoGallery images={catalogo.imagenesparavideo} ></BentoGallery>
       <Producto Ids={catalogo.productosdestacados} />
       <CarritoComprasIcono />
       <IconWhastApp></IconWhastApp>

@@ -1,1 +1,1 @@
-export * from './CaruselImagenes';
+export * from './video';

@@ -18,12 +18,13 @@ import { Escritorio } from './Escritorio';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { useMediaQuery } from 'react-responsive';
 import {IconWhastApp} from "../../components/WhatsApp"
+import { Producto } from '@/states/models/ModelsProductos';
 
-export const Producto = () => {
+export const ProductoDetalle = () => {
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const isMobile = useMediaQuery({ maxWidth: 1224 });
   const { id } = useParams();
-  const [producto, setProducto] = useState(null);
+  const [producto, setProducto] = useState<Producto>();
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedTalla, setSelectedTalla] = useState(null);
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada

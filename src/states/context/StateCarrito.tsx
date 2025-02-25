@@ -11,8 +11,8 @@ const StateCarrito = ({ children }) => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
   }, [carrito]);
 
-  const agregarProducto = (producto, cantidadSeleccionada) => {
-    setCarrito(prevCarrito => {
+  const agregarProducto = (producto: { id: any; }, cantidadSeleccionada: any) => {
+    setCarrito((prevCarrito: any[]) => {
       const productoExistente = prevCarrito.find(
         item => item.id === producto.id,
       );
@@ -31,14 +31,14 @@ const StateCarrito = ({ children }) => {
     });
   };
 
-  const eliminarProducto = productoId => {
-    setCarrito(prevCarrito =>
+  const eliminarProducto = (productoId: any) => {
+    setCarrito((prevCarrito: any[]) =>
       prevCarrito.filter(item => item.id !== productoId),
     );
   };
 
-  const actualizarCantidad = (productoId, cantidad) => {
-    setCarrito(prevCarrito =>
+  const actualizarCantidad = (productoId: any, cantidad: any) => {
+    setCarrito((prevCarrito: any[]) =>
       prevCarrito.map(item =>
         item.id === productoId ? { ...item, cantidad: cantidad } : item,
       ),
@@ -51,27 +51,27 @@ const StateCarrito = ({ children }) => {
 
   const calcularTotal = () => {
     return carrito.reduce(
-      (total, item) => total + item.precio * item.cantidad,
+      (total: number, item: { precio: number; cantidad: number; }) => total + item.precio * item.cantidad,
       0,
     );
   };
-  const cambiarTalla = (productoId, nuevaTalla) => {
-    setCarrito(prevCarrito =>
+  const cambiarTalla = (productoId: any, nuevaTalla: any) => {
+    setCarrito((prevCarrito: any[]) =>
       prevCarrito.map(item =>
         item.id === productoId ? { ...item, talla: nuevaTalla } : item,
       ),
     );
   };
 
-  const cambiarColor = (productoId, nuevoColor) => {
-    setCarrito(prevCarrito =>
+  const cambiarColor = (productoId: any, nuevoColor: any) => {
+    setCarrito((prevCarrito: any[]) =>
       prevCarrito.map(item =>
         item.id === productoId ? { ...item, color: nuevoColor } : item,
       ),
     );
   };
   const contarProductos = () => {
-    return carrito.reduce((total, item) => total + item.cantidad, 0);
+    return carrito.reduce((total: any, item: { cantidad: any; }) => total + item.cantidad, 0);
   };
 
   return (

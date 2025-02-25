@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Sesion } from '../views/Sesion';
 import { Catalogo } from '../views/Catalogo';
-import { Producto } from '../views/Producto';
+import { ProductoDetalle } from '../views/Producto';
 import { Categoria } from '../views/CategoriasProductos';
 import { Productos } from '../views/Productos.modulo';
 import { BuscarProductos } from '../views/BuscarProductos';
@@ -16,7 +16,7 @@ export const Rutas = () => {
       <Route path='/' element={<Catalogo />} />
       <Route path='/sesion' element={<Sesion />} />
       <Route path='/catalogo' element={<Catalogo />} />
-      <Route path='/producto/:id' element={<Producto />} />
+      <Route path='/producto/:id' element={<ProductoDetalle />} />
       <Route path='/carritocompras' element={<TablaCarrito />} />
       <Route path='/categoria/:categoria' element={<Categoria />} />
       <Route path='/productos/buscar/:query' element={<BuscarProductos />} />

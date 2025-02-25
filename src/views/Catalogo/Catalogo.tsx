@@ -51,11 +51,10 @@ export const Catalogo = () => {
      
       <Buscador />
       <Video />
-      
       <div className='sm:m-auto sm:pt-56 sm:px-10 sm:mr-16 '>
         <GaleriaImagenes imagenes={catalogo?.imagenesparagaleria} />
       </div>
-      <BentoGallery images={catalogo?.imagenesparavideo} ></BentoGallery>
+      <BentoGallery imagenes={catalogo?.imagenesparavideo} ></BentoGallery>
       <Producto Ids={catalogo?.productosdestacados} />
       <CarritoComprasIcono />
       <IconWhastApp></IconWhastApp>

@@ -1,6 +1,6 @@
 import { Image } from "@nextui-org/react";
 import React from "react";
-
+import imagen_No_funtion from '../../assets/no-fotos.png';
 interface BentoGalleryProps {
     imagenes: string[] | undefined ;
 }
@@ -40,6 +40,10 @@ export const BentoGallery: React.FC<BentoGalleryProps> = ({ imagenes }) => {
                 return (
                     <div key={index} className={`overflow-hidden rounded-2xl ${sizeClass}`}>
                         <Image
+                         onError={() => {//+
+                            const imgElement = event.target as HTMLImageElement;//+
+                            imgElement.src = imagen_No_funtion;//+
+                          }}//+
                             src={image}
                             alt={`Imagen ${index}`}
                             className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"

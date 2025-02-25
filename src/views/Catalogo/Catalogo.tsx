@@ -4,7 +4,7 @@ import { GaleriaImagenes } from '../../components/GaleriadeImagenes';
 import React, { useEffect, useState } from 'react';
 import { Video } from '../../components/CaruselImagenes';
 
-import { Producto } from '../../components/Producto';
+import { Productos } from '../../components/Producto';
 import { Footer } from '../../components/Footer';
 import { Categorias } from '../../components/Categorias';
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
@@ -55,7 +55,7 @@ export const Catalogo = () => {
         <GaleriaImagenes imagenes={catalogo?.imagenesparagaleria} />
       </div>
       <BentoGallery imagenes={catalogo?.imagenesparavideo} ></BentoGallery>
-      <Producto Ids={catalogo?.productosdestacados} />
+      <Productos Ids={catalogo?.productosdestacados} />
       <CarritoComprasIcono />
       <IconWhastApp></IconWhastApp>
       <Footer />

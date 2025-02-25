@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { Skeleton } from '@nextui-org/react';
+import { Image, Skeleton } from '@nextui-org/react';
+import { Producto } from '@/states/models/ModelsProductos';
 const API_KEY = import.meta.env.VITE_API_KEY;
 const RUTA_API = import.meta.env.VITE_API_URL;
-export const Producto = ({ Ids }) => {
-  const [productos, setProductos] = useState([]);
+interface ProductosProps {
+  Ids: string[] | undefined;
+}
+
+export const Productos: React.FC<ProductosProps> = ({ Ids }) => {
+  const [productos, setProductos] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
@@ -61,10 +66,11 @@ export const Producto = ({ Ids }) => {
         {productos.map(producto => (
           <Link to={`/producto/${producto._id}`} key={producto._id}>
             <div className='max-w-xs sm:max-w-sm mx-auto relative shadow-md rounded-lg cursor-pointer'>
-              <img
-                onError={e => {
-                  e.target.src = imagen_No_funtion;
-                }}
+              <Image
+                 onError={() => {//+
+                  const imgElement = event.target as HTMLImageElement;//+
+                  imgElement.src = imagen_No_funtion;//+
+                }}//+
                 src={
                   producto.imagenes[0]
                     ? `${producto.imagenes[0]}`

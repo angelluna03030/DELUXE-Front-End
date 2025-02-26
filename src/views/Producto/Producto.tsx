@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { HeaderNegros } from '../../components/Header';
-import { Buscador } from '../../components/Inputs';
+
 import { Footer } from '../../components/Footer';
 import { Titulo } from '../../components/Titulo';
 import { Descripcion } from '../../components/Descripcion';

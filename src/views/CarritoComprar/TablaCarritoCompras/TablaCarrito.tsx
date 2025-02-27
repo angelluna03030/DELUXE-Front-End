@@ -9,9 +9,6 @@ export const TablaCarrito = () => {
     <div className='flex flex-col min-h-screen'>
       <HeaderNegros />
       <TablaInformacionProductoPedido />
-      
-     
-     
       <div className='flex flex-col flex-grow justify-end sm:mt-10'>
         <DetallePedidos />
         <Footer />

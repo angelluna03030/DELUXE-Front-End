@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { CargarProductos } from '../../components/CardCargando/CargarProductos/CargarProductos';
 import { CarritoContext } from '../../states/context/ContextCarrito';
-import { Tooltip, Button } from '@nextui-org/react';
+import { Tooltip } from '@nextui-org/react';
 import { Escritorio } from './Escritorio';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { useMediaQuery } from 'react-responsive';

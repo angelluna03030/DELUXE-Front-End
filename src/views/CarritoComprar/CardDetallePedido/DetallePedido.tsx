@@ -1,7 +1,7 @@
 import { BotonHacerPedido } from './index';
 import { useContext } from 'react';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
-import { BotonEliminarPedido } from './BottonElinimarPedido';
+
 export const DetallePedidos = () => {
   const { calcularTotal } = useContext(CarritoContext);
   const total = calcularTotal();
@@ -19,7 +19,7 @@ export const DetallePedidos = () => {
   }
   return (
     <>
-      <div className='flex flex-col bg-white w-full h-60 rounded-md py-4 px-6 border-b  m-auto'>
+      <div className='flex flex-col bg-white w-full h-60 rounded-md py-4 px-6 border-b   m-auto'>
         <h3 className='text-center   text-gray-800 pb-2 font-sans text-4xl font-semibold text-[#1D1D1F]'>
         El total de su bolsa es de  ${total > 0 ? formatearNumero(total) : 0}.00.
         </h3>
@@ -32,7 +32,7 @@ export const DetallePedidos = () => {
           <p>{fechaActual}</p>
         </div>
         <BotonHacerPedido />
-        <BotonEliminarPedido />
+   
       </div>
     </>
   );

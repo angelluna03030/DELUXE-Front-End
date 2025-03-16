@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CarritoContext } from './ContextCarrito';
 
-const StateCarrito = ({ children }) => {
+const StateCarrito: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [carrito, setCarrito] = useState(() => {
     const savedCarrito = localStorage.getItem('carrito');
     return savedCarrito ? JSON.parse(savedCarrito) : [];

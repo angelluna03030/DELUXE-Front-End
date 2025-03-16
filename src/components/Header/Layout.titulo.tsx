@@ -10,6 +10,13 @@ import { SearchIconNegro } from './SearchIconnegro';
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 export const Layout = () => {
+  const { carrito } = useContext(CarritoContext);
+  
+  // Contar la cantidad total de productos en el carrito
+  const cantidadProductos = carrito.reduce(
+    (total: any, item: { cantidad: any; }) => total + item.cantidad,
+    0,
+  );
   const navigate = useNavigate();
   const [consulta, setConsulta] = useState('');
   const [items, setItems] = useState([]);
@@ -106,15 +113,22 @@ onMouseLeave={() => setIsHovered(false)}
     <div onClick={toggleSearch} className="cursor-pointer">
 {isHovered ? <SearchIconNegro /> : <SearchIcon />}
     </div>
-    <Link to='/carritocompras' className='pb-3'>
-    <p>{contarProductos}</p>
-      <span className="svg-wrapper">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" className={`icon icon-cart-empty w-9 h-9 ${isHovered ? 'text-black' : 'text-white'} transition-all duration-300`}
- viewBox="0 0 30 30">
-          <path fill="currentColor" fill-rule="evenodd" d="M15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33L28.4 11.8zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1-9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"></path>
-        </svg>
-      </span>
-    </Link>
+    <Link to='/carritocompras' className='relative pb-3'>
+  <p>{contarProductos}</p>
+  {cantidadProductos > 0 && (
+    <div className='bg-red-700 w-3 h-3 z-50 rounded-full absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'></div>
+  )}
+  <span className="svg-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+      className={`icon icon-cart-empty w-9 h-9 ${isHovered ? 'text-black' : 'text-white'} transition-all duration-300`}
+      viewBox="0 0 30 30">
+      <path fill="currentColor" fill-rule="evenodd"
+        d="M15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33L28.4 11.8zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1-9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z">
+      </path>
+    </svg>
+  </span>
+</Link>
+
     <Buscador />
   </div>
 </div>

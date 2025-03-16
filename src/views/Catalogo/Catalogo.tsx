@@ -7,7 +7,7 @@ import { Video } from '../../components/CaruselImagenes';
 import { Productos } from '../../components/Producto';
 import { Footer } from '../../components/Footer';
 
-import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
+
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import {IconWhastApp} from "../../components/WhatsApp"
@@ -56,7 +56,7 @@ export const Catalogo = () => {
       </div>
       <BentoGallery imagenes={catalogo?.imagenesparavideo} ></BentoGallery>
       <Productos Ids={catalogo?.productosdestacados} />
-      <CarritoComprasIcono />
+
       <IconWhastApp></IconWhastApp>
       <Footer />
     </>

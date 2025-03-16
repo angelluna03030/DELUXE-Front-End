@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, JSXElementConstructor, Key, ReactElement, ReactNode } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Titulo } from '../../components/Titulo';
@@ -6,12 +6,12 @@ import { Descripcion } from '../../components/Descripcion';
 import { Comprar } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
-import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
+
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { CargarProductosEscritorio } from '../../components/CardCargando/CargarProductos/CargarProductoEscritorio';
 import { CarritoContext } from '../../states/context/ContextCarrito';
-import { Tooltip, Button } from '@nextui-org/react';
+import { Tooltip } from '@nextui-org/react';
 import {IconWhastApp} from "../../components/WhatsApp"
 
 const RUTA_API = import.meta.env.VITE_API_URL;
@@ -69,7 +69,7 @@ export const Escritorio = ({ producto, setProducto }) => {
     }
   };
 
-  const handleSelectColor = color => {
+  const handleSelectColor = color  => {
     setSelectedColor(color);
   };
 
@@ -114,7 +114,7 @@ export const Escritorio = ({ producto, setProducto }) => {
           {/* Parte izquierda: Galería de productos */}
           <div className='w-1/2'>
             <GaleriaProductos
-              imagenes={producto.imagenes.map(img => ({
+              imagenes={producto.imagenes.map((img: any) => ({
                 src: `${img}`,
                 alt: `Imagen de producto ${img}`,
               }))}
@@ -137,18 +137,18 @@ export const Escritorio = ({ producto, setProducto }) => {
 
             <div className='space-y-4'>
               <div className='grid grid-cols-6 gap-4'>
-                {producto.tallas.map(size => (
-                  <div key={size} className='flex items-center space-x-2'>
+                {producto.tallas.map((size: boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Key | null | undefined) => (
+                  <div  className='flex items-center space-x-2'>
                     <input
                       className='day-btn'
-                      id={`size-${size.toLowerCase()}`}
+                      id={`size-${size?.toString().toLowerCase()}`}
                       type='checkbox'
                       checked={selectedTalla === size}
                       onChange={() => handleSelectTalla(size)}
                     />
                     <label
                       className='day-label'
-                      htmlFor={`size-${size.toLowerCase()}`}
+                      htmlFor={`size-${typeof size === 'string' ? size.toLowerCase() : size}`}
                     >
                       {size}
                     </label>
@@ -163,7 +163,7 @@ export const Escritorio = ({ producto, setProducto }) => {
               <br />
 
               <div className='grid grid-cols-6 gap-4'>
-                {producto.colores.map(color => (
+                {producto.colores.map((color: unknown) => (
                   <Color
                     key={color}
                     color={color}
@@ -207,7 +207,7 @@ export const Escritorio = ({ producto, setProducto }) => {
                 selectedColor={selectedColor}
                 selectedTalla={selectedTalla}
               />
-              <CarritoComprasIcono />
+       
       <IconWhastApp></IconWhastApp>
 
             </div>

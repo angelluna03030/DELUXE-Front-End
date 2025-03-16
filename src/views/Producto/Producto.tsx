@@ -1,14 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { HeaderNegros } from '../../components/Header';
-
 import { Footer } from '../../components/Footer';
 import { Titulo } from '../../components/Titulo';
 import { Descripcion } from '../../components/Descripcion';
 import { Comprar } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
-import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { CargarProductos } from '../../components/CardCargando/CargarProductos/CargarProductos';
@@ -218,7 +216,7 @@ export const ProductoDetalle = () => {
                   selectedColor={selectedColor}
                   selectedTalla={selectedTalla}
                 />
-                <CarritoComprasIcono />
+               
               </div>
             </>
           )}

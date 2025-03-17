@@ -214,7 +214,7 @@ export const ProductoDetalle = () => {
                   </Tooltip>
                 </div>
                 <Comprar
-                  color={selectedTalla}
+                  
                   nombre={producto.nombreproductos}
                   precio={producto.precio}
                   producto={producto}

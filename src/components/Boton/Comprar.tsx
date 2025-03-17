@@ -1,8 +1,16 @@
-import { Tooltip, Button } from '@nextui-org/react';
+import { Tooltip } from '@nextui-org/react';
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import { Colores } from '../../views/Productos.modulo/components/DataColores';
-export const Comprar = ({
+import { Producto } from '@/states/models/ModelsProductos';
+interface Compras {
+  nombre: string;
+  precio: number;
+  producto: Producto;
+  selectedColor: string;
+  selectedTalla : string
+}
+export const Comprar: React.FC<Compras> = ({
   nombre,
   precio,
   producto,
@@ -12,7 +20,7 @@ export const Comprar = ({
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
 
-  const obtenerNombreColor = colorHex => {
+  const obtenerNombreColor = (colorHex: string) => {
     const colorEncontrado = Colores.find(c => c.color === colorHex);
     return colorEncontrado ? colorEncontrado.label : colorHex;
   };

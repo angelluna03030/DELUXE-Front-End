@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, JSXElementConstructor, Key, ReactElement, ReactNode, SetStateAction } from 'react';
+import { useState, useEffect, useContext,  SetStateAction } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Titulo } from '../../components/Titulo';
@@ -6,13 +6,13 @@ import { Descripcion } from '../../components/Descripcion';
 import { Comprar } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
-import {Producto} from "../../states/models/ModelsProductos"
+import { Producto } from "../../states/models/ModelsProductos"
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { CargarProductosEscritorio } from '../../components/CardCargando/CargarProductos/CargarProductoEscritorio';
 import { CarritoContext } from '../../states/context/ContextCarrito';
 import { Tooltip } from '@nextui-org/react';
-import {IconWhastApp} from "../../components/WhatsApp"
+import { IconWhastApp } from "../../components/WhatsApp"
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 interface EscritorioProps {
@@ -23,11 +23,11 @@ interface EscritorioProps {
 export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
   const { id } = useParams();
 
-  const [selectedColor, setSelectedColor]:any = useState(null);
-  const [selectedTalla, setSelectedTalla]:any = useState(null);
+  const [selectedColor, setSelectedColor]: any = useState(null);
+  const [selectedTalla, setSelectedTalla]: any = useState(null);
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
   const [loading, setLoading] = useState(true);
-  const { agregarProducto }:any = useContext(CarritoContext);
+  const { agregarProducto }: any = useContext(CarritoContext);
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
 
@@ -74,11 +74,11 @@ export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
     }
   };
 
-  const handleSelectColor = (color: string)  => {
+  const handleSelectColor = (color: string) => {
     setSelectedColor(color);
   };
 
- 
+
   const handleSelectTalla = (size: string | SetStateAction<null>) => {
     setSelectedTalla(size);
   };
@@ -92,10 +92,10 @@ export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
     } else if (selectedColor === null && selectedTalla === null) {
       setMensajeTooltip('Elige Talla y Color para continuar con tu compra.');
       setValidar(false);
-    } else if (selectedColor === null && producto&&producto.colores.length > 0) {
+    } else if (selectedColor === null && producto && producto.colores.length > 0) {
       setMensajeTooltip('Elige Color para continuar con tu compra.');
       setValidar(false);
-    } else if (selectedTalla === null &&  producto&&producto.tallas.length > 0) {
+    } else if (selectedTalla === null && producto && producto.tallas.length > 0) {
       setMensajeTooltip('Elige Talla para continuar con tu compra.');
       setValidar(false);
     } else {
@@ -143,7 +143,7 @@ export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
             <div className='space-y-4'>
               <div className='grid grid-cols-6 gap-4'>
                 {producto.tallas.map((size: string) => (
-                  <div  className='flex items-center space-x-2' key={size}>
+                  <div className='flex items-center space-x-2' key={size}>
                     <input
                       className='day-btn'
                       id={`size-${size.toLowerCase()}`}
@@ -205,15 +205,15 @@ export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
                 </Tooltip>
               </div>
               <Comprar
-                color={selectedTalla}
+
                 nombre={producto.nombreproductos}
                 precio={producto.precio}
                 producto={producto}
                 selectedColor={selectedColor}
                 selectedTalla={selectedTalla}
               />
-       
-      <IconWhastApp></IconWhastApp>
+
+              <IconWhastApp></IconWhastApp>
 
             </div>
           </div>

@@ -1,26 +1,27 @@
-import video from "../../assets/video.mp4"; // Ensure the path is correct
+import video from "../../assets/video.mp4"; // Asegúrate de que la ruta sea correcta
 import { Favoritos } from "../Boton/BotonFavoritos";
 import { Layout } from "../Header";
 
 export const Video = () => {
   return (
-    <div className="w-screen h-screen relative">
+    <div className="relative w-screen h-screen">
       {/* Video de fondo */}
       <video
         src={video}
         autoPlay
         loop
         muted
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover z-0"
       />
       
       {/* Contenido encima del video */}
-      <div className="absolute top-0 left-0 w-full h-full z-10">
+      <div className="absolute inset-0 flex flex-col justify-between z-10">
         <Layout />
-      </div>
-      <div className="absolute top-3/4 left-20 w-full h-full z-10">
-      
-      <Favoritos></Favoritos>
+        
+        {/* Botón de favoritos */}
+        <div className="flex justify-center sm:justify-start p-4 sm:p-8">
+          <Favoritos />
+        </div>
       </div>
     </div>
   );

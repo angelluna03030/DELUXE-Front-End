@@ -1,6 +1,7 @@
 import { BotonHacerPedido } from './index';
 import { useContext } from 'react';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
+import { formatearNumero } from '../../../states/function';
 
 export const DetallePedidos = () => {
   const { calcularTotal } = useContext(CarritoContext);
@@ -14,9 +15,6 @@ export const DetallePedidos = () => {
   };
   const fechaActual = obtenerFechaActual();
 
-  function formatearNumero(numero: number): string {
-    return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
   return (
     <>
       <div className='flex flex-col bg-white w-full h-60 rounded-md py-4 px-6 border-b   m-auto'>

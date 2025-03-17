@@ -1,31 +1,16 @@
 import { useContext } from 'react';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
-import { toast } from 'react-toastify';
+
 import { Link } from 'react-router-dom';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import {Colores} from "../../../views/Productos.modulo/components/DataColores"
+import { formatearNumero } from '../../../states/function';
 export const TablaInformacionProductoPedido = () => {
   const { carrito, eliminarProducto, actualizarCantidad } =
     useContext(CarritoContext);
 
   // Manejadores para incrementar, decrementar y cambiar cantidad
-  const handleDecrement = producto => {
-    if (producto.cantidad > 1) {
-      actualizarCantidad(producto.id, producto.cantidad - 1);
-    } else {
-      eliminarProducto(producto.id);
-    }
-  };
 
-  const handleIncrement = producto => {
-    if (producto.cantidad < 10) {
-      actualizarCantidad(producto.id, producto.cantidad + 1);
-    } else {
-      toast.warn(
-        'Estás haciendo un pedido más allá del límite recomendado que es 10.',
-      );
-    }
-  };
 
   const handleChangeCantidad = (e, producto) => {
     const value = Number.parseInt(e.target.value, 10);
@@ -64,7 +49,7 @@ export const TablaInformacionProductoPedido = () => {
       </select>
 
       {/* Precio */}
-      <span className="text-2xl pl-11 font-semibold text-black ml-auto">${item.precio}.00</span>
+      <span className="text-2xl pl-11 font-semibold text-black ml-auto">${formatearNumero(item.precio)}.00</span>
     </div>
 
     {/* Talla y botón de remover */}

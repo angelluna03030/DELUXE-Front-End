@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, SetStateAction } from 'react';
 import { useParams } from 'react-router-dom';
 import { HeaderNegros } from '../../components/Header';
 import { Footer } from '../../components/Footer';
@@ -16,18 +16,18 @@ import { Escritorio } from './Escritorio';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { useMediaQuery } from 'react-responsive';
 import {IconWhastApp} from "../../components/WhatsApp"
-import { Producto } from '@/states/models/ModelsProductos';
 
+import {Producto} from "../../states/models/ModelsProductos"
 export const ProductoDetalle = () => {
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const isMobile = useMediaQuery({ maxWidth: 1224 });
   const { id } = useParams();
   const [producto, setProducto] = useState<Producto>();
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedTalla, setSelectedTalla] = useState(null);
+  const [selectedColor, setSelectedColor]:any = useState(null);
+  const [selectedTalla, setSelectedTalla]:any = useState(null);
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
   const [loading, setLoading] = useState(true);
-  const { agregarProducto } = useContext(CarritoContext);
+  const { agregarProducto }:any = useContext(CarritoContext);
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
 
@@ -57,28 +57,33 @@ export const ProductoDetalle = () => {
 
   const handleAgregarProducto = () => {
     if (validar) {
-      agregarProducto(
-        {
-          id: producto._id,
-          imagen: producto.imagenes[0], // Utiliza la imagen seleccionada (la primera imagen)
-          nombre: producto.nombreproductos,
-          precio: producto.precio,
-          talla: selectedTalla,
-          color: selectedColor,
-        },
-        1, // Cantidad seleccionada
-      );
+      if (producto) {
+        agregarProducto(
+          {
+            id: producto._id,
+            imagen: producto.imagenes[0], // Utiliza la imagen seleccionada (la primera imagen)
+            nombre: producto.nombreproductos,
+            precio: producto.precio,
+            talla: selectedTalla,
+            color: selectedColor,
+          },
+          1, // Cantidad seleccionada
+        );
+        toast.success('Producto agregado exitosamente');
+      } else {
+        toast.error('Producto no encontrado');
+      }
       toast.success('Producto agregado exitosamente');
     } else {
       toast.error(mensajeTooltip); // Muestra el mensaje del tooltip como un error si la validación falla
     }
   };
 
-  const handleSelectColor = color => {
+  const handleSelectColor = (color: string) => {
     setSelectedColor(color);
   };
 
-  const handleSelectTalla = size => {
+  const handleSelectTalla = (size: string | SetStateAction<null>) => {
     setSelectedTalla(size);
   };
 
@@ -92,10 +97,10 @@ export const ProductoDetalle = () => {
     } else if (selectedColor === null && selectedTalla === null) {
       setMensajeTooltip('Elige Talla y Color para continuar con tu compra.');
       setValidar(false);
-    } else if (selectedColor === null && producto.colores.length > 0) {
+    } else if (selectedColor === null && producto && producto.colores.length > 0) {
       setMensajeTooltip('Elige Color para continuar con tu compra.');
       setValidar(false);
-    } else if (selectedTalla === null && producto.tallas.length > 0) {
+    } else if (selectedTalla === null && producto && producto.tallas.length > 0) {
       setMensajeTooltip('Elige Talla para continuar con tu compra.');
       setValidar(false);
     } else {

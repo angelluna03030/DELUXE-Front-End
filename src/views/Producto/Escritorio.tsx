@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, JSXElementConstructor, Key, ReactElement, ReactNode } from 'react';
+import { useState, useEffect, useContext, JSXElementConstructor, Key, ReactElement, ReactNode, SetStateAction } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Titulo } from '../../components/Titulo';
@@ -6,7 +6,7 @@ import { Descripcion } from '../../components/Descripcion';
 import { Comprar } from '../../components/Boton';
 import { GaleriaProductos } from '../../components/GaleriaProducto';
 import { Color } from '../../components/Color';
-
+import {Producto} from "../../states/models/ModelsProductos"
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { CargarProductosEscritorio } from '../../components/CardCargando/CargarProductos/CargarProductoEscritorio';
@@ -15,14 +15,19 @@ import { Tooltip } from '@nextui-org/react';
 import {IconWhastApp} from "../../components/WhatsApp"
 
 const RUTA_API = import.meta.env.VITE_API_URL;
-export const Escritorio = ({ producto, setProducto }) => {
+interface EscritorioProps {
+  producto: Producto | undefined;
+  setProducto: React.Dispatch<React.SetStateAction<Producto | undefined>> | any;
+}
+
+export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
   const { id } = useParams();
 
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedTalla, setSelectedTalla] = useState(null);
+  const [selectedColor, setSelectedColor]:any = useState(null);
+  const [selectedTalla, setSelectedTalla]:any = useState(null);
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
   const [loading, setLoading] = useState(true);
-  const { agregarProducto } = useContext(CarritoContext);
+  const { agregarProducto }:any = useContext(CarritoContext);
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
 
@@ -51,7 +56,7 @@ export const Escritorio = ({ producto, setProducto }) => {
   }, [id]);
 
   const handleAgregarProducto = () => {
-    if (validar) {
+    if (validar && producto) {
       agregarProducto(
         {
           id: producto._id,
@@ -69,14 +74,14 @@ export const Escritorio = ({ producto, setProducto }) => {
     }
   };
 
-  const handleSelectColor = color  => {
+  const handleSelectColor = (color: string)  => {
     setSelectedColor(color);
   };
 
-  const handleSelectTalla = size => {
+ 
+  const handleSelectTalla = (size: string | SetStateAction<null>) => {
     setSelectedTalla(size);
   };
-
   useEffect(() => {
     if (
       producto &&
@@ -87,10 +92,10 @@ export const Escritorio = ({ producto, setProducto }) => {
     } else if (selectedColor === null && selectedTalla === null) {
       setMensajeTooltip('Elige Talla y Color para continuar con tu compra.');
       setValidar(false);
-    } else if (selectedColor === null && producto.colores.length > 0) {
+    } else if (selectedColor === null && producto&&producto.colores.length > 0) {
       setMensajeTooltip('Elige Color para continuar con tu compra.');
       setValidar(false);
-    } else if (selectedTalla === null && producto.tallas.length > 0) {
+    } else if (selectedTalla === null &&  producto&&producto.tallas.length > 0) {
       setMensajeTooltip('Elige Talla para continuar con tu compra.');
       setValidar(false);
     } else {
@@ -137,18 +142,18 @@ export const Escritorio = ({ producto, setProducto }) => {
 
             <div className='space-y-4'>
               <div className='grid grid-cols-6 gap-4'>
-                {producto.tallas.map((size: boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Key | null | undefined) => (
-                  <div  className='flex items-center space-x-2'>
+                {producto.tallas.map((size: string) => (
+                  <div  className='flex items-center space-x-2' key={size}>
                     <input
                       className='day-btn'
-                      id={`size-${size?.toString().toLowerCase()}`}
+                      id={`size-${size.toLowerCase()}`}
                       type='checkbox'
                       checked={selectedTalla === size}
                       onChange={() => handleSelectTalla(size)}
                     />
                     <label
                       className='day-label'
-                      htmlFor={`size-${typeof size === 'string' ? size.toLowerCase() : size}`}
+                      htmlFor={`size-${size.toLowerCase()}`}
                     >
                       {size}
                     </label>
@@ -163,7 +168,7 @@ export const Escritorio = ({ producto, setProducto }) => {
               <br />
 
               <div className='grid grid-cols-6 gap-4'>
-                {producto.colores.map((color: unknown) => (
+                {producto.colores.map((color: string) => (
                   <Color
                     key={color}
                     color={color}

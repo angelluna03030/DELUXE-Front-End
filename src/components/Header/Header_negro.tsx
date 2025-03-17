@@ -13,15 +13,14 @@ import { Busqueda } from './Busqueda';
 
 export const HeaderNegros = () => {
   const { carrito } = useContext(CarritoContext) || { carrito: [] };
-  const cantidadProductos = carrito.reduce(
-    (total: any, item: { cantidad: any }) => total + item.cantidad,
-    0
-  );
 
   const [consulta, setConsulta] = useState('');
   const [items, setItems] = useState<any[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { contarProductos } = useContext(CarritoContext) || { contarProductos: 0 };
+  const contarProductos = () => {
+    return carrito.length; // O el cálculo que necesites
+  };
+  
   const [isHovered, setIsHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para el menú móvil
 
@@ -89,9 +88,10 @@ export const HeaderNegros = () => {
            <SearchIconNegro /> 
           </div>
           <Link to='/carritocompras' className='relative pb-3'>
-            <p>{contarProductos}</p>
-            {cantidadProductos > 0 && (
-              <div className='bg-red-700 w-3 h-3 z-50 rounded-full absolute top-0 right-0 translate-x-1/2 -translate-y-1/2'></div>
+        
+
+            {carrito.length > 0 && (
+              <div className='bg-stroke-red-700 w-3 h-3 ml-2 mt-6 rounded-full absolute  z-50'></div>
             )}
             <span className="svg-wrapper">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"

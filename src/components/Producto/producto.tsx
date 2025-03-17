@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { Image, Skeleton } from '@nextui-org/react';
+import { Skeleton } from '@nextui-org/react';
 import { Producto } from '@/states/models/ModelsProductos';
 import { formatearNumero } from "../../states/function";
 import { ColorDetalles } from '../Color';
@@ -80,26 +80,26 @@ export const Productos: React.FC<ProductosProps> = ({ Ids }) => {
               onMouseEnter={() => setHoveredProduct(producto._id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <div className="overflow-hidden rounded-sm">
-              <img
-  onError={(event) => {
-    const imgElement = event.target as HTMLImageElement;
-    imgElement.src = imagen_No_funtion;
-  }}
-  src={
-    hoveredProduct === producto._id && producto.imagenes[1]
-      ? producto.imagenes[1]
-      : producto.imagenes[0] || imagen_No_funtion
-  }
-  alt={producto.nombreproductos}
-  className="w-full h-auto object-cover transition-opacity duration-700 ease-in-out transition-transform duration-700 ease-in-out hover:scale-105"
-/>
+              <div className="overflow-hidden ">
+                <img
+                  onError={(event) => {
+                    const imgElement = event.target as HTMLImageElement;
+                    imgElement.src = imagen_No_funtion;
+                  }}
+                  src={
+                    hoveredProduct === producto._id && producto.imagenes[1]
+                      ? producto.imagenes[1]
+                      : producto.imagenes[0] || imagen_No_funtion
+                  }
+                  alt={producto.nombreproductos}
+                  className="w-full h-auto object-cover transition-opacity duration-700 ease-in-out transition-transform duration-700 ease-in-out hover:scale-105"
+                />
 
               </div>
 
-              <div className="bottom-0 z-10 left-0 right-0 h-36 sm:h-40 p-4">
-                <h1 className="text-lg sm:text-2xl font-semibold">{producto.nombreproductos}</h1>
-                <p className="mt-1 sm:mt-2">{formatearNumero(producto.precio) + ".00 COP" || 'Precio no disponible.'}</p>
+              <div className="bottom-0 z-10 left-0 right-0 h-36 sm:h-40 py-2 justify-start">
+                <h1 className="mt-1 sm:mt-2 text-lg sm:text-xl ">{producto.nombreproductos}</h1>
+                <p className="mt-1 sm:mt-2 text-lg sm:text-xl ">${formatearNumero(producto.precio) + ".00 COP" || 'Precio no disponible.'}</p>
 
                 <p className="mt-1 sm:mt-2 flex">
                   {producto.colores.slice(0, 4).map((color) => (

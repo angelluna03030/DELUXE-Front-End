@@ -4,7 +4,7 @@ import { CarritoContext } from '../../../states/context/ContextCarrito';
 import { formatearNumero } from '../../../states/function';
 
 export const DetallePedidos = () => {
-  const { calcularTotal } = useContext(CarritoContext);
+  const { calcularTotal }:any = useContext(CarritoContext);
   const total = calcularTotal();
   const obtenerFechaActual = () => {
     const fecha = new Date();

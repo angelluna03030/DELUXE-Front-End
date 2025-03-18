@@ -18,7 +18,7 @@ export const Layout = () => {
   const [consulta, setConsulta] = useState('');
   const [items, setItems] = useState<any[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { contarProductos } = useContext(CarritoContext) || { contarProductos: 0 };
+ 
   const [isHovered, setIsHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para el menú móvil
 
@@ -73,7 +73,7 @@ export const Layout = () => {
             INICIO
           </Link>
           <Link to={"/productos/todos"} className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-300 hover:after:w-full after:transition-all after:duration-300">
-            CAMISETAS
+            TODOS
           </Link>
           <Link to={""} className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-300 hover:after:w-full after:transition-all after:duration-300">
             Contacto
@@ -110,7 +110,7 @@ export const Layout = () => {
           <button onClick={toggleMenu} className="absolute top-5 right-5 text-xl">✖</button>
           <nav className="flex flex-col space-y-4 mt-10">
             <Link to={"/"} onClick={toggleMenu} className="text-lg text-gray-800 hover:text-gray-500">INICIO</Link>
-            <Link to={"/productos/todos"} onClick={toggleMenu} className="text-lg text-gray-800 hover:text-gray-500">CAMISETAS</Link>
+            <Link to={"/productos/todos"} onClick={toggleMenu} className="text-lg text-gray-800 hover:text-gray-500">TODOS</Link>
             <Link to={""} onClick={toggleMenu} className="text-lg text-gray-800 hover:text-gray-500">Contacto</Link>
           </nav>
         </div>

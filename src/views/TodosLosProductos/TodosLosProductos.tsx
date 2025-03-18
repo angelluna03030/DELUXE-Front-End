@@ -62,7 +62,7 @@ export const TodosLosProductos = () => {
   return (
     <>
       <HeaderNegros />
-      <CarritoComprasIcono />
+     
       <IconWhastApp></IconWhastApp>
       <Buscador />
       <div className='flex min-h-screen  '>
@@ -82,7 +82,7 @@ export const TodosLosProductos = () => {
          </div>
           ) : productos.length > 0 ? (
             <div className="container sm:mr-20 mx-auto p-4 lg:min-h-screen flex items-center  justify-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:ml-20 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {productos.map((producto) => (
           <Link to={`/producto/${producto._id}`} key={producto._id}>
             <div
@@ -128,9 +128,9 @@ export const TodosLosProductos = () => {
       </div>
     </div>
           ) : (
-            <div className='flex justify-center sm:justify-end m-20 sm:w-full sm:mr-96 sm:pl-32'>
+        
               <TablaVaciaImagen />
-            </div>
+       
           )}
         </div>
       </div>

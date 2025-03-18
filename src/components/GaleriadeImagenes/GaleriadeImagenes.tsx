@@ -50,8 +50,6 @@ export const GaleriaImagenes: React.FC<GaleriaImagenesProps> = ({ imagenes = [] 
             <Productos
               src={imagen}
               alt={imagen}
-              onError={(e: { target: { src: string; }; }) => e.target.src = imagen_No_funtion}
-              className='rounded-lg'
             />
           </SwiperSlide>
         ))}

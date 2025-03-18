@@ -23,7 +23,7 @@ export const GaleriaProductos =({ imagenes }: GaleriaProductosProps)=> {
       <div className=' max-w-5xl'>
         <div className='relative h-80 w-80 m-auto mb-48'>
           <Image
-          
+          loading='lazy'
             className='rounded-lg object-cover object-center '
             src={active.src}
             alt='Active Product'

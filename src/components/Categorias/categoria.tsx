@@ -67,6 +67,7 @@ export const Categorias = () => {
                 <div className='w-28 h-56 flex  flex-col items-center font-medium justify-between '>
                   <div className='w-full h-44'>
                     <img
+                    loading='lazy'
                       onError={e => {
                         (e.target as HTMLImageElement).src = imagen_No_funtion;
                       }}

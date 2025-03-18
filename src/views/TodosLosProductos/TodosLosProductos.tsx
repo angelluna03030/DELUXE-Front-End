@@ -92,6 +92,7 @@ export const TodosLosProductos = () => {
             >
               <div className="overflow-hidden ">
                 <img
+                loading='lazy'
                   onError={(event) => {
                     const imgElement = event.target as HTMLImageElement;
                     imgElement.src = imagen_No_funtion;

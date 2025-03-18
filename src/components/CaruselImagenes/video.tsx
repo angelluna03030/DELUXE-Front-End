@@ -7,6 +7,7 @@ export const Video = () => {
     <div className="relative w-screen h-screen">
       {/* Video de fondo */}
       <video
+     
         src={video}
         autoPlay
         loop

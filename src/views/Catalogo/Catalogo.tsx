@@ -1,7 +1,7 @@
 
 import { Buscador } from '../../components/Inputs';
 import { GaleriaImagenes } from '../../components/GaleriadeImagenes';
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Video } from '../../components/CaruselImagenes';
 
 import { Productos } from '../../components/Producto';
@@ -10,10 +10,10 @@ import { Footer } from '../../components/Footer';
 
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
-import {IconWhastApp} from "../../components/WhatsApp"
+import { IconWhastApp } from "../../components/WhatsApp"
 import { HeaderMovimiento } from '../../components/Header/Header_movimineto';
 import { BentoGallery } from '../../components/EstiloBento';
-import {CatalogoPagina} from "../../states/models/ModelsProductos"
+import { CatalogoPagina } from "../../states/models/ModelsProductos"
 const RUTA_API = import.meta.env.VITE_API_URL;
 export const Catalogo = () => {
   const [catalogo, setCatalogo] = useState<CatalogoPagina>();
@@ -47,8 +47,8 @@ export const Catalogo = () => {
 
   return (
     <>
-   <HeaderMovimiento></HeaderMovimiento>
-     
+      <HeaderMovimiento></HeaderMovimiento>
+
       <Buscador />
       <Video />
       <div className='sm:m-auto mt-5 sm:px-10 sm:mr-16 '>
@@ -56,7 +56,6 @@ export const Catalogo = () => {
       </div>
       <BentoGallery imagenes={catalogo?.imagenesparavideo} ></BentoGallery>
       <Productos Ids={catalogo?.productosdestacados} />
-
       <IconWhastApp></IconWhastApp>
       <Footer />
     </>

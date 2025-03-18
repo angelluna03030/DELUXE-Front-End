@@ -13,7 +13,7 @@ export const Busqueda = () => {
 
   const fetchProductos = async (searchTerm = '') => {
     try {
-      const url = `${RUTA_API}/api/productos/buscar/${searchTerm}`;
+      const url = `${RUTA_API}/api/productos/mejorbuscador/${searchTerm}`;
       const response = await getData(url);
 
       if (response.status !== 200) {

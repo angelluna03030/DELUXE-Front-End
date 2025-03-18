@@ -19,7 +19,7 @@ import { formatearNumero } from '../../states/function';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
-export const BuscarProductos = () => {
+export const TodosLosProductos = () => {
   const { query } = useParams();
   const [productos, setProductos] = useState<Producto[]>([]);
 
@@ -35,7 +35,7 @@ export const BuscarProductos = () => {
       setLoading(true); // Inicia la carga
       try {
         const { status, dataResponse } = await getData(
-          `${RUTA_API}/api/productos/mejorbuscador/${query}`,
+          `${RUTA_API}/api/productos`,
         );
 
         if (status >= 200 && status < 300) {

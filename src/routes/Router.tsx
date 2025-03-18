@@ -10,6 +10,7 @@ import { Categorias } from '../views/Categorias.modulo';
 import { RegistrarCatalogo } from '../views/Catalogo.module';
 import PrivateRoute from './RutasPrivadas';
 import {TerminosyCondiciones} from "../views/TerminosYCondiciones"
+import { TodosLosProductos } from '../views/TodosLosProductos/TodosLosProductos';
 export const Rutas = () => {
   return (
     <Routes>
@@ -18,6 +19,8 @@ export const Rutas = () => {
       <Route path='/terminosycondiciones' element={<TerminosyCondiciones />} />
       <Route path='/catalogo' element={<Catalogo />} />
       <Route path='/producto/:id' element={<ProductoDetalle />} />
+      <Route path='/productos/todos' element={<TodosLosProductos />} />
+
       <Route path='/carritocompras' element={<TablaCarrito />} />
       <Route path='/categoria/:categoria' element={<Categoria />} />
       <Route path='/productos/buscar/:query' element={<BuscarProductos />} />

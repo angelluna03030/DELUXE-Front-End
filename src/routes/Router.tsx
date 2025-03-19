@@ -15,6 +15,9 @@ export const Rutas = () => {
   return (
     <Routes>
       <Route path='/' element={<Catalogo />} />
+      {/*Recuerda que si hay algun problemas con las rutas elemina esto ruta con el "*"*/}
+      <Route path='/*' element={<Catalogo />} />
+
       <Route path='/sesion' element={<Sesion />} />
       <Route path='/terminosycondiciones' element={<TerminosyCondiciones />} />
       <Route path='/catalogo' element={<Catalogo />} />

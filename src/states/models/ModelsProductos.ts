@@ -12,6 +12,22 @@ export interface Producto {
     fechaCreacion: string; // Puede ser Date si lo deseas
     __v: number;
   }
+
+  export interface ProductoFavoritos {
+    _id: string;
+    codigo: string;
+    nombreproductos: string;
+    estado: number;
+    precio: number;
+    descripcion: string;
+    tallas: string[];
+    colores: string[];
+    imagenes: string[];
+    categorias: string[];
+    fechaCreacion: string; // Puede ser Date si lo deseas
+    favoritos: boolean;
+    __v: number;
+  }
   export interface Categoria {
     _id: string;
     nombre: string;

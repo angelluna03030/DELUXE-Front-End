@@ -21,7 +21,7 @@ export const EditarGaleriaDeImagenes = () => {
   const [catalogo, setCatalogo] = useState({
     imagenesparagaleria: [],
   });
-  const [nuevasImagenes, setNuevasImagenes] = useState([]);
+  const [nuevasImagenes, setNuevasImagenes] = useState<File[]>([]);
   const [imagenesEliminadas, setImagenesEliminadas] = useState([]);
   const [enviando, setEnviando] = useState(false); // Nuevo estado
 
@@ -51,7 +51,7 @@ export const EditarGaleriaDeImagenes = () => {
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta
 
-  const eliminarImagen = indice => {
+  const eliminarImagen = (indice: number) => {
     const imagenEliminada = catalogo.imagenesparagaleria[indice];
     setCatalogo(prevState => ({
       ...prevState,
@@ -62,8 +62,8 @@ export const EditarGaleriaDeImagenes = () => {
     setImagenesEliminadas(prevState => [...prevState, imagenEliminada]);
   };
 
-  const agregarImagenes = e => {
-    const files = Array.from(e.target.files);
+  const agregarImagenes = (e : any) => {
+    const files = Array.from(e.target.files).filter((file): file is File => file instanceof File);
     if (catalogo.imagenesparagaleria.length + files.length > 10) {
       toast.error('No puedes tener más de 10 imágenes.');
       return;

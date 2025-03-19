@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { Skeleton } from '@nextui-org/react';
+import { Skeleton, Image } from '@nextui-org/react';
 import { Producto } from '@/states/models/ModelsProductos';
 import { formatearNumero } from "../../states/function";
 import { ColorDetalles } from '../Color';
@@ -81,9 +81,10 @@ export const Productos: React.FC<ProductosProps> = ({ Ids }) => {
               onMouseLeave={() => setHoveredProduct(null)}
             >
               <div className="overflow-hidden ">
-                <img
+                <Image
+                radius='none'
                 loading='lazy'
-                  onError={(event) => {
+                  onError={(event: { target: HTMLImageElement; }) => {
                     const imgElement = event.target as HTMLImageElement;
                     imgElement.src = imagen_No_funtion;
                   }}

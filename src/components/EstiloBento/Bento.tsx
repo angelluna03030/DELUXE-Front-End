@@ -39,7 +39,7 @@ export const BentoGallery: React.FC<BentoGalleryProps> = ({ imagenes }) => {
                     sizeClass = "col-span-2 row-span-1"; // Imagen alta
                 }
 
-                const [loaded, setLoaded] = useState(true);
+                const [loaded, setLoaded] = useState(false);
 
                 return (
                     <div key={index} className={`overflow-hidden rounded-2xl ${sizeClass} relative`}>

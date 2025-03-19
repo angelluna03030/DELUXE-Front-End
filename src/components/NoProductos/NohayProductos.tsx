@@ -1,5 +1,6 @@
 import React from 'react';
 import EmptyImage from '../../assets/fregar.png';
+import { Image } from '@nextui-org/react';
 
 export const TablaVaciaImagen = () => (
 <div
@@ -14,7 +15,7 @@ export const TablaVaciaImagen = () => (
   }}
   className="flex justify-center items-center h-screen w-screen"
 >
-  <img src={EmptyImage} alt="No data available" style={{ width: '200px' }} />
+  <Image src={EmptyImage} alt="No data available" style={{ width: '200px' }} />
   <p>No hay nada por ahora</p>
 </div>
 

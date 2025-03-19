@@ -5,11 +5,11 @@ import { useContext } from 'react';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
 
 export const CarritoComprasIcono = () => {
-  const { carrito } = useContext(CarritoContext);
+  const { carrito }:any = useContext(CarritoContext);
 
   // Contar la cantidad total de productos en el carrito
   const cantidadProductos = carrito.reduce(
-    (total, item) => total + item.cantidad,
+    (total: number, item: { cantidad: any; }) => total + item.cantidad,
     0,
   );
 

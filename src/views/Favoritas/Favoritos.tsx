@@ -5,12 +5,12 @@ import { Footer } from '../../components/Footer';
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Image, Skeleton } from '@nextui-org/react';
+import { Skeleton } from '@nextui-org/react';
 import { TablaVaciaImagen } from '../../components/NoProductos';
 import { getData } from '../../config/utils/metodoFecht';
 import {IconWhastApp} from "../../components/WhatsApp"
 import {  HeaderMovimiento, HeaderNegros} from '../../components/Header';
-import { Producto } from '@/states/models/ModelsProductos';
+import { ProductoFavoritos } from '@/states/models/ModelsProductos';
 import { toast } from 'react-toastify';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 
@@ -19,9 +19,9 @@ import { formatearNumero } from '../../states/function';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
-export const BuscarProductos = () => {
+export const Favoritos = () => {
   const { query } = useParams();
-  const [productos, setProductos] = useState<Producto[]>([]);
+  const [productos, setProductos] = useState<ProductoFavoritos[]>([]);
 
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -35,13 +35,15 @@ export const BuscarProductos = () => {
       setLoading(true); // Inicia la carga
       try {
         const { status, dataResponse } = await getData(
-          `${RUTA_API}/api/productos/mejorbuscador/${query}`,
+          `${RUTA_API}/api/productos`,
         );
 
         if (status >= 200 && status < 300) {
           // Filtra los productos cuyo estado no es 0
           const productosFiltrados = dataResponse.filter(
-            (            producto: { estado: number; }) => producto.estado !== 0,
+            (            producto: { favoritos: boolean; }) => producto.favoritos !== false,
+            
+
           );
           setProductos(productosFiltrados);
         } else {
@@ -63,7 +65,7 @@ export const BuscarProductos = () => {
     <>
        <HeaderMovimiento></HeaderMovimiento>
       <HeaderNegros />
-    
+     
       <IconWhastApp></IconWhastApp>
       <Buscador />
       <div className='flex min-h-screen  '>
@@ -82,8 +84,8 @@ export const BuscarProductos = () => {
             </div>
          </div>
           ) : productos.length > 0 ? (
-            <div className="container sm:ml-10 mx-auto p-4 lg:min-h-screen flex items-center  justify-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="container sm:mr-20 mx-auto p-4 lg:min-h-screen flex items-center  justify-center">
+      <div className="grid grid-cols-1 sm:ml-20 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {productos.map((producto) => (
           <Link to={`/producto/${producto._id}`} key={producto._id}>
             <div
@@ -92,8 +94,9 @@ export const BuscarProductos = () => {
               onMouseLeave={() => setHoveredProduct(null)}
             >
               <div className="overflow-hidden ">
-                <Image
-                  onError={(event: { target: HTMLImageElement; }) => {
+                <img
+                loading='lazy'
+                  onError={(event) => {
                     const imgElement = event.target as HTMLImageElement;
                     imgElement.src = imagen_No_funtion;
                   }}
@@ -129,10 +132,9 @@ export const BuscarProductos = () => {
       </div>
     </div>
           ) : (
-          
-  <TablaVaciaImagen />
-
-
+        
+              <TablaVaciaImagen />
+       
           )}
         </div>
       </div>

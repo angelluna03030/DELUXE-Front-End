@@ -9,7 +9,7 @@ import { Skeleton } from '@nextui-org/react';
 import { TablaVaciaImagen } from '../../components/NoProductos';
 import { getData } from '../../config/utils/metodoFecht';
 import {IconWhastApp} from "../../components/WhatsApp"
-import {  HeaderNegros} from '../../components/Header';
+import {  HeaderMovimiento, HeaderNegros} from '../../components/Header';
 import { Producto } from '@/states/models/ModelsProductos';
 import { toast } from 'react-toastify';
 import imagen_No_funtion from '../../assets/no-fotos.png';
@@ -61,6 +61,7 @@ export const TodosLosProductos = () => {
 
   return (
     <>
+       <HeaderMovimiento></HeaderMovimiento>
       <HeaderNegros />
      
       <IconWhastApp></IconWhastApp>

@@ -13,7 +13,9 @@ import {
 import { toast } from 'react-toastify';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
 import { Colores } from '../../Productos.modulo/components/DataColores';
-
+import {Departamentos} from "./Data";
+import {validarCorreo, validarNombre, validartelefono} from "./Validaciones"
+import { Link } from 'react-router-dom';
 export const BotonHacerPedido = () => {
   const { carrito, vaciarCarrito, calcularTotal } = useContext(CarritoContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -99,9 +101,17 @@ export const BotonHacerPedido = () => {
             <Input label='Correo' type='email' name='correo' value={formData.correo} onChange={handleChange} required />
             <Input label='Dirección' name='direccion' value={formData.direccion} onChange={handleChange} required />
             <Input label='Ciudad' name='ciudad' value={formData.ciudad} onChange={handleChange} required />
-            <Checkbox name='aceptaTerminos' isSelected={formData.aceptaTerminos} onChange={handleChange}>
-              Acepto los términos y condiciones
-            </Checkbox>
+          <div className='flex'>
+          <Checkbox name='aceptaTerminos' isSelected={formData.aceptaTerminos} onChange={handleChange}>
+</Checkbox>
+            <Link 
+  to={"/terminosycondiciones"} 
+  className="cursor-pointer text-blue-500 hover:text-blue-700 underline"
+>
+  Acepto los términos y condiciones
+</Link>
+          </div>
+        
           </ModalBody>
           <ModalFooter>
             <Button color='danger' onPress={onClose}>Cancelar</Button>

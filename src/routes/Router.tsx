@@ -20,7 +20,6 @@ export const Rutas = () => {
       <Route path='/catalogo' element={<Catalogo />} />
       <Route path='/producto/:id' element={<ProductoDetalle />} />
       <Route path='/productos/todos' element={<TodosLosProductos />} />
-
       <Route path='/carritocompras' element={<TablaCarrito />} />
       <Route path='/categoria/:categoria' element={<Categoria />} />
       <Route path='/productos/buscar/:query' element={<BuscarProductos />} />

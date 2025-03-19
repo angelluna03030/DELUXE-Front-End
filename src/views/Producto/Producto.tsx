@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, SetStateAction } from 'react';
 import { useParams } from 'react-router-dom';
-import { HeaderNegros } from '../../components/Header';
+import { HeaderMovimiento, HeaderNegros } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { Titulo } from '../../components/Titulo';
 import { Descripcion } from '../../components/Descripcion';
@@ -126,6 +126,7 @@ export const ProductoDetalle = () => {
 
   return (
     <>
+       <HeaderMovimiento></HeaderMovimiento>
       <HeaderNegros />
      
       {isDesktopOrLaptop && (

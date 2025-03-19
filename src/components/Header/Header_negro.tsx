@@ -76,6 +76,9 @@ export const HeaderNegros = () => {
           <Link to={""} className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-300 hover:after:w-full after:transition-all after:duration-300">
             Contacto
           </Link>
+          <Link to={"/terminosycondiciones"} className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-300 hover:after:w-full after:transition-all after:duration-300">
+          Términos y Condiciones
+          </Link>
         </div>
 
         {/* Iconos de carrito y búsqueda */}

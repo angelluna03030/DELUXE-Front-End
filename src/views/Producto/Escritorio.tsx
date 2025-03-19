@@ -13,6 +13,7 @@ import { CargarProductosEscritorio } from '../../components/CardCargando/CargarP
 import { CarritoContext } from '../../states/context/ContextCarrito';
 import { Tooltip } from '@nextui-org/react';
 import { IconWhastApp } from "../../components/WhatsApp"
+import { HeaderMovimiento, HeaderNegros } from '../../components/Header';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 interface EscritorioProps {
@@ -114,6 +115,7 @@ export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
 
   return (
     <>
+    
       {producto && (
         <div className='flex  mt-10'>
           {/* Parte izquierda: Galería de productos */}

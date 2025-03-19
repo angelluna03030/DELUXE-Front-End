@@ -1,8 +1,10 @@
+import { HeaderMovimiento } from "../../components/Header/Header_movimineto"
 import { Footer } from "../../components/Footer"
 import { HeaderNegros } from "../../components/Header/Header_negro"
 
 export const TerminosyCondiciones = () => {
     return <>
+      <HeaderMovimiento></HeaderMovimiento>
 
         <HeaderNegros></HeaderNegros>
         <div className="px-4 md:px-10 lg:px-20">
@@ -29,7 +31,7 @@ export const TerminosyCondiciones = () => {
             </p>
             <p className="m-4 md:m-8 lg:m-10 text-lg md:text-xl font-semibold">
                 2.1. Costos de Envío
-                Los envíos dentro del país son gratuitos para todas las compras superiores a $180,000 COP. Si el monto de tu compra es menor a esta cantidad, se aplicará un cargo de envío que se calculará al finalizar la compra.</p>
+                Los envíos dentro del país son gratuitos para todas las compras superiores a $100,000 COP. Si el monto de tu compra es menor a esta cantidad, se aplicará un cargo de envío que se calculará al finalizar la compra.</p>
             <p className="m-4 md:m-8 lg:m-10 text-lg md:text-xl font-semibold">
                 2.2. Tiempo de Entrega
                 El tiempo estimado de entrega puede variar según tu ubicación. Una vez procesado el pedido, recibirás un número de seguimiento para que puedas consultar el estado de tu envío.</p>

@@ -15,7 +15,7 @@ export const Productos: React.FC<ProductoProps> = ({ alt, src }) => {
         className='rounded-md sm:p-10 sm:rounded-2xl'
         src={`${src}`}
         alt={alt}
-        onError={e => {
+        onError={(e:any)=> {
           (e.target as HTMLImageElement).src = imagen_No_funtion;
         }}
       />

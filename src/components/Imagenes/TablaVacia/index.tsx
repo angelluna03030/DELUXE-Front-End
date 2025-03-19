@@ -1,4 +1,4 @@
-import React from 'react';
+
 import EmptyImage from '../../../assets/4891590.jpg';
 import { Image } from '@nextui-org/react';
 

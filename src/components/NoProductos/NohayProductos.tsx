@@ -1,4 +1,3 @@
-import React from 'react';
 import EmptyImage from '../../assets/fregar.png';
 import { Image } from '@nextui-org/react';
 

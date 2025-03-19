@@ -9,9 +9,10 @@ import {
   useDisclosure,
   Spinner,
 } from '@nextui-org/react';
-import { Video } from '../../../components/CaruselImagenes';
+
 import { toast } from 'react-toastify';
 import { getData } from '../../../config/utils/metodoFecht';
+
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 const RUTA_API = import.meta.env.VITE_API_URL;
@@ -21,7 +22,7 @@ export const EditarImagenesParaVideo = () => {
   const [catalogo, setCatalogo] = useState({
     imagenesparavideo: [],
   });
-  const [nuevasImagenes, setNuevasImagenes] = useState([]);
+  const [nuevasImagenes, setNuevasImagenes] = useState<File[]>([]);
   const [imagenesEliminadas, setImagenesEliminadas] = useState([]);
   const [enviando, setEnviando] = useState(false); // Nuevo estado
 
@@ -51,7 +52,7 @@ export const EditarImagenesParaVideo = () => {
     obtenerCatalogo();
   }, []); // Se ejecuta solo una vez cuando el componente se monta
 
-  const eliminarImagen = indice => {
+  const eliminarImagen = (indice: number) => {
     const imagenEliminada = catalogo.imagenesparavideo[indice];
     setCatalogo(prevState => ({
       ...prevState,
@@ -62,13 +63,13 @@ export const EditarImagenesParaVideo = () => {
     setImagenesEliminadas(prevState => [...prevState, imagenEliminada]);
   };
 
-  const agregarImagenes = e => {
+  const agregarImagenes = (e:any) => {
     const files = Array.from(e.target.files);
     if (catalogo.imagenesparavideo.length + files.length > 10) {
       toast.error('No puedes tener más de 10 imágenes.');
       return;
     }
-    setNuevasImagenes(prevState => [...prevState, ...files]);
+    setNuevasImagenes((prevState):any => [...prevState, ...files]);
   };
 
   const actualizarImagenes = async () => {
@@ -143,7 +144,7 @@ export const EditarImagenesParaVideo = () => {
 
   return (
     <>
-      <Button onPress={onOpen}>Imagenes Para Video</Button>
+      <Button onPress={onOpen}>Imagenes Para el Estilo bento</Button>
       <Modal
         size='5xl'
         backdrop='opaque'
@@ -158,11 +159,16 @@ export const EditarImagenesParaVideo = () => {
           {onClose => (
             <>
               <ModalHeader className='flex flex-col gap-1'>
-                Editar Imagenes para el primer video{' '}
+                Editar Imagenes para el Estilo bento
                 <p className='text-red-700'> (Solo 10 Imagenes)</p>
               </ModalHeader>
               <ModalBody>
-                <Video/>
+              <div className="w-8/12 justify-center m-auto h-60 flex items-center justify-center bg-gray-100 rounded-lg shadow-md p-4">
+    <p className="text-center text-gray-700 text-lg font-medium">
+        ⚠️ Este mensaje es importante: no se puede mostrar con el estilo Bento debido a sus proporciones específicas para una pantalla completa.
+    </p>
+</div>
+
                 <div className='flex flex-wrap gap-2 mt-2'>
                   {catalogo.imagenesparavideo.map((img, index) => (
                     <div key={index} className='relative'>

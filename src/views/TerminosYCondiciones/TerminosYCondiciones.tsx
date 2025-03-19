@@ -2,6 +2,7 @@ import { HeaderMovimiento } from "../../components/Header/Header_movimineto"
 import { Footer } from "../../components/Footer"
 import { HeaderNegros } from "../../components/Header/Header_negro"
 
+
 export const TerminosyCondiciones = () => {
     return <>
       <HeaderMovimiento></HeaderMovimiento>
@@ -108,8 +109,6 @@ export const TerminosyCondiciones = () => {
 
 
         </div>
-
-
         <Footer></Footer>
     </>
 }

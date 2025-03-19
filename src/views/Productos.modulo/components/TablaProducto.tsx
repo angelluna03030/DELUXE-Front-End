@@ -22,6 +22,7 @@ import { ChevronDownIcon } from '../../../states/icons/ChevronDownIcon';
 import { EditarProducto } from './EditarProducto';
 import { ModalCrearProductos } from './crearProducto';
 import { DetalleProducto } from './DetalleProducto';
+import { HeartIcon } from './Icon';
 
 const capitalize = str => {
   if (typeof str !== 'string' || !str) return '';
@@ -71,6 +72,7 @@ export const TablaProductos = () => {
   const [page, setPage] = useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -225,12 +227,25 @@ export const TablaProductos = () => {
             >
               {item.estado === 1 ? 'Activo' : 'Inactivo'}
             </Button>
+            
           );
         case 'actions':
           return (
             <div className='relative flex items-center gap-2'>
               <DetalleProducto id={item._id} />
               <EditarProducto id={item._id} />
+              <Button
+                      isIconOnly
+                      className="text-default-900/60 mt-4 data-[hover]:bg-foreground/10 -translate-y-2 translate-x-2"
+                      radius="full"
+                      variant="light"
+                      onPress={() => setLiked((v) => !v)}
+                    >
+                      <HeartIcon
+                        className={liked ? "[&>path]:stroke-transparent" : ""}
+                        fill={liked ? "currentColor" : "none"}
+                      />
+                    </Button>
             </div>
           );
         default:
@@ -292,6 +307,7 @@ export const TablaProductos = () => {
                   variant='flat'
                 >
                   Estado
+                  
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -301,11 +317,15 @@ export const TablaProductos = () => {
                 selectionMode='multiple'
                 onSelectionChange={setStatusFilter}
               >
+                
                 {EstadoOptions.map(status => (
                   <DropdownItem key={status.uid} className='capitalize'>
                     {capitalize(status.name)}
+                   
                   </DropdownItem>
+
                 ))}
+
               </DropdownMenu>
             </Dropdown>
             <ModalCrearProductos />

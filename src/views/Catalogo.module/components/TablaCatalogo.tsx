@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Layout } from '../../../components/Header';
+
 import { Video } from '../../../components/CaruselImagenes';
 import { Productos } from '../../../components/Producto';
 import { Categorias } from '../../../components/Categorias';
@@ -48,12 +48,13 @@ export const TablaCatalogo = () => {
   return (
     <div className='flex flex-col gap-6'>
       <EditarCatalogo />
-      <div className='sm:flex'>
-        <Layout />
+      <div className='flex w-11/12'>
+
+
+        <Video />
       </div>
-      <Video />
       <Categorias />
-      
+
       <GaleriaImagenes imagenes={catalogo.imagenesparagaleria} />
       <Productos Ids={catalogo.productosdestacados} />
     </div>

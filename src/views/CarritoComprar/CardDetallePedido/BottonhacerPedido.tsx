@@ -1,19 +1,36 @@
-import { IconsConfirmar } from './index';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Checkbox,
+  Input
+} from "@nextui-org/react";
 import { toast } from 'react-toastify';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
 import { Colores } from '../../Productos.modulo/components/DataColores';
 
 export const BotonHacerPedido = () => {
   const { carrito, vaciarCarrito, calcularTotal } = useContext(CarritoContext);
-
-  // Función para obtener el nombre del color basado en el valor hexadecimal
-  const obtenerNombreColor = colorHex => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  const [formData, setFormData] = useState({
+    nombre: '',
+    correo: '',
+    direccion: '',
+    ciudad: '',
+    aceptaTerminos: false,
+  });
+  const obtenerNombreColor = (colorHex: string) => {
     const colorEncontrado = Colores.find(c => c.color === colorHex);
     return colorEncontrado ? colorEncontrado.label : colorHex;
   };
 
-  const transformarCarrito = carrito => {
+  const transformarCarrito = (carrito: any[]) => {
     return carrito.map(item => ({
       nombre_producto: item.nombre,
       talla: item.talla,
@@ -26,12 +43,24 @@ export const BotonHacerPedido = () => {
   const detalle_venta = transformarCarrito(carrito);
   const total = calcularTotal();
 
-  // Construcción del mensaje
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
   const generarMensaje = () => {
     let mensaje =
-      'Quiero hacer este pedido en Deluxe Uniformes: ========================\n';
+      `Quiero hacer este pedido en Deluxe Uniformes: ========================\n
+     
+- Nombre: ${formData.nombre}
+- Correo: ${formData.correo}
+- Dirección: ${formData.direccion}
+- Ciudad: ${formData.ciudad} \n`;
 
-    detalle_venta.forEach(item => {
+    detalle_venta.forEach((item: { cantidad: any; nombre_producto: any; talla: any; color: any; precio: { toLocaleString: () => any; }; }) => {
       mensaje += `- ${item.cantidad} *${item.nombre_producto}* - Talla: ${item.talla}, Color: ${item.color}, / _$ ${item.precio.toLocaleString()}_\n`;
     });
 
@@ -41,30 +70,45 @@ export const BotonHacerPedido = () => {
   };
 
   const enviarMensaje = () => {
-    if (carrito.length === 0) {
-      toast.warn('Primero debes agregar productos al carrito.');
+    if (!formData.nombre || !formData.correo || !formData.direccion || !formData.ciudad || !formData.aceptaTerminos) {
+      toast.warn('Por favor complete todos los campos y acepte los términos y condiciones.');
       return;
     }
-
+    
     const numero = '3017996301';
     const mensaje = encodeURIComponent(generarMensaje());
     const urlWhatsApp = `https://wa.me/57${numero}?text=${mensaje}`;
-
     window.open(urlWhatsApp, '_blank');
     vaciarCarrito();
+    onClose();
   };
 
   return (
-    <div className='flex justify-around items-center py-3 cursor-pointer w-48 rounded-lg m-auto bg-black text-white'>
-      <div className='flex gap-2 text-gray-600 hover:cursor-pointer'>
-   
-        <button
-          className='font-semibold text-sm text-green-700'
-          onClick={enviarMensaje}
-        >
-         Pedir Ahora
-        </button>
+    <>
+      <div className='flex justify-around items-center py-3 cursor-pointer w-48 rounded-lg m-auto bg-black text-white'>
+        <button className='font-semibold text-sm text-green-700' onClick={onOpen}>Pedir Ahora</button>
       </div>
-    </div>
+      
+      <Modal backdrop='blur' isOpen={isOpen} onClose={onClose} size='lg'>
+        <ModalContent>
+          <ModalHeader>
+            <h3>Datos del Cliente</h3>
+          </ModalHeader>
+          <ModalBody>
+            <Input label='Nombre' name='nombre' value={formData.nombre} onChange={handleChange} required />
+            <Input label='Correo' type='email' name='correo' value={formData.correo} onChange={handleChange} required />
+            <Input label='Dirección' name='direccion' value={formData.direccion} onChange={handleChange} required />
+            <Input label='Ciudad' name='ciudad' value={formData.ciudad} onChange={handleChange} required />
+            <Checkbox name='aceptaTerminos' isSelected={formData.aceptaTerminos} onChange={handleChange}>
+              Acepto los términos y condiciones
+            </Checkbox>
+          </ModalBody>
+          <ModalFooter>
+            <Button color='danger' onPress={onClose}>Cancelar</Button>
+            <Button color='primary' onPress={enviarMensaje}>Confirmar Pedido</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };

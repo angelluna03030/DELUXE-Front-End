@@ -1,5 +1,5 @@
 // src/components/Categorias.js
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Asegúrate de importar toast si lo usas

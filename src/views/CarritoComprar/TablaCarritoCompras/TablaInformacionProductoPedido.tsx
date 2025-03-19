@@ -2,7 +2,7 @@ import { ChangeEvent, JSXElementConstructor, Key, ReactElement, ReactNode, React
 import { CarritoContext } from '../../../states/context/ContextCarrito';
 
 import { Link } from 'react-router-dom';
-const RUTA_API = import.meta.env.VITE_API_URL;
+
 import { Colores } from "../../../views/Productos.modulo/components/DataColores"
 import { formatearNumero } from '../../../states/function';
 export const TablaInformacionProductoPedido = () => {

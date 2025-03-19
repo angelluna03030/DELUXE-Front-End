@@ -41,10 +41,10 @@ export const BentoGallery: React.FC<BentoGalleryProps> = ({ imagenes }) => {
                     <div key={index} className={`overflow-hidden rounded-2xl ${sizeClass}`}>
                         <Image
                         loading="lazy"
-                         onError={() => {//+
+                         onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => {//+
                             const imgElement = event.target as HTMLImageElement;//+
                             imgElement.src = imagen_No_funtion;//+
-                          }}//+
+                          }}
                             src={image}
                             alt={`Imagen ${index}`}
                             className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"

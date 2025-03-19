@@ -3,7 +3,7 @@ import { Productos } from './index';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { EffectCoverflow } from 'swiper/modules';
-import imagen_No_funtion from '../../assets/no-fotos.png';
+
 import { Skeleton } from '@nextui-org/react';
 interface GaleriaImagenesProps {
   imagenes: string[] | undefined;

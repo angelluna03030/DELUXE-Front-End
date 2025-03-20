@@ -8,14 +8,17 @@ import {
   Button,
   useDisclosure,
   Checkbox,
-  Input
+  Input,
+  Select,
+  SelectItem
 } from "@nextui-org/react";
 import { toast } from 'react-toastify';
 import { CarritoContext } from '../../../states/context/ContextCarrito';
 import { Colores } from '../../Productos.modulo/components/DataColores';
-import {Departamentos} from "./Data";
-import {validarCorreo, validarNombre, validartelefono} from "./Validaciones"
+import { Departamentos } from "./Data";
+import { validarCorreo, validarNombre } from "./Validaciones";
 import { Link } from 'react-router-dom';
+
 export const BotonHacerPedido = () => {
   const { carrito, vaciarCarrito, calcularTotal } = useContext(CarritoContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,6 +30,14 @@ export const BotonHacerPedido = () => {
     ciudad: '',
     aceptaTerminos: false,
   });
+
+  const [errors, setErrors] = useState({
+    nombre: '',
+    correo: '',
+    direccion: '',
+    ciudad: '',
+  });
+
   const obtenerNombreColor = (colorHex: string) => {
     const colorEncontrado = Colores.find(c => c.color === colorHex);
     return colorEncontrado ? colorEncontrado.label : colorHex;
@@ -36,7 +47,7 @@ export const BotonHacerPedido = () => {
     return carrito.map(item => ({
       nombre_producto: item.nombre,
       talla: item.talla,
-      color: obtenerNombreColor(item.color), // Usa el nombre en lugar del valor hexadecimal
+      color: obtenerNombreColor(item.color),
       precio: item.precio,
       cantidad: item.cantidad,
     }));
@@ -45,14 +56,26 @@ export const BotonHacerPedido = () => {
   const detalle_venta = transformarCarrito(carrito);
   const total = calcularTotal();
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type, checked } = e.target;
+    
     setFormData(prevState => ({
       ...prevState,
       [name]: type === 'checkbox' ? checked : value
     }));
+    
+    // Validaciones en tiempo real
+    if (name === 'nombre') {
+      setErrors(prev => ({ ...prev, nombre: validarNombre(value) ? '' : 'Nombre inválido' }));
+    } else if (name === 'correo') {
+      setErrors(prev => ({ ...prev, correo: validarCorreo(value) ? '' : 'Correo inválido' }));
+    } else if (name === 'direccion') {
+      setErrors(prev => ({ ...prev, direccion: value ? '' : 'La dirección es obligatoria' }));
+    } else if (name === 'ciudad') {
+      setErrors(prev => ({ ...prev, ciudad: value ? '' : 'Seleccione un departamento' }));
+    }
   };
+
   const generarMensaje = () => {
     let mensaje =
       `Quiero hacer este pedido en Deluxe Uniformes: ========================\n
@@ -62,7 +85,7 @@ export const BotonHacerPedido = () => {
 - Dirección: ${formData.direccion}
 - Ciudad: ${formData.ciudad} \n`;
 
-    detalle_venta.forEach((item: { cantidad: any; nombre_producto: any; talla: any; color: any; precio: { toLocaleString: () => any; }; }) => {
+    detalle_venta.forEach((item) => {
       mensaje += `- ${item.cantidad} *${item.nombre_producto}* - Talla: ${item.talla}, Color: ${item.color}, / _$ ${item.precio.toLocaleString()}_\n`;
     });
 
@@ -72,11 +95,36 @@ export const BotonHacerPedido = () => {
   };
 
   const enviarMensaje = () => {
-    if (!formData.nombre || !formData.correo || !formData.direccion || !formData.ciudad || !formData.aceptaTerminos) {
-      toast.warn('Por favor complete todos los campos y acepte los términos y condiciones.');
+    // Validaciones antes de enviar
+    if (!formData.nombre || !validarNombre(formData.nombre)) {
+      setErrors(prev => ({ ...prev, nombre: 'Nombre inválido' }));
+      toast.warn('Por favor, ingrese un nombre válido.');
       return;
     }
-    
+
+    if (!formData.correo || !validarCorreo(formData.correo)) {
+      setErrors(prev => ({ ...prev, correo: 'Correo inválido' }));
+      toast.warn('Por favor, ingrese un correo válido.');
+      return;
+    }
+
+    if (!formData.direccion) {
+      setErrors(prev => ({ ...prev, direccion: 'La dirección es obligatoria' }));
+      toast.warn('Por favor, ingrese su dirección.');
+      return;
+    }
+
+    if (!formData.ciudad) {
+      setErrors(prev => ({ ...prev, ciudad: 'Seleccione un departamento' }));
+      toast.warn('Por favor, seleccione un departamento.');
+      return;
+    }
+
+    if (!formData.aceptaTerminos) {
+      toast.warn('Debe aceptar los términos y condiciones.');
+      return;
+    }
+
     const numero = '3017996301';
     const mensaje = encodeURIComponent(generarMensaje());
     const urlWhatsApp = `https://wa.me/57${numero}?text=${mensaje}`;
@@ -97,21 +145,64 @@ export const BotonHacerPedido = () => {
             <h3>Datos del Cliente</h3>
           </ModalHeader>
           <ModalBody>
-            <Input label='Nombre' name='nombre' value={formData.nombre} onChange={handleChange} required />
-            <Input label='Correo' type='email' name='correo' value={formData.correo} onChange={handleChange} required />
-            <Input label='Dirección' name='direccion' value={formData.direccion} onChange={handleChange} required />
-            <Input label='Ciudad' name='ciudad' value={formData.ciudad} onChange={handleChange} required />
-          <div className='flex'>
-          <Checkbox name='aceptaTerminos' isSelected={formData.aceptaTerminos} onChange={handleChange}>
-</Checkbox>
-            <Link 
-  to={"/terminosycondiciones"} 
-  className="cursor-pointer text-blue-500 hover:text-blue-700 underline"
->
-  Acepto los términos y condiciones
-</Link>
-          </div>
-        
+            <Input 
+              label='Nombre' 
+              name='nombre' 
+              value={formData.nombre} 
+              onChange={handleChange} 
+              isInvalid={!!errors.nombre}
+              errorMessage={errors.nombre}
+              required 
+            />
+            <Input 
+              label='Correo' 
+              type='email' 
+              name='correo' 
+              value={formData.correo} 
+              onChange={handleChange} 
+              isInvalid={!!errors.correo}
+              errorMessage={errors.correo}
+              required 
+            />
+            <Input 
+              label='Dirección' 
+              name='direccion' 
+              value={formData.direccion} 
+              onChange={handleChange} 
+              isInvalid={!!errors.direccion}
+              errorMessage={errors.direccion}
+              required 
+            />
+            
+            {/* Select para los departamentos */}
+            <Select 
+              label='Departamento' 
+              name='ciudad' 
+              selectedKeys={[formData.ciudad]} 
+              onChange={handleChange} 
+              isInvalid={!!errors.ciudad}
+              errorMessage={errors.ciudad}
+            >
+              {Departamentos.map((depto) => (
+                <SelectItem key={depto.nombre} value={depto.nombre}>
+                  {depto.nombre}
+                </SelectItem>
+              ))}
+            </Select>
+
+            <div className='flex items-center mt-4'>
+              <Checkbox 
+                name='aceptaTerminos' 
+                isSelected={formData.aceptaTerminos} 
+                onChange={handleChange}
+              />
+              <Link 
+                to="/terminosycondiciones" 
+                className="ml-2 text-blue-500 hover:text-blue-700 underline"
+              >
+                Acepto los términos y condiciones
+              </Link>
+            </div>
           </ModalBody>
           <ModalFooter>
             <Button color='danger' onPress={onClose}>Cancelar</Button>

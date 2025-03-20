@@ -5,7 +5,7 @@ import { Footer } from '../../components/Footer';
 import { CarritoComprasIcono } from '../CarritoComprar/IconoCarritoCompras';
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Skeleton } from '@nextui-org/react';
+import { Image, Skeleton } from '@nextui-org/react';
 import { TablaVaciaImagen } from '../../components/NoProductos';
 import { getData } from '../../config/utils/metodoFecht';
 import {IconWhastApp} from "../../components/WhatsApp"
@@ -92,7 +92,8 @@ export const TodosLosProductos = () => {
               onMouseLeave={() => setHoveredProduct(null)}
             >
               <div className="overflow-hidden ">
-                <img
+                <Image
+                radius='none'
                 loading='lazy'
                   onError={(event) => {
                     const imgElement = event.target as HTMLImageElement;

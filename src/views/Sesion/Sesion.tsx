@@ -20,7 +20,7 @@ export const Sesion = () => {
     }
   }, [navigate]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: { preventDefault: () => void; target: any; }) => {
     e.preventDefault();
 
     const form = e.target;
@@ -29,7 +29,7 @@ export const Sesion = () => {
 
     if (userDoc === Documento && userPassword === password) {
       // Guardar autenticación y tiempo de expiración
-      localStorage.setItem('isAuthenticated', true);
+      localStorage.setItem('isAuthenticated', JSON.stringify(true));
       const expirationTime = new Date(new Date().getTime() + 60 * 60 * 1000); // 1 hora
       localStorage.setItem('sessionExpiration', expirationTime.toISOString());
       navigate('/registrarproductos');

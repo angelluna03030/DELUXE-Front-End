@@ -69,7 +69,7 @@ export const Footer = () => {
 
                     <Link
                       className="relative text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm after:content-[''] after:absolute after:bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-gray-300 hover:after:w-full after:transition-all after:duration-300"
-                      to="/terminosycondicones"
+                      to="/terminosycondiciones"
                     >
                       Terminos y Condiciones
                     </Link>

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, SetStateAction } from 'react';
 import {
   Modal,
   ModalContent,
@@ -30,24 +30,33 @@ export const ModalCrearProductos = () => {
     imagenes: '',
     categorias: '',
   });
-  const [formData, setFormData] = useState({
-    nombreproductos: '',
-    estado: 1,
-    precio: 0,
-    descripcion: '',
-    tallas: [],
-    colores: [],
-    imagenes: [],
-    categorias: [],
-  });
+  const [formData, setFormData] = useState<{
+      nombreproductos: string;
+      estado: number;
+      precio: number;
+      descripcion: string;
+      tallas: string[];
+      colores: string[];
+      imagenes: (Blob | MediaSource)[];
+      categorias: string[];
+    }>({
+      nombreproductos: '',
+      estado: 1,
+      precio: 0,
+      descripcion: '',
+      tallas: [],
+      colores: [],
+      imagenes: [],
+      categorias: [],
+    });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState('md');
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [enviando, setEnviando] = useState(false); // Nuevo estado
 
   const validateRequiredFields = () => {
-    const newErrors = {};
+    const newErrors: { [key: string]: string } = {};
     if (formData.tallas.length === 0) {
       newErrors.tallas = 'Debe seleccionar al menos una talla.';
     }
@@ -67,12 +76,12 @@ export const ModalCrearProductos = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const validateNombre = value => /^[a-zA-Z\s]{5,15}$/.test(value);
-  const validatePrecio = value =>
+  const validateNombre = (value: string) => /^[a-zA-Z\s]{5,15}$/.test(value);
+  const validatePrecio = (value: string) =>
     /^\d+$/.test(value) && parseFloat(value) <= 1000000;
-  const validateDescripcion = value => /^.{15,100}$/.test(value);
+  const validateDescripcion = (value: string) => /^.{15,100}$/.test(value);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -104,25 +113,49 @@ export const ModalCrearProductos = () => {
     }
   };
 
-  const handleCategoriasChange = selectedCategorias => {
+  const handleCategoriasChange = (selectedCategorias: any) => {
     setFormData(prevFormData => ({
       ...prevFormData,
       categorias: selectedCategorias,
     }));
   };
 
-  const handleFileChange = e => {
-    const files = Array.from(e.target.files);
-    const filePreviews = files.map(file => URL.createObjectURL(file));
-    setSelectedFiles(filePreviews);
-
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      imagenes: files,
-    }));
+  const handleFileChange = (e: { target: { files: Iterable<unknown> | ArrayLike<unknown>; }; }) => {
+    const files = Array.from(e.target.files) as (Blob | MediaSource)[];
+    const validFiles: (Blob | MediaSource)[] = [];
+    const filePreviews: ((prevState: never[]) => never[]) | string[] = [];
+  
+    const checkImageDimensions = (file: Blob | MediaSource) => {
+      return new Promise<void>(resolve => {
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = () => {
+          // Definir proporciones estándar (por ejemplo, 1080x1920 para móvil)
+          const aspectRatio = img.width / img.height;
+          const isValid = aspectRatio.toFixed(2) === (1080 / 1920).toFixed(2);
+          
+          if (isValid) {
+            validFiles.push(file);
+            filePreviews.push(img.src);
+          } else {
+            toast.error('Por favor sube imágenes con proporciones de 1080x1920.');
+          }
+          resolve();
+        };
+      });
+    };
+  
+    Promise.all(files.map(checkImageDimensions)).then(() => {
+      setSelectedFiles(filePreviews);
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        imagenes: validFiles,
+      }));
+    });
   };
+  
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     // Verificar los campos requeridos
@@ -135,17 +168,19 @@ export const ModalCrearProductos = () => {
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('nombreproductos', formData.nombreproductos);
-      formDataToSend.append('estado', formData.estado);
-      formDataToSend.append('precio', formData.precio);
+      formDataToSend.append('estado', formData.estado.toString());
+      formDataToSend.append('precio', formData.precio.toString());
       formDataToSend.append('descripcion', formData.descripcion);
-      formDataToSend.append('categorias', formData.categorias);
+      formDataToSend.append('categorias', formData.categorias.toString());
       formData.tallas.forEach(talla => formDataToSend.append('tallas', talla));
       formData.colores.forEach(color =>
         formDataToSend.append('colores', color),
       );
 
       // Enviar imágenes al servidor con el nombre del campo 'files'
-      formData.imagenes.forEach(file => formDataToSend.append('files', file));
+      formData.imagenes
+        .filter((file): file is Blob => file instanceof Blob)
+        .forEach(file => formDataToSend.append('files', file));
 
       const response = await fetch(`${RUTA_API}/public`, {
         method: 'POST',
@@ -154,7 +189,7 @@ export const ModalCrearProductos = () => {
 
       if (!response.ok) {
         // Manejo de errores específico
-        const errorText = await response.text();
+        const errorText:any = await response.text();
         if (errorText === true) {
           toast.error(
             'La imagen ya se ha subido o hay un problema con la imagen.',
@@ -200,19 +235,19 @@ export const ModalCrearProductos = () => {
     setEnviando(false); // Rehabilitar el botón una vez finalizado el proceso
   };
 
-  const handleOpen = size => {
+  const handleOpen = (size: SetStateAction<string>) => {
     setSize(size);
     onOpen();
   };
 
-  const handleColoresChange = selectedColores => {
+  const handleColoresChange = (selectedColores: any) => {
     setFormData(prevFormData => ({
       ...prevFormData,
       colores: selectedColores,
     }));
   };
 
-  const handletallasChange = selectedTallas => {
+  const handletallasChange = (selectedTallas: any) => {
     setFormData(prevFormData => ({
       ...prevFormData,
       tallas: selectedTallas,
@@ -221,7 +256,7 @@ export const ModalCrearProductos = () => {
   return (
     <>
       <div className='flex flex-wrap gap-3'>
-        <Button onPress={() => handleOpen('3xl')} endContent={<PlusIcon />}>
+        <Button onPress={() => handleOpen('3xl')} endContent={<PlusIcon width={undefined} height={undefined} />}>
           Crear Producto
         </Button>
       </div>

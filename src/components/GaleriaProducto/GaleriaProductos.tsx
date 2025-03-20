@@ -23,8 +23,9 @@ export const GaleriaProductos =({ imagenes }: GaleriaProductosProps)=> {
       <div className=' max-w-5xl'>
         <div className='relative h-80 w-80 m-auto mb-48'>
           <Image
+          radius='none'
           loading='lazy'
-            className='rounded-lg object-cover object-center '
+            className=' object-cover object-center '
             src={active.src}
             alt='Active Product'
             onError={() => {
@@ -43,6 +44,8 @@ export const GaleriaProductos =({ imagenes }: GaleriaProductosProps)=> {
               className='relative  w-full h-24 flex items-center justify-center 	rounded-md  sm:w-24 sm:h-36 mx-1'
             >
               <Image
+          radius='none'
+ loading='lazy'
                 onError={() => {
                   const imgElement = document.querySelector(`img[src="${imagen}"]`) as HTMLImageElement;
                   if (imgElement) {
@@ -51,7 +54,7 @@ export const GaleriaProductos =({ imagenes }: GaleriaProductosProps)=> {
                 }}
                 src={imagen.src}
                 alt={`Imagen ${index + 1}`}
-                className='w-full h-full object-cover rounded-lg cursor-pointer '
+                className='w-full h-full object-cover  cursor-pointer '
                 onClick={() => setActive(imagen)}
               />
             </div>

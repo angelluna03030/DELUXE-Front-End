@@ -6,9 +6,9 @@ interface TituloProps {
 
 export const Titulo: React.FC<TituloProps> = ({ titulo, precio }) => {
   return (
-    <div className='flex justify-between items-center p-1 w-full mt-4'>
-      <div className='text-2xl font-bold flex-grow'>{titulo}</div>
-      <div className="text-xl font-bold text-left mr-8">${formatearNumero(precio)}</div>
+    <div className='flex justify-between items-center p-1 w-full mt-4 text-xl font-semibold text-start sm:text-2xl  text-wrap'>
+      <div className=' flex-grow'>{titulo}</div>
+      <div className=" text-left mr-8">${formatearNumero(precio)}</div>
     </div>
   );
 };

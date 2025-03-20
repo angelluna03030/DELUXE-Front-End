@@ -11,6 +11,7 @@ import { RegistrarCatalogo } from '../views/Catalogo.module';
 import PrivateRoute from './RutasPrivadas';
 import {TerminosyCondiciones} from "../views/TerminosYCondiciones"
 import { TodosLosProductos } from '../views/TodosLosProductos/TodosLosProductos';
+import { TodosLosProductosFavoritos } from '../views/Favoritos/Favoritos';
 export const Rutas = () => {
   return (
     <Routes>
@@ -19,6 +20,7 @@ export const Rutas = () => {
       <Route path='/*' element={<Catalogo />} />
 
       <Route path='/sesion' element={<Sesion />} />
+      <Route path='/Favoritos' element={<TodosLosProductosFavoritos />} />
       <Route path='/terminosycondiciones' element={<TerminosyCondiciones />} />
       <Route path='/catalogo' element={<Catalogo />} />
       <Route path='/producto/:id' element={<ProductoDetalle />} />

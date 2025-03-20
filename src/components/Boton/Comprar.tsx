@@ -1,8 +1,10 @@
 import { Tooltip } from '@nextui-org/react';
 import { toast } from 'react-toastify';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Colores } from '../../views/Productos.modulo/components/DataColores';
-import { Producto } from '@/states/models/ModelsProductos';
+import { Producto } from '../../states/models/ModelsProductos';
+import { CarritoContext } from '../../states/context/ContextCarrito';
+import { useNavigate } from 'react-router-dom';
 interface Compras {
   nombre: string;
   precio: number;
@@ -19,48 +21,34 @@ export const Comprar: React.FC<Compras> = ({
 }) => {
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
+  const { agregarProducto }:any = useContext(CarritoContext);
+  const navigate = useNavigate();
 
-  const obtenerNombreColor = (colorHex: string) => {
-    const colorEncontrado = Colores.find(c => c.color === colorHex);
-    return colorEncontrado ? colorEncontrado.label : colorHex;
-  };
+
   const handleComprarProducto = () => {
     if (validar && nombre && precio && selectedColor && selectedTalla) {
-      console.log(nombre, precio, producto, selectedColor, selectedTalla);
-      enviarMensaje(); // Llama a la función para enviar el mensaje
+      agregarProducto(
+        {
+          id: producto._id,
+          imagen: producto.imagenes[0],
+          nombre: producto.nombreproductos,
+          precio: producto.precio,
+          talla: selectedTalla,
+          color: selectedColor,
+        },
+        1 // Cantidad seleccionada
+      );
+      toast.success('Listo para la compra');
+      setTimeout(() => navigate(`/carritocompras`)); // Pequeño retraso antes de la navegación
     } else {
-      toast.error(mensajeTooltip); // Muestra el mensaje del tooltip como un error si la validación falla
+      toast.error(mensajeTooltip);
     }
   };
 
-  const generarMensaje = () => {
-    let mensaje =
-      'Quiero hacer este pedido en Deluxe Uniformes: ========================\n';
-
-    mensaje += `- 1 *${nombre}* - Talla: ${selectedTalla}, Color: ${obtenerNombreColor(selectedColor)}, / _$ ${precio.toLocaleString()}_\n`;
-
-    mensaje += `========================\nTOTAL: *$ ${precio.toLocaleString()}*\n========================\n`;
-
-    return mensaje;
-  };
-  const enviarMensaje = () => {
-    const numero = '3017996301';
-    const mensaje = encodeURIComponent(generarMensaje());
-    const urlWhatsApp = `https://wa.me/57${numero}?text=${mensaje}`;
-
-    console.log(urlWhatsApp); // Agrega esto para verificar la URL generada
-
-    // Abrir WhatsApp en una nueva pestaña
-    window.open(urlWhatsApp, '_blank');
-  };
-
   useEffect(() => {
-    if (
-      producto &&
-      (producto.colores.length === 0 || producto.tallas.length === 0)
-    ) {
+    if (producto && (producto.colores.length === 0 || producto.tallas.length === 0)) {
       setMensajeTooltip('Este producto no tiene opciones de talla ni color.');
-      setValidar(true); // Permite la compra si no hay tallas ni colores
+      setValidar(true);
     } else if (!nombre || !precio) {
       setMensajeTooltip('El producto debe tener un nombre y un precio.');
       setValidar(false);
@@ -78,18 +66,18 @@ export const Comprar: React.FC<Compras> = ({
 
   return (
     <Tooltip
-      isDisabled={validar}
-      content={mensajeTooltip}
-      showArrow
-      placement='top-start'
-      classNames={{
-        base: [
-          // arrow color
-          'before:bg-neutral-400 dark:before:bg-white',
-        ],
-        content: ['py-2 px-4 shadow-xl bg-[#358FED]', 'text-white'],
-      }}
-    >
+    isDisabled={validar}
+    content={mensajeTooltip}
+    showArrow
+    placement='top-start'
+    classNames={{
+      base: [
+        // arrow color
+        'before:bg-neutral-400 dark:before:bg-white',
+      ],
+      content: ['py-2 px-4 shadow-xl bg-[#358FED]', 'text-white'],
+    }}
+  >
       <div className='bg-colorprimary rounded-full m-3 p-4 text-white w-40 justify-items-center text-center'>
         <button
           type='button'

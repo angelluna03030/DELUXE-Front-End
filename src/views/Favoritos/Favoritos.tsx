@@ -10,7 +10,7 @@ import { TablaVaciaImagen } from '../../components/NoProductos';
 import { getData } from '../../config/utils/metodoFecht';
 import { IconWhastApp } from "../../components/WhatsApp"
 import { HeaderMovimiento, HeaderNegros } from '../../components/Header';
-import { Producto } from '@/states/models/ModelsProductos';
+import { ProductoFavoritos } from '@/states/models/ModelsProductos';
 import { toast } from 'react-toastify';
 import imagen_No_funtion from '../../assets/no-fotos.png';
 
@@ -19,9 +19,9 @@ import { formatearNumero } from '../../states/function';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
-export const TodosLosProductos = () => {
+export const TodosLosProductosFavoritos = () => {
   const { query } = useParams();
-  const [productos, setProductos] = useState<Producto[]>([]);
+  const [productos, setProductos] = useState<ProductoFavoritos[]>([]);
 
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -39,9 +39,10 @@ export const TodosLosProductos = () => {
         );
 
         if (status >= 200 && status < 300) {
+          
           // Filtra los productos cuyo estado no es 0
           const productosFiltrados = dataResponse.filter(
-            (producto: { estado: number; }) => producto.estado !== 0,
+            (producto: { favoritos: boolean; }) => producto.favoritos === true,
           );
           setProductos(productosFiltrados);
         } else {

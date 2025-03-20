@@ -23,6 +23,8 @@ import { EditarProducto } from './EditarProducto';
 import { ModalCrearProductos } from './crearProducto';
 import { DetalleProducto } from './DetalleProducto';
 import { HeartIcon } from './Icon';
+import { Producto } from '../../../states/models/ModelsProductos';
+import { Favorito } from './Favoritos';
 
 const capitalize = str => {
   if (typeof str !== 'string' || !str) return '';
@@ -57,7 +59,8 @@ const INITIAL_VISIBLE_COLUMNS = [
 
 export const TablaProductos = () => {
   const [loading, setLoading] = useState(true);
-  const [productos, setProductos] = useState([]);
+  const [productos, setProductos] = useState<Producto[]>([]);
+
   const [filterValue, setFilterValue] = useState('');
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = useState(
@@ -72,7 +75,7 @@ export const TablaProductos = () => {
   const [page, setPage] = useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
-  const [liked, setLiked] = useState(false);
+  
 
   useEffect(() => {
     setLoading(true);
@@ -234,18 +237,7 @@ export const TablaProductos = () => {
             <div className='relative flex items-center gap-2'>
               <DetalleProducto id={item._id} />
               <EditarProducto id={item._id} />
-              <Button
-                      isIconOnly
-                      className="text-default-900/60 mt-4 data-[hover]:bg-foreground/10 -translate-y-2 translate-x-2"
-                      radius="full"
-                      variant="light"
-                      onPress={() => setLiked((v) => !v)}
-                    >
-                      <HeartIcon
-                        className={liked ? "[&>path]:stroke-transparent" : ""}
-                        fill={liked ? "currentColor" : "none"}
-                      />
-                    </Button>
+           <Favorito id={item._id}></Favorito>
             </div>
           );
         default:

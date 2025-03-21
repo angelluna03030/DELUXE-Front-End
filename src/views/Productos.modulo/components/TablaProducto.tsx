@@ -36,7 +36,7 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 const columns = [
   { name: 'Nombre', uid: 'nombreproductos', sortable: true },
   { name: 'categorias', uid: 'categorias', sortable: true },
-  { name: 'Estado', uid: 'estado', sortable: true },
+
   { name: 'Acciones', uid: 'actions' },
 ];
 

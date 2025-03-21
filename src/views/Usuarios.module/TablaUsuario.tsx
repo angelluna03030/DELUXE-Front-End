@@ -8,24 +8,19 @@ import {
   TableCell,
   Input,
   Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
+
   Pagination,
 } from '@nextui-org/react';
 import { getData,  } from '../../config/utils/metodoFecht';
 import { toast } from 'react-toastify';
 
 import { SearchIcon } from '../../states/icons/SearchIcon';
-import { ChevronDownIcon } from '../../states/icons/ChevronDownIcon';
 
 
-import { HeartIcon } from './Icon';
 import {  UsuariosCompras} from '../../states/models/ModelsProductos';
 
 
-const capitalize = str => {
+const capitalize = (str: string) => {
   if (typeof str !== 'string' || !str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -39,10 +34,6 @@ const columns = [
   { name: 'Acciones', uid: 'actions' },
 ];
 
-const EstadoOptions = [
-  { name: 'activo', uid: '1' },
-  { name: 'inactivo', uid: '0' },
-];
 
 
 
@@ -176,7 +167,7 @@ export const TablaUsuarios = () => {
           return cellValue;
       }
     },
-    [handleChipClick],
+    [],
   );
 
   const onNextPage = useCallback(() => {
@@ -223,37 +214,7 @@ export const TablaUsuarios = () => {
             onClear={onClear}
             onValueChange={onSearchChange}
           />
-          <div className='flex gap-3'>
-            <Dropdown>
-              <DropdownTrigger className='hidden sm:flex'>
-                <Button
-                  endContent={<ChevronDownIcon className='text-small' />}
-                  variant='flat'
-                >
-                  Estado
-                  
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label='Table Columns'
-                closeOnSelect={false}
-                selectionMode='multiple'
-                onSelectionChange={setStatusFilter}
-              >
-                
-                {EstadoOptions.map(status => (
-                  <DropdownItem key={status.uid} className='capitalize'>
-                    {capitalize(status.name)}
-                   
-                  </DropdownItem>
-
-                ))}
-
-              </DropdownMenu>
-            </Dropdown>
-           
-          </div>
+     
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-default-400 text-small'>

@@ -4,6 +4,8 @@ import { Catalogo } from '../views/Catalogo';
 import { ProductoDetalle } from '../views/Producto';
 import { Categoria } from '../views/CategoriasProductos';
 import { Productos } from '../views/Productos.modulo';
+import { Usuarios } from '../views/Usuarios.module';
+
 import { BuscarProductos } from '../views/BuscarProductos';
 import { TablaCarrito } from '../views/CarritoComprar/TablaCarritoCompras';
 import { Categorias } from '../views/Categorias.modulo';
@@ -50,6 +52,14 @@ export const Rutas = () => {
         element={
           <PrivateRoute>
             <RegistrarCatalogo />
+          </PrivateRoute>
+        }
+      />
+           <Route
+        path='/usuarios'
+        element={
+          <PrivateRoute>
+            <Usuarios />
           </PrivateRoute>
         }
       />

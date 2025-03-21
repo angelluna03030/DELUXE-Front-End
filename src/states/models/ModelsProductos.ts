@@ -45,3 +45,29 @@ export interface Producto {
     productosdestacados: string[];
     __v: number;
   }
+
+
+  interface UsuarioProducto {
+    nombre: string;
+    cantidad: number;
+    precio: number;
+    talla: string;
+    color: string;
+  }
+  
+  interface UsuarioCompra {
+    fechaDeCompra: Date;
+    productos: UsuarioProducto[];
+    totalCompra: number;
+  }
+  
+  export interface UsuariosCompras {
+    _id: string,
+    nombre: string;
+    correo: string;
+    direccion: string;
+    departamento: string;
+    fechaDeRegistro: Date;
+    compras: UsuarioCompra[];
+  }
+  

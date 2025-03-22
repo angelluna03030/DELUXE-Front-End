@@ -1,4 +1,5 @@
 export interface Producto {
+    materiales: any;
     _id: string;
     codigo: string;
     nombreproductos: string;

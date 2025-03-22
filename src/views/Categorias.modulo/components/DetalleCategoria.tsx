@@ -16,8 +16,12 @@ import {
 import { EyeIcon } from '../../../states/icons/EyeIcon';
 import { getData } from '../../../config/utils/metodoFecht';
 const RUTA_API = import.meta.env.VITE_API_URL;
+import { toast } from 'react-toastify';
+interface DetalleCategoriaProps {
+  id: string; // Replace 'string' with the appropriate type if needed
+}
 
-export const DetalleCategoria = ({ id }) => {
+export const DetalleCategoria = ({ id }: DetalleCategoriaProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [categoria, setCategoria] = useState(null);
   const [nombre, setNombre] = useState('');
@@ -60,12 +64,7 @@ export const DetalleCategoria = ({ id }) => {
     }
   }, [isOpen, id]); // Se ejecuta cuando `isOpen` o `id` cambian
 
-  const handleFileChange = event => {
-    const file = event.target.files[0];
-    if (file) {
-      setNuevaImagen(file);
-    }
-  };
+  
 
   return (
     <>
@@ -134,7 +133,7 @@ export const DetalleCategoria = ({ id }) => {
                       disabled
                       className='w-full'
                       fullWidth
-                      clearable
+                      
                       label='Nombre'
                       value={nombre}
                     />
@@ -151,7 +150,7 @@ export const DetalleCategoria = ({ id }) => {
                       disabled
                       className='w-full'
                       fullWidth
-                      clearable
+                      
                       label='Fecha Creacion'
                       value={new Date(FechaCreacion).toLocaleDateString()}
                     />
@@ -159,7 +158,7 @@ export const DetalleCategoria = ({ id }) => {
                 )}
               </ModalBody>
               <ModalFooter className='mr-72 sm:mr-0 sm:mt-5'>
-                <Button auto flat color='error' onClick={onClose}>
+                <Button   color='danger' onPress={onClose}>
                   Cancelar
                 </Button>
               </ModalFooter>

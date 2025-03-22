@@ -13,6 +13,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Pagination,
+  SortDescriptor,
 } from '@nextui-org/react';
 import { getData, putData } from '../../../config/utils/metodoFecht';
 import { toast } from 'react-toastify';
@@ -26,7 +27,7 @@ import { DetalleProducto } from './DetalleProducto';
 import { Producto } from '../../../states/models/ModelsProductos';
 import { Favorito } from './Favoritos';
 
-const capitalize = str => {
+const capitalize = (str: string) => {
   if (typeof str !== 'string' || !str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -36,7 +37,7 @@ const RUTA_API = import.meta.env.VITE_API_URL;
 const columns = [
   { name: 'Nombre', uid: 'nombreproductos', sortable: true },
   { name: 'categorias', uid: 'categorias', sortable: true },
-
+  { name: 'estado', uid: 'estado' },
   { name: 'Acciones', uid: 'actions' },
 ];
 
@@ -62,13 +63,13 @@ export const TablaProductos = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
 
   const [filterValue, setFilterValue] = useState('');
-  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
   const [visibleColumns, setVisibleColumns] = useState(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [statusFilter, setStatusFilter] = useState('all');
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortDescriptor, setSortDescriptor] = useState({
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: 'nombreproductos',
     direction: 'ascending',
   });
@@ -100,7 +101,7 @@ export const TablaProductos = () => {
     loadData();
   }, []);
 
-  const handleChipClick = async id => {
+  const handleChipClick = async (id: string) => {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'Vas a cambiar el estado de un producto',
@@ -147,7 +148,7 @@ export const TablaProductos = () => {
   };
 
   const headerColumns = useMemo(() => {
-    if (visibleColumns === 'all') return columns;
+    if (visibleColumns.size === columns.length) return columns;
     return columns.filter(column =>
       Array.from(visibleColumns).includes(column.uid),
     );
@@ -186,16 +187,16 @@ export const TablaProductos = () => {
 
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
+      const first = a[sortDescriptor.column as keyof Producto];
+      const second = b[sortDescriptor.column as keyof Producto];
       const cmp = first < second ? -1 : first > second ? 1 : 0;
       return sortDescriptor.direction === 'descending' ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
   const renderCell = useCallback(
-    (item, columnKey) => {
-      const cellValue = item[columnKey];
+    (item: Producto, columnKey: string) => {
+      const cellValue = item[columnKey as keyof Producto];
 
       switch (columnKey) {
         case 'nombreproductos':
@@ -209,7 +210,7 @@ export const TablaProductos = () => {
         case 'categorias':
           return (
             <div className='flex flex-wrap gap-1'>
-              {cellValue.map((categoria, index) => (
+              {cellValue.map((categoria: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined, index: React.Key | null | undefined) => (
                 <span
                   key={index}
                   className='bg-gray-200 rounded-full px-2 py-1 text-xs capitalize'
@@ -223,7 +224,7 @@ export const TablaProductos = () => {
           return (
             <Button
               className='capitalize'
-              color={statusColorMap[item.estado.toString()]}
+              color={statusColorMap[item.estado as keyof typeof statusColorMap] as 'success' | 'danger' | 'warning' | 'default' | 'primary' | 'secondary' | undefined}
               size='sm'
               variant='flat'
               onClick={() => handleChipClick(item._id)}
@@ -259,12 +260,12 @@ export const TablaProductos = () => {
     }
   }, [page]);
 
-  const onRowsPerPageChange = useCallback(e => {
+  const onRowsPerPageChange = useCallback((e: { target: { value: any; }; }) => {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
   }, []);
 
-  const onSearchChange = useCallback(value => {
+  const onSearchChange = useCallback((value: React.SetStateAction<string>) => {
     if (value) {
       setFilterValue(value);
       setPage(1);
@@ -307,7 +308,7 @@ export const TablaProductos = () => {
                 aria-label='Table Columns'
                 closeOnSelect={false}
                 selectionMode='multiple'
-                onSelectionChange={setStatusFilter}
+                onSelectionChange={(keys) => setStatusFilter(Array.from(keys).join(','))}
               >
                 
                 {EstadoOptions.map(status => (
@@ -354,7 +355,7 @@ export const TablaProductos = () => {
     return (
       <div className='py-2 px-2 flex justify-between items-center'>
         <span className='w-[30%] text-small text-default-400'>
-          {selectedKeys === 'all'
+          {selectedKeys.size === filteredItems.length
             ? 'All items selected'
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
@@ -403,7 +404,7 @@ export const TablaProductos = () => {
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement='outside'
-      onSelectionChange={setSelectedKeys}
+      onSelectionChange={(keys) => setSelectedKeys(new Set(keys as unknown as string[]))}
       onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>
@@ -423,7 +424,7 @@ export const TablaProductos = () => {
       >
         {item => (
           <TableRow key={item._id}>
-            {columnKey => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            {columnKey => <TableCell>{renderCell(item, columnKey as string)}</TableCell>}
           </TableRow>
         )}
       </TableBody>

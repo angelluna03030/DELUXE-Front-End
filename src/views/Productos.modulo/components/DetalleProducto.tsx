@@ -14,12 +14,17 @@ import {
 import { EyeIcon } from '../../../states/icons/EyeIcon';
 import { toast } from 'react-toastify';
 import { getData } from '../../../config/utils/metodoFecht';
+import { Producto } from '../../../states/models/ModelsProductos';
 
 const RUTA_API = import.meta.env.VITE_API_URL;
 
-export const DetalleProducto = ({ id }) => {
+interface DetalleProductoProps {
+  id: string;
+}
+
+export const DetalleProducto = ({ id }: DetalleProductoProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [producto, setProducto] = useState({});
+  const [producto, setProducto] = useState<Producto | undefined>(undefined);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -101,7 +106,7 @@ export const DetalleProducto = ({ id }) => {
                       <strong>Imágenes:</strong>
                     </div>
                     <div className='imagenes-container grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
-                      {producto.imagenes
+                      {producto?.imagenes
                         ? producto.imagenes.map((imagen, index) => (
                             <div key={index} className='flex'>
                               <img
@@ -117,14 +122,14 @@ export const DetalleProducto = ({ id }) => {
                     <div className='flex'>
                       <Input
                         label='Código'
-                        value={producto.codigo}
+                        value={producto?.codigo}
                         readOnly
                         className='mr-2'
                         disabled={true}
                       />
                       <Input
                         label='Nombre del producto'
-                        value={producto.nombreproductos}
+                        value={producto?.nombreproductos}
                         className='ml-2'
                         disabled={true}
                       />
@@ -132,14 +137,14 @@ export const DetalleProducto = ({ id }) => {
                     <div className='flex'>
                       <Input
                         label='Precio'
-                        value={producto.precio}
+                        value={producto?.precio.toString()}
                         type='number'
                         className='mr-2'
                         disabled={true}
                       />
                       <Input
                         label='Descripción'
-                        value={producto.descripcion}
+                        value={producto?.descripcion}
                         className='ml-2'
                       />
                     </div>
@@ -147,7 +152,7 @@ export const DetalleProducto = ({ id }) => {
                       disabled={true}
                       label='Materiales'
                       value={
-                        producto.materiales
+                        producto?.materiales
                           ? producto.materiales.join(', ')
                           : ''
                       }
@@ -155,7 +160,7 @@ export const DetalleProducto = ({ id }) => {
 
                     <div className='flex flex-wrap gap-2  sm:ml-5 ml-5 '>
                       <h2>Colores: </h2>
-                      {producto.colores && producto.colores.length > 0 ? (
+                      {producto?.colores && producto.colores.length > 0 ? (
                         producto.colores.map((color, index) => (
                           <div
                             key={index}
@@ -173,16 +178,18 @@ export const DetalleProducto = ({ id }) => {
                         className=''
                         label='Tallas'
                         value={
-                          producto.tallas ? producto.tallas.join(', ') : ''
+                          producto?.tallas ? producto.tallas.join(', ') : ''
                         }
                       />
                       <Input
                         disabled={true}
                         className='ml-2'
                         label='Fecha de creación'
-                        value={new Date(
-                          producto.fechaCreacion,
-                        ).toLocaleDateString()}
+                        value={
+                          producto?.fechaCreacion
+                            ? new Date(producto.fechaCreacion).toLocaleDateString()
+                            : ''
+                        }
                         readOnly
                       />
                     </div>
@@ -191,7 +198,7 @@ export const DetalleProducto = ({ id }) => {
                       className='mr-2'
                       label='Categorías'
                       value={
-                        producto.categorias
+                        producto?.categorias
                           ? producto.categorias.join(', ')
                           : ''
                       }

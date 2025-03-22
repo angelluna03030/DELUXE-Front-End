@@ -22,7 +22,7 @@ import {postData} from "../../../config/utils/metodoFecht"
 import {UsuariosCompras} from "../../../states/models/ModelsProductos"
 const RUTA_API = import.meta.env.VITE_API_URL;
 export const BotonHacerPedido = () => {
-  const { carrito, vaciarCarrito, calcularTotal } = useContext(CarritoContext);
+  const { carrito, vaciarCarrito, calcularTotal }:any = useContext(CarritoContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [Usuarios, SetUsuarios] = useState<UsuariosCompras>()
   const [formData, setFormData] = useState({
@@ -58,7 +58,8 @@ export const BotonHacerPedido = () => {
   const total = calcularTotal();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target as HTMLInputElement;
+    const checked = (e.target as HTMLInputElement).checked;
     
     setFormData(prevState => ({
       ...prevState,

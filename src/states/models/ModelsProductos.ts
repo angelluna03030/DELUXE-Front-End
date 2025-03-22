@@ -47,7 +47,7 @@ export interface Producto {
   }
 
 
-  interface UsuarioProducto {
+  export interface UsuarioProducto {
     nombre: string;
     cantidad: number;
     precio: number;
@@ -55,7 +55,7 @@ export interface Producto {
     color: string;
   }
   
-  interface UsuarioCompra {
+  export interface UsuarioCompra {
     fechaDeCompra: Date;
     productos: UsuarioProducto[];
     totalCompra: number;

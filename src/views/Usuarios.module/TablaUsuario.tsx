@@ -18,6 +18,8 @@ import { SearchIcon } from '../../states/icons/SearchIcon';
 
 
 import { UsuariosCompras } from '../../states/models/ModelsProductos';
+import { DetalleUsuario } from './DetalleUsuario';
+import { CrearExcel } from './CrearExcel';
 
 
 const capitalize = (str: string) => {
@@ -156,7 +158,16 @@ export const TablaUsuarios = () => {
               </div>
             </div>
           );
-
+          case 'actions':
+            return (
+              <div className='flex flex-wrap gap-1'>
+                <div className='flex flex-col'>
+                  <p className='text-bold text-small capitalize justify-center items-center'>
+                   <DetalleUsuario id={item._id} />
+                  </p>
+                </div>
+              </div>
+            );
 
         default:
           return cellValue;
@@ -216,7 +227,7 @@ export const TablaUsuarios = () => {
             onClear={onClear}
             onValueChange={onSearchChange}
           />
-
+<CrearExcel></CrearExcel>
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-default-400 text-small'>
@@ -286,7 +297,7 @@ export const TablaUsuarios = () => {
 
   return (
     <Table
-      className='sm:w-[1200px] w-[400px]'
+      className='sm:w-[1000px] w-[400px]'
       aria-label='Example table with custom cells, pagination and sorting'
       isHeaderSticky
       bottomContent={bottomContent}

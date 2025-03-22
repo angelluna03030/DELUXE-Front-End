@@ -1,12 +1,20 @@
 
-  
-  export const validarNombre = (nombre: string): string |boolean => {
-    if (/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+( [A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/.test(nombre)  && nombre.length <= 50) {
-      return false; // Retorna vacío si cumple con la condición
-    } else {
-      return "El nombre debe contener solo letras máximo 50 caracteres";;
-    }
-  };
+export const validarNombre = (nombre: string): string | null => {
+  if (!nombre) {
+    return "El nombre no puede estar vacío.";
+  }
+
+  if (nombre.length > 50) {
+    return "El nombre debe tener máximo 50 caracteres.";
+  }
+
+  const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$/;
+  if (!regex.test(nombre)) {
+    return "El nombre debe contener solo letras y espacios.";
+  }
+
+  return null; // Retorna null si el nombre es válido
+};
   export const validartelefono = (telefono: { toString: () => string; } ) => {
     if (  /^\d{10}$/.test(telefono.toString())) {
       return false; // Retorna false si cumple con la condición

@@ -22,7 +22,7 @@ import { ChevronDownIcon } from '../../../states/icons/ChevronDownIcon';
 import { EditarProducto } from './EditarProducto';
 import { ModalCrearProductos } from './crearProducto';
 import { DetalleProducto } from './DetalleProducto';
-import { HeartIcon } from './Icon';
+
 import { Producto } from '../../../states/models/ModelsProductos';
 import { Favorito } from './Favoritos';
 

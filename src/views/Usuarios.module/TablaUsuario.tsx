@@ -11,13 +11,13 @@ import {
 
   Pagination,
 } from '@nextui-org/react';
-import { getData,  } from '../../config/utils/metodoFecht';
+import { getData, } from '../../config/utils/metodoFecht';
 import { toast } from 'react-toastify';
 
 import { SearchIcon } from '../../states/icons/SearchIcon';
 
 
-import {  UsuariosCompras} from '../../states/models/ModelsProductos';
+import { UsuariosCompras } from '../../states/models/ModelsProductos';
 
 
 const capitalize = (str: string) => {
@@ -28,9 +28,8 @@ const capitalize = (str: string) => {
 const RUTA_API = import.meta.env.VITE_API_URL;
 
 const columns = [
-  { name: 'Nombre', uid: 'nombreUsuarios', sortable: true },
+  { name: 'nombre', uid: 'nombre', sortable: true },
   { name: 'fecha de registro', uid: 'fechaDeRegistro', sortable: true },
- 
   { name: 'Acciones', uid: 'actions' },
 ];
 
@@ -38,9 +37,8 @@ const columns = [
 
 
 const INITIAL_VISIBLE_COLUMNS = [
-  'nombreUsuarios',
+  'nombre',
   'fechaDeRegistro',
-
   'actions',
 ];
 
@@ -56,13 +54,13 @@ export const TablaUsuarios = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortDescriptor, setSortDescriptor] = useState({
-    column: 'nombreUsuarios',
+    column: 'nombre',
     direction: 'ascending',
   });
   const [page, setPage] = useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
-  
+
 
   useEffect(() => {
     setLoading(true);
@@ -151,25 +149,29 @@ export const TablaUsuarios = () => {
         case 'fechaDeRegistro':
           return (
             <div className='flex flex-wrap gap-1'>
-              {cellValue.map((fechaDeRegistro, index) => (
-                <span
-                  key={index}
-                  className='bg-gray-200 rounded-full px-2 py-1 text-xs capitalize'
-                >
-                  {fechaDeRegistro}
-                </span>
-              ))}
+              <div className='flex flex-col'>
+                <p className='text-bold text-small capitalize'>
+                  {formatDateShort(capitalize(cellValue))}
+                </p>
+              </div>
             </div>
           );
-       
-       
+
+
         default:
           return cellValue;
       }
     },
     [],
   );
+  function formatDateShort(dateString: string): string {
+    const date = new Date(dateString);
+    const day = date.getUTCDate().toString().padStart(2, '0');
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+    const year = date.getUTCFullYear();
 
+    return `${day}/${month}/${year}`;
+}
   const onNextPage = useCallback(() => {
     if (page < pages) {
       setPage(page + 1);
@@ -214,7 +216,7 @@ export const TablaUsuarios = () => {
             onClear={onClear}
             onValueChange={onSearchChange}
           />
-     
+
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-default-400 text-small'>

@@ -39,7 +39,7 @@ export const Categorias = () => {
   }, []);
 
   return (
-    <div className='my-10 mx-5'>
+    <div className='my-10 mx-1'>
       <Swiper
         spaceBetween={10}
         slidesPerView={3}
@@ -76,7 +76,7 @@ export const Categorias = () => {
                       className='rounded-2xl w-full h-full object-cover sm:w-32 sm:h-44 '
                     />
                   </div>
-                  <span className='text-gray-800 text-sm mb-0 '>
+                  <span className='text-gray-800 text-sm mb-0 text-wrap'>
                     {category.nombre}
                   </span>
                 </div>

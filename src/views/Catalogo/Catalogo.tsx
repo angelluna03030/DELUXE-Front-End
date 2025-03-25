@@ -6,8 +6,7 @@ import { Video } from '../../components/CaruselImagenes';
 
 import { Productos } from '../../components/Producto';
 import { Footer } from '../../components/Footer';
-
-
+import {Categorias} from "../../components/Categorias"
 import { toast } from 'react-toastify';
 import { getData } from '../../config/utils/metodoFecht';
 import { IconWhastApp } from "../../components/WhatsApp"
@@ -51,6 +50,8 @@ export const Catalogo = () => {
 
       <Buscador />
       <Video />
+            
+      <Categorias />
       <div className='sm:m-auto mt-5 sm:px-10 sm:mr-16 '>
         <GaleriaImagenes imagenes={catalogo?.imagenesparagaleria} />
       </div>

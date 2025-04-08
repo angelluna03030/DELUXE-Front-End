@@ -16,15 +16,15 @@ export const Footer = () => {
             Con orgullo llevamos lo que somos 💕
             </h5>
             <div className="mt-6 lg:mb-0 mb-6 flex">
-              <Link to={"https://www.instagram.com/mitology_col/profilecard/?igsh=MWFhcHNvZmtld3JtMw=="} className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <Link to={"https://www.instagram.com/deluxe_uniformes"} className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2" type="button">
                 <Image className="m-auto" src={instragram} width={30} />
               </Link>
 
-              <Link to={"https://www.facebook.com/share/1CbPGN4snL/?mibextid=LQQJ4d"} className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <Link to={"https://www.facebook.com/oraldesigncollections/"} className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2" type="button">
                 <Image className="m-auto" src={facebook} width={30} />
               </Link>
 
-              <Link to={"https://www.tiktok.com/@mitology_col?_t=8rQAqlULKMy&_r=1"} className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <Link to={"https://www.tiktok.com"} className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2" type="button">
                 <Image className="m-auto" src={tiktik} width={30} />
               </Link>
             </div>

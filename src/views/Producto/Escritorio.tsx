@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext,  SetStateAction } from 'react';
+import { useState, useEffect, useContext, SetStateAction } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Titulo } from '../../components/Titulo';
@@ -115,7 +115,7 @@ export const Escritorio = ({ producto, setProducto }: EscritorioProps) => {
 
   return (
     <>
-    
+
       {producto && (
         <div className='flex  mt-10'>
           {/* Parte izquierda: Galería de productos */}

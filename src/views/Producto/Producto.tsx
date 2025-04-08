@@ -15,19 +15,19 @@ import { Tooltip } from '@nextui-org/react';
 import { Escritorio } from './Escritorio';
 const RUTA_API = import.meta.env.VITE_API_URL;
 import { useMediaQuery } from 'react-responsive';
-import {IconWhastApp} from "../../components/WhatsApp"
+import { IconWhastApp } from "../../components/WhatsApp"
 
-import {Producto} from "../../states/models/ModelsProductos"
+import { Producto } from "../../states/models/ModelsProductos"
 export const ProductoDetalle = () => {
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1224 });
   const isMobile = useMediaQuery({ maxWidth: 1224 });
   const { id } = useParams();
   const [producto, setProducto] = useState<Producto>();
-  const [selectedColor, setSelectedColor]:any = useState(null);
-  const [selectedTalla, setSelectedTalla]:any = useState(null);
+  const [selectedColor, setSelectedColor]: any = useState(null);
+  const [selectedTalla, setSelectedTalla]: any = useState(null);
   const [selectedImagen, setSelectedImagen] = useState(null); // Estado para la imagen seleccionada
   const [loading, setLoading] = useState(true);
-  const { agregarProducto }:any = useContext(CarritoContext);
+  const { agregarProducto }: any = useContext(CarritoContext);
   const [validar, setValidar] = useState(true);
   const [mensajeTooltip, setMensajeTooltip] = useState('');
 
@@ -113,7 +113,7 @@ export const ProductoDetalle = () => {
     return (
       <>
         <HeaderNegros />
-       
+
         {isMobile && (
           <>
             <CargarProductos />
@@ -126,9 +126,9 @@ export const ProductoDetalle = () => {
 
   return (
     <>
-       <HeaderMovimiento></HeaderMovimiento>
+      <HeaderMovimiento></HeaderMovimiento>
       <HeaderNegros />
-     
+
       {isDesktopOrLaptop && (
         <Escritorio producto={producto} setProducto={setProducto} />
       )}
@@ -215,14 +215,14 @@ export const ProductoDetalle = () => {
                   </Tooltip>
                 </div>
                 <Comprar
-                  
+
                   nombre={producto.nombreproductos}
                   precio={producto.precio}
                   producto={producto}
                   selectedColor={selectedColor}
                   selectedTalla={selectedTalla}
                 />
-               
+
               </div>
             </>
           )}

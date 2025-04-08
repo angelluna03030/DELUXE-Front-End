@@ -13,7 +13,7 @@ export const Footer = () => {
           <div className="w-full lg:w-6/12 px-4">
             <h4 className="text-3xl font-semibold text-blueGray-700">¡Mantengámonos en contacto!</h4>
             <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
-              Inspirada en el pasado, creada para el presente ⚡
+            Con orgullo llevamos lo que somos. 💕
             </h5>
             <div className="mt-6 lg:mb-0 mb-6 flex">
               <Link to={"https://www.instagram.com/mitology_col/profilecard/?igsh=MWFhcHNvZmtld3JtMw=="} className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 flex items-center justify-center rounded-full outline-none focus:outline-none mr-2" type="button">

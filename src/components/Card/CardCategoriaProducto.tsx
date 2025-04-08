@@ -19,8 +19,11 @@ export const CardCategoria: React.FC<CardCategoriaProps> = ({ name, price, image
           className='w-full h-52 object-cover'
           src={imageSrc}
           alt={name}
-          onError={e => {
-            (e.target as HTMLImageElement).src = imagen_No_funtion;
+          onError={() => {
+            const imgElement = document.querySelector(`img[alt="${name}"]`) as HTMLImageElement;
+            if (imgElement) {
+              imgElement.src = imagen_No_funtion;
+            }
           }}
         />
         <div className='p-4'>

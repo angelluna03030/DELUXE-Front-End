@@ -1,7 +1,8 @@
-import { HeaderMovimiento, HeaderNegros, Layout } from '../../components/Header';
+import { HeaderMovimiento, HeaderNegros } from '../../components/Header';
+
+
 import { Buscador } from '../../components/Inputs';
 import { Footer } from '../../components/Footer';
-import { CardCategoria } from '../../components/Card';
 
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -18,9 +19,7 @@ import imagen_No_funtion from '../../assets/no-fotos.png';
 import { ColorDetalles } from '../../components/Color/index';
 export const Categoria = () => {
   const { categoria } = useParams();
-    const { query } = useParams();
     const [productos, setProductos] = useState<Producto[]>([]);
-  
     const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState(null);
   
@@ -70,20 +69,18 @@ export const Categoria = () => {
       <div className='flex min-h-screen px-2'>
         <div>
           {loading ? ( // Mostrar Skeleton mientras se cargan los productos
-               <div className=' grid grid-cols-2 gap-6 md:grid-cols-8 mb-10 m-auto '>
-              <Skeleton className='rounded-lg w-40 h-52  m-2' />
-              <Skeleton className='rounded-lg w-40 h-52 m-2' />
-              <Skeleton className='rounded-lg w-40 h-52  m-2' />
-              <Skeleton className='rounded-lg w-40 h-52 m-2' />
-              <Skeleton className='rounded-lg w-40 h-52  m-2' />
-              <Skeleton className='rounded-lg w-40 h-52 m-2' />
-              <Skeleton className='rounded-lg w-40 h-52  m-2' />
-              <Skeleton className='rounded-lg w-40 h-52 m-2' />
-              <Skeleton className='rounded-lg w-40 h-52  m-2' />
-              <Skeleton className='rounded-lg w-40 h-52 m-2' />
-              <Skeleton className='rounded-lg w-40 h-52  m-2' />
-              <Skeleton className='rounded-lg w-40 h-52 m-2' />
-            </div>
+    <div className=' container sm:mr-72  mx-auto p-4 lg:min-h-screen flex items-center  justify-center'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+      <Skeleton className='rounded-lg w-80 h-96  m-2' />
+      <Skeleton className='rounded-lg w-80 h-96  m-2' />
+      <Skeleton className='rounded-lg w-80 h-96  m-2' />
+      <Skeleton className='rounded-lg w-80 h-96  m-2' />
+      <Skeleton className='rounded-lg w-80 h-96  m-2' />
+      <Skeleton className='rounded-lg w-80 h-96  m-2' /> <Skeleton className='rounded-lg w-80 h-96  m-2' />
+      <Skeleton className='rounded-lg w-80 h-96  m-2' />
+      <Skeleton className='rounded-lg w-80 h-96  m-2' />
+    </div>
+  </div>
           ) : productos.length > 0 ? (
             <div className='grid grid-cols-2 gap-6 md:grid-cols-4 mb-10'>
                {productos.map((producto) => (

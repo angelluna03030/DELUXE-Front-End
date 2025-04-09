@@ -1,14 +1,18 @@
 import video from "../../assets/video.mp4"; // Asegúrate de que la ruta sea correcta
 import { Favoritos } from "../Boton/BotonFavoritos";
 import { Layout } from "../Header";
+import React, { memo } from "react";
 
 export const Video = () => {
   return (
     <div className="relative w-screen h-screen">
       {/* Video de fondo */}
       <video
-     
         src={video}
+        preload="metadata"
+        playsInline
+        controls={false}
+        
         autoPlay
         loop
         muted

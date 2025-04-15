@@ -8,7 +8,7 @@ export const Video = () => {
     <div className="relative w-screen h-screen">
       {/* Video de fondo */}
       <video
-        src={video}
+        src="https://res.cloudinary.com/do8uezira/video/upload/v1744751452/uploads/skflifoqzhol63ak9fb1.mp4"
         preload="metadata"
         playsInline
         controls={false}

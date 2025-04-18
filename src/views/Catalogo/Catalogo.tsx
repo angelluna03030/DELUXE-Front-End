@@ -19,7 +19,7 @@ export const Catalogo = () => {
 
   useEffect(() => {
     const obtenerCatalogo = async () => {
-      console.log('Obteniendo catálogo...' , RUTA_API);
+      //console.log('Obteniendo catálogo...' , RUTA_API);
       try {
         const { status, dataResponse } = await getData(
           `${RUTA_API}/api/catalogo`,

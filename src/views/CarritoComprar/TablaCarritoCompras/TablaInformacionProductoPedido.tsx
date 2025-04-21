@@ -28,7 +28,7 @@ export const TablaInformacionProductoPedido = () => {
       {carrito.map((item: { id: Key | null | undefined; imagen: string | undefined; nombre: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; cantidad: string | number | readonly string[] | undefined; precio: number; talla: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; color: string; }) => (
         <div key={item.id} className="sm:m-6 relative overflow-hidden  sm:flex  sm:p-4  w-full border-b border-gray-300">
           {/* Imagen del producto */}
-          <Image radius='none' loading='lazy' className="w-32 md:w-40 items-center justify-center m-auto  object-cover mt-3 sm:mr-6 sm:m-10" src={item.imagen} alt="Producto" />
+          <Image radius='none' loading='lazy' className="w-32 md:w-40 items-center justify-center   object-cover mt-3 ml-20 sm:mr-6 sm:m-10" src={item.imagen} alt="Producto" />
 
           {/* Información del producto */}
           <div className="flex flex-col sm:flex-grow mt-8 space-y-6 sm:ml-0 ml-20">

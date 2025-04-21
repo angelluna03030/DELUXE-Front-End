@@ -73,7 +73,7 @@ export const ProductoDetalle = () => {
       } else {
         toast.error('Producto no encontrado');
       }
-      toast.success('Producto agregado exitosamente');
+     
     } else {
       toast.error(mensajeTooltip); // Muestra el mensaje del tooltip como un error si la validación falla
     }

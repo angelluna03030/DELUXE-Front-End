@@ -208,7 +208,7 @@ export const ProductoDetalle = () => {
                     <button
                       type='button'
                       onClick={handleAgregarProducto}
-                      className={` font-semibold  rounded-full ${validar ? 'text-black' : 'text-gray-400'}`}
+                      className={` font-semibold  rounded-full ${validar ? 'text-black' : 'text-gray-400'} mt-1`}
                     >
                       Agregar Al Carrito
                     </button>

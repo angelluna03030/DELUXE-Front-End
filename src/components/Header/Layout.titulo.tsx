@@ -8,7 +8,7 @@ import { getData } from '../../config/utils/metodoFecht';
 import { Buscador } from '../Inputs';
 import { SearchIconNegro } from './SearchIconnegro';
 const RUTA_API = import.meta.env.VITE_API_URL;
-import menu from "../../assets/menu.png"
+import menu from "../../assets/menu2.png"
 import { Busqueda } from './Busqueda';
 
 export const Layout = () => {
@@ -47,7 +47,7 @@ export const Layout = () => {
 
   return (
     <>
-      <div className="cursor-pointer mb-4 py-3 text-white flex bg-transparent items-center justify-between sm:text-sm text-xs h-auto z-10 
+      <div className="cursor-pointer mb-4 py-3  flex bg-transparent items-center justify-between sm:text-sm text-xs h-auto z-10 
         border-b border-gray-300 border-opacity-50  text-[#0e0e0e] transition-all duration-300 px-5"
         
         onMouseEnter={() => setIsHovered(true)}

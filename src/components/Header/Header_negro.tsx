@@ -58,11 +58,12 @@ export const HeaderNegros = () => {
             <Image src={menu} width={35} height={35} alt="Menú" />
           </button>
         </div>
-        <div className="flex items-center space-x-2">
+          <Link to={"/"}> 
+                  <div className="flex items-center space-x-2">
         <Image src={logo} width={45} height={45} className="sm:h-10 sm:w-20 md:h-20 lg:h-5 xl:h-5 " alt="Logo" />
         <span className="pl-1 pr-10 text-black">DELUXE</span>
         </div>
-
+        </Link>
         {/* Ícono de menú en móviles */}
 
         {/* Menú de navegación (Oculto en móviles) */}

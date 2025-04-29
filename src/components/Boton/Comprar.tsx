@@ -82,7 +82,7 @@ export const Comprar: React.FC<Compras> = ({
         <button
           type='button'
           onClick={handleComprarProducto}
-          className='  sm:mt-0 mt-1'
+          className='  sm:mt-0 mt-2'
         >
           Comprar
         </button>

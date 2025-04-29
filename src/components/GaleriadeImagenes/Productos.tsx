@@ -13,6 +13,7 @@ export const Productos: React.FC<ProductoProps> = ({ alt, src }) => {
       <Image
         loading='lazy'
         className='rounded-md sm:p-10 sm:rounded-2xl'
+        
         src={`${src}`}
         alt={alt}
         onError={(e:any)=> {

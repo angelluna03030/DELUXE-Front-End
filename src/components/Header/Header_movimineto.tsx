@@ -8,9 +8,9 @@ export const HeaderMovimiento =()=>{
         <div className=' overflow-hidden whitespace-nowrap  w-full '>
           <Link to={'/'}>
           <h1 className='text-base font-light text-[#FFFAFA] font-sans tracking-wider cursor-pointer animate-marquee w-full mr-4'>
-  <div className='mx-40'>  Envíos gratis por compras de $100.000 en adelante.</div>
-  <div className='mx-40'>  Envíos gratis por compras de $100.000 en adelante.</div>
-  <div className='mx-40'>  Envíos gratis por compras de $100.000 en adelante.</div>
+  <div className='mx-40'>  Envíos gratis por compras de $350.000 en adelante.</div>
+  <div className='mx-40'>  Envíos gratis por compras de $350.000 en adelante.</div>
+  <div className='mx-40'>  Envíos gratis por compras de $350.000 en adelante.</div>
 </h1>
 
           </Link>

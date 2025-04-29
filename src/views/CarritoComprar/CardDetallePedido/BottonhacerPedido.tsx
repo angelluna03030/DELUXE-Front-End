@@ -147,8 +147,6 @@ export const BotonHacerPedido = () => {
       };
       
   
-      console.log('Datos enviados a la API:', usuarioData);
-  
       const respuesta = await postData(`${RUTA_API}/api/usuarios`, usuarioData);
   
       if (respuesta.status >= 200 && respuesta.status < 300) {

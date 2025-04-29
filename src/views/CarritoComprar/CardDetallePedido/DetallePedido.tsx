@@ -22,7 +22,7 @@ export const DetallePedidos = () => {
         El total de su bolsa es de  ${total > 0 ? formatearNumero(total) : 0}.00.
         </h3>
         <h3 className=' text-gray-900  m-auto  font-sans text-xl  text-[#1D1D1F]'>
-          {total <=100000 ? "El envío y la devolución tendrán un costo." : "Envío gratuito y devoluciones gratuitas."}
+          {total <=350000 ? "El envío y la devolución tendrán un costo." : "Envío gratuito y devoluciones gratuitas."}
         </h3>
 
         <div className='flex gap-2 text-sm text-gray-500 pb-2  m-auto'>

@@ -48,7 +48,7 @@ export const Layout = () => {
   return (
     <>
       <div className="cursor-pointer mb-4 py-3 text-white flex bg-transparent items-center justify-between sm:text-sm text-xs h-auto z-10 
-        border-b border-gray-300 border-opacity-50 hover:bg-white hover:text-[#0e0e0e] transition-all duration-300 px-5"
+        border-b border-gray-300 border-opacity-50  text-[#0e0e0e] transition-all duration-300 px-5"
         
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -86,7 +86,7 @@ export const Layout = () => {
         {/* Iconos de carrito y búsqueda */}
         <div className="flex items-center space-x-4 border-l mx-5 border-gray-300 border-opacity-50 pl-4">
           <div onClick={toggleSearch} className="cursor-pointer">
-            {isHovered ? <SearchIconNegro /> : <SearchIcon />}
+           <SearchIconNegro /> 
           </div>
           <Link to='/carritocompras' className='relative pb-3'>
           
@@ -95,7 +95,7 @@ export const Layout = () => {
             )}
             <span className="svg-wrapper">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                className={`icon icon-cart-empty w-9 h-9 ${isHovered ? 'text-black' : 'text-white'} transition-all duration-300`}
+                className={`icon icon-cart-empty w-9 h-9  text-black transition-all duration-300`}
                 viewBox="0 0 30 30">
                 <path fill="currentColor" fillRule="evenodd"
                   d="M15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33L28.4 11.8zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1-9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z">

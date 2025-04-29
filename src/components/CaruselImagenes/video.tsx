@@ -21,7 +21,7 @@ export const Video = () => {
       
       {/* Contenido encima del video */}
       <div className="absolute inset-0 flex flex-col justify-between z-10">
-        <Layout />
+       
         
         {/* Botón de favoritos */}
         <div className="flex justify-center sm:justify-start p-4 sm:p-8">

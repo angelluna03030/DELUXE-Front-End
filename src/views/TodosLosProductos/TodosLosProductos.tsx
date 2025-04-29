@@ -74,7 +74,7 @@ export const TodosLosProductos = () => {
               </div>
             </div>
           ) : productos.length > 0 ? (
-            <div className='container sm:mr-20 mx-auto ml-1 p-4 lg:min-h-screen flex items-center  justify-center'>
+            <div className='container sm:mr-20 mr-14 mx-auto ml-1 p-4 lg:min-h-screen flex items-center  justify-center'>
               <div className='grid grid-cols-1 sm:ml-20 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {productos.map(producto => (
                   <Link to={`/producto/${producto._id}`} key={producto._id}>
